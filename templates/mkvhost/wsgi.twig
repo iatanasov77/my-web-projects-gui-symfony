@@ -1,0 +1,20 @@
+{% extends 'mkvhost/http.twig' %}
+
+{% block content %}
+    ServerAdmin {{serverAdmin}}
+    ServerName {{host}}
+    ServerAlias www.{{host}}
+    DocumentRoot "{{documentRoot}}"
+    
+    <Directory "{{documentRoot}}">
+       AllowOverride All
+       Require all granted
+    </Directory>
+    
+    CustomLog {{apacheLogDir}}{{host}}-access.log combined
+    ErrorLog {{apacheLogDir}}{{host}}-error.log
+    
+    WSGIDaemonProcess {{wsgiProcessName}} group={{wsgiGroup}} processes={{wsgiProcesses}} python-home={{venvPath}} python-path={{pythonProjectPath}} threads={{wsgiThreads}} user={{wsgiUser}}
+    WSGIProcessGroup {{wsgiProcessName}}
+    WSGIScriptAlias / "{{wsgiScriptAlias}}"
+{% endblock %}

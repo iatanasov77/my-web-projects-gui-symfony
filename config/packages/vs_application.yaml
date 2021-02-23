@@ -1,0 +1,107 @@
+vs_application:
+    resources:
+        settings:
+            classes:
+                model: App\Entity\Settings
+        translation:
+            classes:
+                model: App\Entity\Translation
+                
+    menu:              
+        mainMenu:
+            external_tools:
+                name: External Tools
+                uri: "javascript:;"
+                attributes:
+                    id: menu-virtual-hosts
+                    iconClass: "fas fa-project-diagram"
+                childs:
+                    php_info:
+                        name: Php Info
+                        uri: "/info.php"
+                        attributes:
+                            target: '_blank'
+                    categories:
+                        name: PhpMyAdmin
+                        uri: "/phpmyadmin"
+                        attributes:
+                            target: '_blank'
+            dashboard:
+                name: Dashboard
+                uri: "/"
+                attributes:
+                    id: menu-dashboard
+                    iconClass: "fas fa-fw fa-tachometer-alt"
+            projects:
+                name: Projects
+                uri: "/projects"
+                attributes:
+                    id: menu-projects
+                    iconClass: "fas fa-project-diagram"
+            php_versions:
+                name: Php Versions
+                uri: "/php-versions"
+                attributes:
+                    id: menu-php-versions
+                    iconClass: "fas fa-project-diagram"
+            virtual_hosts:
+                name: Hosts
+                uri: "/hosts"
+                attributes:
+                    id: menu-virtual-hosts
+                    iconClass: "fas fa-project-diagram"
+
+        profileMenu:
+            profile:
+                name: "My Profile"
+                route: ia_users_profile_show
+                attributes:
+                    iconClass: "fas fa-user mr-2"
+            logout:
+                name: "Log Out"
+                route: app_logout
+                attributes:
+                    iconClass: "fas fa-power-off mr-2"
+            documentation:
+                name: "Documentation"
+                uri: "javascript:;"
+                attributes:
+                    iconClass: "fas fa-cog mr-2"
+                    
+        # Developement Menu loaded in 'templates/layout/menu/developement.html.twig'          
+        devMenu:
+            devTests:
+                name: Developement Tests
+                uri: "javascript:;"
+                attributes:
+                    id: devTests
+                childs:
+                    #taxonomy_test_products:
+                    #    name: Test Taxonomy with Product Categorization
+                    #    route: app_test_taxonomy
+            appBundle:
+                name: Symfony Application Bundle
+                uri: "javascript:;"
+                attributes:
+                    id: appBundle
+                childs:
+                    settings:
+                        name: General Settings
+                        route: vs_app_settings_edit
+                    taxonomy:
+                        name: Taxonomy
+                        route: vs_application_taxonomy_index
+            cmsBundle:
+                name: Symfony Cms Bundle
+                uri: "javascript:;"
+                attributes:
+                    id: cmsBundle
+                childs:
+                    pages:
+                        name: Pages
+                        route: vs_cms_pages_index
+                    categories:
+                        name: Categories
+                        route: vs_cms_page_categories_index
+                
+     

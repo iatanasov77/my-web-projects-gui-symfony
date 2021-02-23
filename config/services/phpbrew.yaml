@@ -1,0 +1,18 @@
+parameters:
+    phpbrew_variants:
+        - '+default'
+        - '+fpm'
+        - '+mysql'
+        - '+pdo'
+        - '+mcrypt'
+        - '+iconv'
+        - '+intl'
+        - '+exif'
+        - '+gd'
+        - '+openssl=/usr'
+    phpbrew_variants_default:
+        - '+default'
+        - '+fpm'
+        
+    # -- --with-libdir=lib64 --with-gd=shared --enable-gd-native-ttf --with-jpeg-dir=/usr --with-png-dir=/usr
+    

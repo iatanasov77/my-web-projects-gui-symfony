@@ -1,0 +1,36 @@
+{
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "dev-server": "encore dev-server",
+        "dev": "./node_modules/@symfony/webpack-encore/bin/encore.js dev",
+        "watch": "./node_modules/@symfony/webpack-encore/bin/encore.js dev --watch",
+        "build": "./node_modules/@symfony/webpack-encore/bin/encore.js production --progress"
+    },
+    "devDependencies": {
+        "@symfony/webpack-encore": "^0.28.0",
+        "copy-webpack-plugin": "^5.0.0",
+        "node-sass": "^4.12.0",
+        "sass-loader": "^7.1.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "dependencies": {
+        "core-js": "3",
+        "jquery": "^3.5.0",
+        "jquery-form": "^4.2.2",
+        "ckeditor": "^4.0.0",
+        "@fortawesome/fontawesome-free": "^5.8.2",
+        "bootstrap": "^4.3.1",
+        "bootstrap-gtreetable": "gilek/bootstrap-gtreetable",
+        "glyphicons": "^0.2",
+        "bootstrap-sass": "^3.4.1",
+        "jquery-duplicate-fields": "https://github.com/iatanasov77/jquery-duplicate-fields.git",
+        "jquery-easyui": "^1.5.21",
+        "jquery-ui-dist": "^1.12.1",
+        "jquery.nicescroll": "^3.7.6",
+        "popper": "^1.0.1",
+        "popper.js": "^1.15.0",
+        "jquery-multi-select": "https://github.com/mysociety/jquery-multi-select.git",
+        "tooltipster": "^4.2.8"
+    }
+}

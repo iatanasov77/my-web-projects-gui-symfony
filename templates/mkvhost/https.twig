@@ -1,0 +1,17 @@
+# ************************************
+# Vhost https template
+# Managed by VankoSoft MyProjects
+# ************************************
+#
+<VirtualHost *:443>
+    <IfModule mod_ssl.c>
+        SSLEngine On
+    
+        SSLCertificateFile {{sslCertificate}}
+        SSLCertificateKeyFile {{sslCertificateKey}}
+    </IfModule>
+  
+    {% block content %}{% endblock %}
+
+    {% block fpm %}{% endblock %}
+</VirtualHost>

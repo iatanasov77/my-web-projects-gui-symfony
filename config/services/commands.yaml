@@ -1,0 +1,40 @@
+parameters:
+    php_versions_dir: '/opt/phpbrew/php'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    vs_app.apache_host_actions:
+        public: true
+        class: App\Component\Apache\VirtualHostActions
+        calls:
+          - [ setContainer ]
+
+    vs_app.php_brew:
+        public: true
+        class: App\Component\Command\PhpBrew
+        calls:
+          - [ setContainer ]
+    
+    vs_app.apache_virtual_host_factory:
+        public: true
+        class: App\Component\Apache\VirtualHostFactory
+        arguments: ["@service_container"]
+        
+    vs_app.apache_virtual_host_repository:
+        public: true
+        class: App\Component\Apache\VirtualHostRepository
+        arguments: ["@service_container"]
+
+    vs_app.apache_service:
+        public: true
+        class: App\Component\Command\Apache
+        calls:
+          - [ setContainer ]
+          
+    vs_app.python:
+        public: true
+        class: App\Component\Command\Python
+

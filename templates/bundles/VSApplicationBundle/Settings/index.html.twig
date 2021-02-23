@@ -1,0 +1,64 @@
+{% extends "developement/layout.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid  dashboard-content">
+    	<!-- ============================================================== -->
+        <!-- pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="page-header">
+                    <h2 class="pageheader-title">General Settings</h2>
+                    <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
+                    <div class="page-breadcrumb">
+                    	<nav aria-label="breadcrumb">
+                            {{ knp_menu_render('breadcrumbs', {'template': 'developement/menu/breadcrumb.html.twig'}) }}
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ============================================================== -->
+        <!-- end pageheader -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                	<h5 class="card-header">General Settings</h5>
+                	<div class="card-body">
+                	   {% set siteId =  0 %}
+                	   {% set form =  settingsForm %}
+                	   {% include '@VSApplication/Settings/forms/settings.html.twig' %}
+                    </div>
+                    <div class="card-footer" id="imContainer">
+                        <button type="button" class="btn btn-primary btnSaveSettings"  data-siteId="{{ siteId }}">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% for ss in siteSettings %}
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">Site Settings: {{ ss.site.name }}</h5>
+                        <div class="card-body">
+                            {% set siteId =  ss.site.id %}
+                            {% set form =  ss.form %}
+                            {% include '@VSApplication/Settings/forms/settings.html.twig' %}
+                        </div>
+                        <div class="card-footer" id="imContainer">
+                            <button type="button" class="btn btn-primary btnSaveSettings" data-siteId="{{ siteId }}">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div> 
+{% endblock %}
+
+{% block body_scripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags( 'js/settings', null, 'developement' ) }}
+{% endblock %}

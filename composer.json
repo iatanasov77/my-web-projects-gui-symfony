@@ -1,0 +1,96 @@
+{
+    "name": "symfony/skeleton",
+    "type": "project",
+    "license": "MIT",
+    "description": "A minimal Symfony project recommended to create bare bones applications",
+    "require": {
+        "php": "^7.1.3",
+        
+        "symfony/monolog-bundle": "^3.5",
+        "symfony/console": "^4.2",
+        "symfony/dotenv": "^4.2",
+        "symfony/form": "^4.2",
+        "symfony/framework-bundle": "^4.2",
+        "symfony/orm-pack": "*",
+        "symfony/security-csrf": "^4.2",
+        "symfony/templating": "^4.2",
+        "symfony/translation": "^4.2",
+        "symfony/twig-bundle": "^4.2",
+        "symfony/validator": "^4.2",
+        "symfony/webpack-encore-bundle": "^1.6",
+        "symfony/yaml": "^4.2",
+        "twig/extensions": "^1.5",
+        "symfony/process": "^4.2",
+        "cocur/slugify": "^3.0",
+        "symfony/property-access": "^4.2",
+        
+        "vankosoft/application-bundle": "dev-develop",
+        "vankosoft/users-bundle": "dev-develop",
+       	"vankosoft/cms-bundle": "dev-develop"
+    },
+    "require-dev": {
+        "symfony/debug-bundle": "^4.2",
+        "symfony/maker-bundle": "^1.13",
+        "symplify/changelog-linker": "^7.2",
+        "symfony/profiler-pack": "^1.0",
+        
+        "alcaeus/mongo-php-adapter": "^1.0",
+        "vasek-purchart/tracy-blue-screen-bundle": "^3.0"
+    },
+	"repositories": [
+	    {
+            "type": "git",
+            "url": "https://github.com/iatanasov77/vs-application-bundle.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/iatanasov77/vs-users-bundle.git"
+        },
+		{
+            "type": "git",
+            "url": "https://github.com/iatanasov77/vs-cms-bundle.git"
+        }
+	],
+    "config": {
+        "process-timeout":      600,
+        "preferred-install":    "dist",
+        "github-protocols":     ["https"],
+        "platform": {
+            "ext-mongo": "1.6.16"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "VS\\ApplicationBundle\\": "lib/VS/ApplicationBundle/",
+            "VS\\CmsBundle\\": "lib/VS/CmsBundle/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
+    "replace": {
+        "paragonie/random_compat": "2.*",
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+         	"cache:clear": "symfony-cmd",
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts",
+            "sudo mkdir /var/www/myprojects",
+            "sudo chmod 0777 -R /var/www/myprojects"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    }
+}

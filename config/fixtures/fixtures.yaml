@@ -1,0 +1,6 @@
+fixtures:
+  projects:
+    name: projects 
+    entity: App\Entity\Project
+    mainField: name
+ 

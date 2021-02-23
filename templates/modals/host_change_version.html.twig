@@ -1,0 +1,31 @@
+<div id="host-change-php-version-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true" data-actionUrl="{{ url( 'php-versions-install' ) }}">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form id="host-change-php-version-form" method="POST" >
+                <div class="modal-header">
+                    <h5 class="modal-title">Change PHP Version</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="errorMessage" class="card alert alert-danger shadow mb-2" style="display:none;">
+                        <div class="card-body"></div>
+                    </div>
+                    <p>
+                        
+                        <label>PHP Version:</label>
+                        <select name="php_version">
+                            <option value="">-- Select Version--</option>
+                        {% for version,php in installedPhpVersions %}
+                            <option value="{{ version }}">{{ version }}</option>
+                        {% endfor %}
+                        </select>
+                        
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" value="Save" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+##############################
+# Eclipse project meta data
+##############################
+/.settings/
+/.buildpath
+.buildpath
+/.project
+/.dbeaver-data-sources.xml
+
+##############################
+# Symfony
+##############################
+/composer.lock
+/vendor/
+/node_modules/
+/public/build/
+/public/bundles/
+/public/assets/
+/public/assets/build/
+/yarn.lock
+/var/
+/config/fixtures/projects.yaml

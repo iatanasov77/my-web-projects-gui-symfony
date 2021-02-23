@@ -1,0 +1,10 @@
+# ************************************
+# Vhost http template
+# Managed by VankoSoft MyProjects
+# ************************************
+#
+<VirtualHost *:80>
+    {% block content %}{% endblock %}
+
+    {% block fpm %}{% endblock %}
+</VirtualHost>

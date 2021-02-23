@@ -1,0 +1,163 @@
+
+
+.btn-space {
+	width: 20px !important;
+}
+
+.hide {
+	visibility: hidden;
+	display: none;
+}
+
+.node-buttons {
+	margin-left: 20px;
+}
+
+.node-buttons ul li.dropdown-header {
+    display: block;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 0;
+    white-space: nowrap;
+    font-weight: 800;
+    font-size: 0.65rem;
+    color: #b7b9cc;
+    text-transform: uppercase !important;
+}
+
+.node-buttons ul li a {
+	display: block;
+    width: 100%;
+    padding: 0.25rem 1.5rem;
+    clear: both;
+    font-weight: 400;
+    color: #3a3b45;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
+
+tr.node[data-level="2"] span.node-icon-ce {
+	visibility: hidden;
+    display: none;
+}
+
+.console {
+	border: 1px solid black;
+	margin-top: 15px;
+}
+
+#phpInstallContainer {
+	overflow: auto;
+    height: 300px;
+    max-height: 300px;
+	padding: 10px;
+}
+
+.modal-dialog.install-php {
+	max-width: 1200px !important;
+}
+
+
+@import "preloader.css";
+
+.tab-content {
+    padding: 20px 10px;
+}
+
+.select-button {
+    display: block;
+    font-size: 0.875em;
+    padding: 0.2em 0.6em;
+    max-width: 16em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: -0.5em;
+    background-color: #fff;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    cursor: default;
+}
+
+.phpVersionFormInput {
+	height: 30px;
+	width: 160px;
+}
+
+.helpTooltip {
+    position: absolute;
+    left: 170px;
+    top: 32px;
+}
+
+.tooltip_templates { display: none; }
+
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+}
+
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.428571429;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li > a.active {
+    color: #555555;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-bottom-color: transparent;
+}
+
+.projectTabContent {
+	padding: 20px 20px;
+	border: 1px solid #dddddd;
+    border-radius: 4px;
+}
+
+.modal-top_form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1rem 1rem 0;
+    border-bottom: 1px solid #e3e6f0;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
+
+.modal-dialog.create-project {
+	max-width: 700px !important;
+}
+
+.predefinedProjectFormContainer {
+	padding: 20px 20px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    min-height: 150px;
+}
+
+.predefinedProjectFormContainer legend {
+	font-size: 1rem;
+	width: auto;
+	padding: 10px;
+}
+
+.project-remove-host-icon {
+	width: 12px;
+	height: 12px;
+}

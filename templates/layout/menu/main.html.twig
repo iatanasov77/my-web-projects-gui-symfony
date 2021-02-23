@@ -1,0 +1,35 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block root %}
+    {% for parentItem in item.children %}
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+        {% if parentItem.children | length > 0 %}
+             <a class="nav-link" href="{{ parentItem.uri }}" data-toggle="collapse" data-target="#{{ parentItem.attributes.id }}" aria-expanded="true" aria-controls="{{ parentItem.attributes.id }}">
+                <i class="{{ parentItem.attributes.iconClass }}"></i>
+                <span>{{ parentItem.name | truncate( 18 ) }}</span>
+             </a>
+             <div id="{{ parentItem.attributes.id }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Components:</h6>
+                    {% for childItem in parentItem.children %}
+                        {% if( childItem.displayed ) %}
+                            <a href="{{ childItem.uri }}" 
+                                class="collapse-item"
+                                {% if childItem.attributes.target %}target="{{ childItem.attributes.target }}"{% endif %}
+                            >
+                                {{ childItem.name }} 
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% else %}     
+            <a class="nav-link" href="{{ parentItem.uri }}">
+                <i class="{{ parentItem.attributes.iconClass }}"></i>
+                <span>{{ parentItem.name | truncate( 18 ) }}</span>
+            </a>
+        {% endif %}    
+        </li>
+    {% endfor %}
+{% endblock %}

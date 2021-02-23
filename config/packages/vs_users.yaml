@@ -1,0 +1,5 @@
+vs_users:
+    resources:
+        reset_password_request:
+            classes:
+                model: App\Entity\ResetPasswordRequest

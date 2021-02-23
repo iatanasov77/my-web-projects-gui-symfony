@@ -1,0 +1,29 @@
+{% extends 'mkvhost/https.twig' %}
+
+{% block content %}
+    ServerAdmin {{serverAdmin}}
+    ServerName {{host}}
+    ServerAlias www.{{host}}
+    DocumentRoot "{{documentRoot}}"
+    
+    <Directory "{{documentRoot}}">
+       AllowOverride All
+       Require all granted
+    </Directory>
+    
+    CustomLog {{apacheLogDir}}{{host}}-access.log combined
+    ErrorLog {{apacheLogDir}}{{host}}-error.log
+{% endblock %}
+
+{% block fpm %}
+    <Proxy "unix:{{ fpmSocket }}|fcgi://php-fpm">
+        ProxySet disablereuse=off
+        
+        # Note: If you configure php-fpm to use the "pm = ondemand" 
+        #then use "ProxySet disablereuse=on"
+    </Proxy>
+         
+    <FilesMatch \.php$>
+        SetHandler proxy:fcgi://php-fpm
+    </FilesMatch>
+{% endblock %}
