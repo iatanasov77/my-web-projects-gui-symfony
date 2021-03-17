@@ -50,6 +50,13 @@ vs_application:
                 attributes:
                     id: menu-virtual-hosts
                     iconClass: "fas fa-project-diagram"
+                    
+            tomcat_instances:
+                name: Tomcat Instances
+                uri: "/tomcat/instances"
+                attributes:
+                    id: menu-tomcat-instances
+                    iconClass: "fas fa-project-diagram"
 
         profileMenu:
             profile:

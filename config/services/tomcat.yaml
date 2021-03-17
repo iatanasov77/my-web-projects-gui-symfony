@@ -1,0 +1,13 @@
+parameters:
+    tomcat_instances_dir: '/opt/tomcat'
+    
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.tomcat:
+        public: true
+        class: App\Component\Command\Tomcat
+        calls:
+          - [ setContainer ]

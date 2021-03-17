@@ -1,6 +1,3 @@
-parameters:
-    php_versions_dir: '/opt/phpbrew/php'
-
 services:
     _defaults:
         autowire: true
@@ -9,12 +6,6 @@ services:
     vs_app.apache_host_actions:
         public: true
         class: App\Component\Apache\VirtualHostActions
-        calls:
-          - [ setContainer ]
-
-    vs_app.php_brew:
-        public: true
-        class: App\Component\Command\PhpBrew
         calls:
           - [ setContainer ]
     
