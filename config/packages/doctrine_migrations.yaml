@@ -23,5 +23,5 @@ doctrine_migrations:
     all_or_nothing: false
 
     # Adds an extra check in the generated migrations to ensure that is executed on the same database type.
-    check_database_platform: true
+    #check_database_platform: true
     
