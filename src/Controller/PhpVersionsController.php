@@ -25,11 +25,21 @@ class PhpVersionsController extends Controller
         $phpbrewVariantsDefault = $this->container->getParameter( 'phpbrew_variants_default' );
         //var_dump( json_encode( $phpbrewVariantsDefault ) ); die;
         
+        $configSubsystemsFile   = $this->get('kernel')->getProjectDir() . "/var/subsystems.json";
+        if ( file_exists( $configSubsystemsFile ) ) {
+            $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
+            
+            $cassandraEnabled   = $configSubsystems['cassandra']['enabled'];
+        } else {
+            $cassandraEnabled   = false;
+        }
+        
         return $this->render('pages/php_versions.html.twig', [
             'versions_installed'        => $installedVersions,
             'versions_available'        => $availableVersions,
             'phpbrew_variants'          => array_diff( $phpbrewVariants, $phpbrewVariantsDefault ),
             'phpbrew_variants_default'  => $phpbrewVariantsDefault,
+            'cassandraEnabled'          => $cassandraEnabled,
         ]);
     }
     
