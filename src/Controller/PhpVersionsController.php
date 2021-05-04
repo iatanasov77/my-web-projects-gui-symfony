@@ -71,11 +71,12 @@ class PhpVersionsController extends Controller
             
             $version            = $request->request->get( 'version' );
             $phpBrewVariants    = $request->request->get( 'phpBrewVariants' ) ?? [];
+            $phpExtensions      = $request->request->get( 'phpExtensions' ) ?? [];
             $phpBrewCustomName  = $request->request->get( 'phpBrewCustomName' );
             $displayBuildOutput = $request->request->get( 'displayBuildOutput' ) ? true : false; 
             
             $this->phpBrew  = $this->container->get( 'vs_app.php_brew' );
-            $process        = $this->phpBrew->install( $version, $phpBrewVariants, $displayBuildOutput, $phpBrewCustomName );
+            $process        = $this->phpBrew->install( $version, $phpBrewVariants, $phpExtensions, $displayBuildOutput, $phpBrewCustomName );
     
             return new StreamedResponse( function() use ( $process ) {
                 echo '<span style="font-weight: bold;">Running command:</span> ' . $this->phpBrew->getCurrentCommand();
@@ -114,14 +115,16 @@ class PhpVersionsController extends Controller
     public function startPhpFpm( Request $request ): Response
     {
         $requestedVersion   = $request->attributes->get( 'version' );
-        $parts              = explode( '-', $requestedVersion );
+        
         
         /*
          * Good bundle: https://github.com/cocur/background-process
          */
+        /*
+        $parts      = explode( '-', $requestedVersion );
         $command    = [
             '/bin/sudo',
-            '/vagrant/gui_symfony/bin/console',
+            $this->get( 'kernel' )->getProjectDir() . '/bin/console',
             'vs:phpfpm',
             'start',
             '-p',
@@ -132,6 +135,12 @@ class PhpVersionsController extends Controller
             $command[]  = '-c';
             $command[]  = $parts[1];
         }
+        */
+        
+        $command    = [
+            '/bin/sudo',
+            "/opt/phpbrew/php/php-{$requestedVersion}/sbin/php-fpm",
+        ];
         
         $process    = new Process( $command );
         $process->start();

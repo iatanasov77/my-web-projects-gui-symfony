@@ -30,8 +30,14 @@
                                 {% for variant in phpbrew_variants %}
                                     <option value="{{ variant }}">{{ variant }}</option>
                                 {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="col-sm form-group">
+                            <label>Php Extensions: </label>
+                            <select id="phpExtensions" class="form-control custom-select" name="phpExtensions[]" size="3" multiple>
                                 {% if cassandraEnabled %}
-                                	<option value="+ cassandra">+ cassandra</option>
+                                	<option value="cassandra">Cassandra</option>
                                 {% endif %}
                             </select>
                         </div>

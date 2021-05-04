@@ -45,6 +45,10 @@ $( function()
 	$( '#phpbrewVariants' ).multiSelect({
 		noneText: '-- Select Variants --',
     });
+    
+    $( '#phpExtensions' ).multiSelect({
+		noneText: '-- Select Extensions --',
+    });
 	
 	$( '#formPhpInstall' ).on( 'submit', function()
 	{
