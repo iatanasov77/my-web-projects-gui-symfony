@@ -47,18 +47,22 @@ class PhpFpmCommand extends ContainerAwareCommand
         
         if ( $runCommand == 'start' ) {
             // @TODO Check if is not started already (Check the socket file)
-            exec( $this->installationPath . '/sbin/php-fpm' );
+            exec( 'sudo ' . $this->installationPath . '/sbin/php-fpm' );
+            var_dump('sudo ' . $this->installationPath . '/sbin/php-fpm'); die; // Taka Raboti :D
+            $output->writeln( 'PhpFpm Service has started!' );
         } elseif ( $runCommand == 'stop' ) {
             // @TODO Check if is not started already (Check the socket file)
-            exec( 'rm -f ' . $this->installationPath . '/var/run/php-fpm.sock' );
+            exec( 'sudo rm -f ' . $this->installationPath . '/var/run/php-fpm.sock' );
+            var_dump('sudo ' . $this->installationPath . '/sbin/php-fpm'); die; // Taka Raboti :D
+            $output->writeln( 'PhpFpm Service has stoped!' );
         } elseif ( $runCommand == 'restart' ) {
-            exec( 'rm -f ' . $this->installationPath . '/var/run/php-fpm.sock' );
+            exec( 'sudo rm -f ' . $this->installationPath . '/var/run/php-fpm.sock' );
             exec( $this->installationPath . '/sbin/php-fpm' );
+            var_dump('sudo ' . $this->installationPath . '/sbin/php-fpm'); die; // Taka Raboti :D
+            $output->writeln( 'PhpFpm Service has restarted!' );
         } else {
             throw  new \Exception( 'Unsupported command !!!' );
         }
-        
-        $output->writeln( 'PhpFpm Service has started!' );
     }
     
     protected function setup()

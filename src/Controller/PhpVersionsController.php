@@ -44,6 +44,22 @@ class PhpVersionsController extends Controller
     }
     
     /**
+     * @Route("/php-versions/{version}/remove", name="php-versions-remove")
+     */
+    public function remove( $version, Request $request )
+    {
+        $buildPath          = '/opt/phpbrew/build/php-' . $version;
+        $installationPath = '/opt/phpbrew/php/php-' . $version;
+        
+        exec( 'sudo rm -rf ' . $installationPath );
+        exec( 'sudo rm -rf ' . $buildPath );
+        
+        $referer    = $request->headers->get( 'referer' ); // get the referer, it can be empty!
+        
+        return $this->redirect( $referer );
+    }
+    
+    /**
      * @Route("/php-versions/available-gtree", name="php-versions-available-gtree")
      */
     public function gtreeTableSource( Request $request ): Response
@@ -163,7 +179,7 @@ class PhpVersionsController extends Controller
          */
         $command    = [
             '/bin/sudo',
-            '/vagrant/gui_symfony/bin/console',
+            $this->get('kernel')->getProjectDir() . '/bin/console',
             'vs:phpfpm',
             'stop',
             '-p',
@@ -196,7 +212,7 @@ class PhpVersionsController extends Controller
          */
         $command    = [
             '/bin/sudo',
-            '/vagrant/gui_symfony/bin/console',
+            $this->get('kernel')->getProjectDir() . '/bin/console',
             'vs:phpfpm',
             'restart',
             '-p',
