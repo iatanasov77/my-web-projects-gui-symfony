@@ -69,7 +69,7 @@ class PhpBrew implements ContainerAwareInterface
         // Create the Command
         $options            = [];
         $variantsDefaults   = $this->container->getParameter( 'phpbrew_variants_default' );
-        $command            = ['sudo', 'phpbrew', 'install'];
+        $command            = ['sudo', 'phpbrew', '--debug', 'install'];
         
         if ( $displayBuildOutput ) {
             $options[]  = '--stdout';
@@ -228,7 +228,7 @@ class PhpBrew implements ContainerAwareInterface
                 $filesystem->appendToFile( $installScript, " && source /root/.phpbrew/bashrc" );
                 $filesystem->appendToFile( $installScript, " && phpbrew use " . $phpVersion );
                 foreach ( $extensions as $ext ) {
-                    $filesystem->appendToFile( $installScript, " && phpbrew ext install " . $ext );
+                    $filesystem->appendToFile( $installScript, " && phpbrew --debug ext install " . $ext . " -- --with-openssl=/usr/local/opt/openssl" );
                 }
             }
             

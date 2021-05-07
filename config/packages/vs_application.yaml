@@ -21,7 +21,7 @@ vs_application:
                         uri: "/info.php"
                         attributes:
                             target: '_blank'
-                    categories:
+                    phpmyadmin:
                         name: PhpMyAdmin
                         uri: "/phpmyadmin"
                         attributes:

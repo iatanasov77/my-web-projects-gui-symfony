@@ -17,7 +17,9 @@
                             {% for version, minor_versions in versions_available %}
                                 <optgroup label="{{ version }}">
                                 {% for minor in minor_versions|keys %}
-                                    <option value="{{ minor }}">{{ minor }}</option>
+                                	{% if 'php-' ~ minor not in versions_installed|keys %}
+                                    	<option value="{{ minor }}">{{ minor }}</option>
+                                    {% endif %}
                                 {% endfor %}
                                 </optgroup>
                             {% endfor %}
@@ -36,6 +38,7 @@
                         <div class="col-sm form-group">
                             <label>Php Extensions: </label>
                             <select id="phpExtensions" class="form-control custom-select" name="phpExtensions[]" size="3" multiple>
+                            	<option value="mongodb">MongoDB</option>
                                 {% if cassandraEnabled %}
                                 	<option value="cassandra">Cassandra</option>
                                 {% endif %}
@@ -49,15 +52,9 @@
                                 <i class="fas fa-info-circle"></i>
                             </a>
                         </div>
-                        
-                        <div class="col-sm form-group">
-                        
-                        </div>
-                        
-                        <div class="col-sm form-group">
-                        
-                        </div>
-                        
+
+                        <div class="col-sm form-group"></div>
+                        <div class="col-sm form-group"></div>
                     </div>
                     
                     <div class="form-row">
@@ -65,11 +62,7 @@
                             <input type="checkbox" name="displayBuildOutput" value="True" checked="checked" />
                             <label>Display build output</label>
                         </div>
-                        <div class="col-sm form-group"></div>
-                        <div class="col-sm form-group pt-2">
-                            <input type="submit" class="btn btn-primary form-control w-25 ml-5" value="Run" />
-                        </div>
-                        
+                    
                         <div class="col-sm form-group"></div>
                     </div>
                     
@@ -83,7 +76,8 @@
         
         	</div>
         	<div class="modal-footer">
-          		<button id="btnClosePhpInstall" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        		<button id="btnRunPhpInstall" type="button" class="btn btn-primary">Run Install</button>
+          		<button id="btnClosePhpInstall" type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
             </div>
         </div>
     </div>
