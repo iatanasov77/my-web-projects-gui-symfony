@@ -39,14 +39,15 @@
                             <thead>
                                 <tr>
                                     <th style="font-weight: bold;">Version</th>
-                                    <th style="text-align:center; font-weight: bold;">Actions</th>
+                                    <th style="text-align:center; font-weight: bold;">PhpBrew Actions</th>
+                                    <th style="text-align:center; font-weight: bold;">Crud Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for v, info in versions_installed %}
                                     <tr>
                                         <td>{{ v }}</td>
-                                        <td width="370">
+                                        <td width="370" style="text-align: center;">
                                         
                                         {% if info.PhpStatus == 2 %}
                                             <a href="{{ path( 'php-versions-start-fpm', {version: v[4:]}) }}" 
@@ -75,6 +76,17 @@
                                                 Restart PhpFpm
                                             </a>
                                         {% endif %}
+                                        </td>
+                                        
+                                        
+                                        <td width="370" style="text-align: center;">
+                                        	<a href="{{ path( 'php-versions-remove', {version: v[4:]}) }}" 
+                                                class="btn btn-primary" 
+                                                title="Remove Php Version" 
+                                            >
+                                                <i class="fas fa-close"></i>
+                                                Remove Php Version
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}

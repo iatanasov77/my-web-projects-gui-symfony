@@ -7,6 +7,7 @@ twig:
         siteTitle: '%siteTitle%'
         lang: '%lang%'
         locale: '%locale%'
+        kernelRootDir: "%kernel.root_dir%"
         
     form_themes: [
       'bootstrap_4_layout.html.twig',

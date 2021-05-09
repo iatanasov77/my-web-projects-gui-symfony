@@ -3,6 +3,8 @@
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Process\Process;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 use App\Component\Apache\Php;
 
@@ -62,12 +64,17 @@ class PhpBrew implements ContainerAwareInterface
     /**
      * See Build Log:  tail -F '/opt/phpbrew/build/php-7.4.1/build.log'
      */
-    public function install( String $version, Array $variants = [], $displayBuildOutput = false, $phpBrewCustomName = '' ): Process
-    {
+    public function install(
+        String $version,
+        Array $variants = [],
+        $extensions = [],
+        $displayBuildOutput = false,
+        $phpBrewCustomName = '' 
+    ): Process {
         // Create the Command
         $options            = [];
         $variantsDefaults   = $this->container->getParameter( 'phpbrew_variants_default' );
-        $command            = ['sudo', 'phpbrew', 'install'];
+        $command            = ['sudo', 'phpbrew', '--debug', 'install'];
         
         if ( $displayBuildOutput ) {
             $options[]  = '--stdout';
@@ -85,9 +92,11 @@ class PhpBrew implements ContainerAwareInterface
         }
         
         $this->setCurrentCommand( $currentCommand );
+        $installScript  = ['sudo', $this->createInstallScript( $version, implode( ' ', $currentCommand ), $extensions )];
         
         // Run the Command
-        $process    = new Process( $currentCommand );
+        $process    = new Process( $installScript );
+        //$process    = new Process( $currentCommand );
         
         // Run The process
         ob_implicit_flush( 1 );
@@ -202,6 +211,35 @@ class PhpBrew implements ContainerAwareInterface
         if ( ! $this->availableVersions ) {
             $json   = file_get_contents( "/opt/phpbrew/php-releases.json" );
             $this->availableVersions    = json_decode( $json, true );
+        }
+    }
+    
+    protected function createInstallScript( $phpVersion, $installCommand, $extensions = [] )
+    {
+        $installScript      = sys_get_temp_dir() . '/vs_phpbrew_install.sh';
+        $filesystem         = new Filesystem();
+        try {
+            if ( $filesystem->exists( $installScript ) ) {
+                $filesystem->remove( $installScript );
+            }
+            
+            $filesystem->touch( $installScript );
+            $filesystem->chmod( $installScript, 0777 );
+            $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
+            
+            $filesystem->appendToFile( $installScript, $installCommand );
+            
+            if ( ! empty( $extensions) ) {
+                $filesystem->appendToFile( $installScript, " && source /root/.phpbrew/bashrc" );
+                $filesystem->appendToFile( $installScript, " && phpbrew use " . $phpVersion );
+                foreach ( $extensions as $ext ) {
+                    $filesystem->appendToFile( $installScript, " && phpbrew --debug ext install " . $ext . " -- --with-openssl=/usr/local/opt/openssl" );
+                }
+            }
+            
+            return $installScript;
+        } catch ( IOExceptionInterface $exception ) {
+            echo "An error occurred while creating your directory at " . $exception->getPath();
         }
     }
 }

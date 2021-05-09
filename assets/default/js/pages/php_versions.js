@@ -27,9 +27,14 @@ $( function()
 {
 	$( '[data-toggle="tooltip"]' ).tooltipster();
 	
+	$( '#btnRunPhpInstall' ).on( 'click', function () {
+		$( "#btnClosePhpInstall" ).hide();
+		$( '#formPhpInstall' ).submit();
+		$( this ).hide();
+	});
+	
 	$( '.btnInstallPhpVersion' ).on( 'click', function () {
 		$( "#consolePhpInstall" ).hide();
-		$( "#btnClosePhpInstall" ).hide();
 		
 		$( "#phpInstallContainer" ).html( '' );
 		$( "#install-php-version-modal" ).modal( 'show' );
@@ -44,6 +49,12 @@ $( function()
 	// https://github.com/mysociety/jquery-multi-select
 	$( '#phpbrewVariants' ).multiSelect({
 		noneText: '-- Select Variants --',
+		allText: 'All Selected',
+    });
+    
+    $( '#phpExtensions' ).multiSelect({
+		noneText: '-- Select Extensions --',
+		allText: 'All Selected',
     });
 	
 	$( '#formPhpInstall' ).on( 'submit', function()
@@ -55,7 +66,6 @@ $( function()
 		
 		$( "#formPhpInstall" ).hide( 1000 );
 		$( "#consolePhpInstall" ).show();
-		$( "#btnClosePhpInstall" ).show();
 		
 		//console.log( data );
 		//return false;
@@ -99,6 +109,9 @@ $( function()
 					$( "#phpInstallContainer" ).append( 'PhpFpm is Started!<br>' ).animate( {scrollTop: $( '#phpInstallContainer' ).prop( "scrollHeight" ) }, 0 );
 				});
 			});
+			
+			$( "#btnClosePhpInstall" ).text( 'Close' );
+			$( "#btnClosePhpInstall" ).show();
 		})
 		.fail( function() {
 			alert( "AJAX return an ERROR !!!" );

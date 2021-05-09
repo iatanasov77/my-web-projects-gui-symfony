@@ -1,14 +1,14 @@
 imports:
     - { resource: services/twig_extensions.yaml }
-    - { resource: services/phpbrew.yaml }
     - { resource: services/commands.yaml }
+    - { resource: services/phpbrew.yaml }
+    - { resource: services/tomcat.yaml }
 
 parameters:
     siteTitle: 'VS My Projects 2'
     mailer_user: 'admin@myprojects.lh'
     lang: 'en'
     locale: 'en_US'
-    php_versions_dir: '/opt/phpbrew/php'
     virtual_hosts_dir: '/etc/httpd/conf.d'
 
 services:        

@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+use App\Component\PhpBrew;
+use App\Entity\PhpBrewExtension;
+
 class PhpVersionsController extends Controller
 {
     protected $phpBrew;
@@ -25,12 +28,39 @@ class PhpVersionsController extends Controller
         $phpbrewVariantsDefault = $this->container->getParameter( 'phpbrew_variants_default' );
         //var_dump( json_encode( $phpbrewVariantsDefault ) ); die;
         
+        $configSubsystemsFile   = $this->get('kernel')->getProjectDir() . "/var/subsystems.json";
+        if ( file_exists( $configSubsystemsFile ) ) {
+            $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
+            
+            $cassandraEnabled   = $configSubsystems['cassandra']['enabled'];
+        } else {
+            $cassandraEnabled   = false;
+        }
+        
         return $this->render('pages/php_versions.html.twig', [
             'versions_installed'        => $installedVersions,
             'versions_available'        => $availableVersions,
             'phpbrew_variants'          => array_diff( $phpbrewVariants, $phpbrewVariantsDefault ),
+            'phpbrew_extensions'        => PhpBrew::extensions( ['cassandraEnabled' => $cassandraEnabled] ),
             'phpbrew_variants_default'  => $phpbrewVariantsDefault,
+            'cassandraEnabled'          => $cassandraEnabled,
         ]);
+    }
+    
+    /**
+     * @Route("/php-versions/{version}/remove", name="php-versions-remove")
+     */
+    public function remove( $version, Request $request )
+    {
+        $buildPath          = '/opt/phpbrew/build/php-' . $version;
+        $installationPath = '/opt/phpbrew/php/php-' . $version;
+        
+        exec( 'sudo rm -rf ' . $installationPath );
+        exec( 'sudo rm -rf ' . $buildPath );
+        
+        $referer    = $request->headers->get( 'referer' ); // get the referer, it can be empty!
+        
+        return $this->redirect( $referer );
     }
     
     /**
@@ -61,11 +91,23 @@ class PhpVersionsController extends Controller
             
             $version            = $request->request->get( 'version' );
             $phpBrewVariants    = $request->request->get( 'phpBrewVariants' ) ?? [];
+            $phpExtensions      = $request->request->get( 'phpExtensions' ) ?? [];
             $phpBrewCustomName  = $request->request->get( 'phpBrewCustomName' );
-            $displayBuildOutput = $request->request->get( 'displayBuildOutput' ) ? true : false; 
+            $displayBuildOutput = $request->request->get( 'displayBuildOutput' ) ? true : false;
+            $useGithub          = $request->request->get( 'useGithub' ) ? true : false;
+            if ( $useGithub ) {
+                $this->transformPhpExtensions( $phpExtensions );
+            }
+            //var_dump($phpExtensions); die;
             
             $this->phpBrew  = $this->container->get( 'vs_app.php_brew' );
-            $process        = $this->phpBrew->install( $version, $phpBrewVariants, $displayBuildOutput, $phpBrewCustomName );
+            $process        = $this->phpBrew->install(
+                $version,
+                $phpBrewVariants,
+                $phpExtensions,
+                $displayBuildOutput, 
+                $phpBrewCustomName
+            );
     
             return new StreamedResponse( function() use ( $process ) {
                 echo '<span style="font-weight: bold;">Running command:</span> ' . $this->phpBrew->getCurrentCommand();
@@ -104,14 +146,16 @@ class PhpVersionsController extends Controller
     public function startPhpFpm( Request $request ): Response
     {
         $requestedVersion   = $request->attributes->get( 'version' );
-        $parts              = explode( '-', $requestedVersion );
+        
         
         /*
          * Good bundle: https://github.com/cocur/background-process
          */
+        /*
+        $parts      = explode( '-', $requestedVersion );
         $command    = [
             '/bin/sudo',
-            '/vagrant/gui_symfony/bin/console',
+            $this->get( 'kernel' )->getProjectDir() . '/bin/console',
             'vs:phpfpm',
             'start',
             '-p',
@@ -122,6 +166,12 @@ class PhpVersionsController extends Controller
             $command[]  = '-c';
             $command[]  = $parts[1];
         }
+        */
+        
+        $command    = [
+            '/bin/sudo',
+            "/opt/phpbrew/php/php-{$requestedVersion}/sbin/php-fpm",
+        ];
         
         $process    = new Process( $command );
         $process->start();
@@ -144,7 +194,7 @@ class PhpVersionsController extends Controller
          */
         $command    = [
             '/bin/sudo',
-            '/vagrant/gui_symfony/bin/console',
+            $this->get('kernel')->getProjectDir() . '/bin/console',
             'vs:phpfpm',
             'stop',
             '-p',
@@ -177,7 +227,7 @@ class PhpVersionsController extends Controller
          */
         $command    = [
             '/bin/sudo',
-            '/vagrant/gui_symfony/bin/console',
+            $this->get('kernel')->getProjectDir() . '/bin/console',
             'vs:phpfpm',
             'restart',
             '-p',
@@ -192,6 +242,7 @@ class PhpVersionsController extends Controller
         $process    = new Process( $command );
         $process->start();
         
+        $this->container->get( 'vs_app.apache_service' )->reload(); // Reload Apache Service
         $referer    = $request->headers->get( 'referer' ); // get the referer, it can be empty!
         
         return $this->redirect( $referer );
@@ -213,5 +264,17 @@ class PhpVersionsController extends Controller
         }
         
         return $data;
+    }
+    
+    protected function transformPhpExtensions( &$phpExtensions )
+    {
+        $repository         = $this->getDoctrine()->getRepository( PhpBrewExtension::class );
+        foreach ( $phpExtensions as $key => $ext ) {
+            $transformExtension = $repository->findOneBy( ['name' => $ext] );
+            if ( $transformExtension ) {
+                // Example: phpbrew ext install github:php-memcached-dev/php-memcached php7 -- --disable-memcached-sasl
+                $phpExtensions[$key]    = 'github:' . $transformExtension->getGithubRepo() . ' ' . $transformExtension->getBranch();
+            }
+        }
     }
 }
