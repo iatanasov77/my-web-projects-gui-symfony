@@ -71,9 +71,7 @@ Encore
     .addEntry( 'js/pages/projects', './assets/default/js/pages/projects.js' )
     .addEntry( 'js/pages/virtual_hosts', './assets/default/js/pages/virtual_hosts.js' )
     .addEntry( 'js/pages/php_versions', './assets/default/js/pages/php_versions.js' )
-    
-    // Page Specific Scripts
-    //.addEntry( 'js/page_scripts/projects', './assets/js/page_scripts/projects.js' )
+    .addEntry( 'js/pages/phpbrew_extensions', './assets/default/js/pages/phpbrew_extensions.js' )
 ;
 const defaultConfig = Encore.getWebpackConfig();
 defaultConfig.name = 'default';

@@ -44,6 +44,12 @@ vs_application:
                 attributes:
                     id: menu-php-versions
                     iconClass: "fas fa-project-diagram"
+            phpbrew_extensions:
+                name: PhpBrew Extensions
+                route: phpbrew_extensions_index
+                attributes:
+                    id: menu-phpbrew-extensions
+                    iconClass: "fas fa-project-diagram"
             virtual_hosts:
                 name: Hosts
                 uri: "/hosts"

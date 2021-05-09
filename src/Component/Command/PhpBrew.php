@@ -64,8 +64,13 @@ class PhpBrew implements ContainerAwareInterface
     /**
      * See Build Log:  tail -F '/opt/phpbrew/build/php-7.4.1/build.log'
      */
-    public function install( String $version, Array $variants = [], $extensions = [], $displayBuildOutput = false, $phpBrewCustomName = '' ): Process
-    {
+    public function install(
+        String $version,
+        Array $variants = [],
+        $extensions = [],
+        $displayBuildOutput = false,
+        $phpBrewCustomName = '' 
+    ): Process {
         // Create the Command
         $options            = [];
         $variantsDefaults   = $this->container->getParameter( 'phpbrew_variants_default' );
