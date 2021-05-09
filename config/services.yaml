@@ -3,6 +3,7 @@ imports:
     - { resource: services/commands.yaml }
     - { resource: services/phpbrew.yaml }
     - { resource: services/tomcat.yaml }
+    - { resource: services/python.yaml }
 
 parameters:
     siteTitle: 'VS My Projects 2'

@@ -63,6 +63,14 @@ vs_application:
                 attributes:
                     id: menu-tomcat-instances
                     iconClass: "fas fa-project-diagram"
+            
+            python_virtual_environments:
+                name: Python Virtual Environments
+                uri: "/python/virtual-environments"
+                attributes:
+                    id: menu-python_virtual_environments
+                    iconClass: "fas fa-project-diagram"        
+           
 
         profileMenu:
             profile:
