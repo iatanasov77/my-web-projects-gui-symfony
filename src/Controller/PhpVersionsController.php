@@ -270,10 +270,12 @@ class PhpVersionsController extends Controller
     {
         $repository         = $this->getDoctrine()->getRepository( PhpBrewExtension::class );
         foreach ( $phpExtensions as $key => $ext ) {
-            $transformExtension = $repository->findOneBy( ['name' => $ext] );
-            if ( $transformExtension ) {
-                // Example: phpbrew ext install github:php-memcached-dev/php-memcached php7 -- --disable-memcached-sasl
-                $phpExtensions[$key]    = 'github:' . $transformExtension->getGithubRepo() . ' ' . $transformExtension->getBranch();
+            $extension = $repository->findOneBy( ['name' => $ext] );
+            if ( $extension ) {
+                if ( $extension->getGithubRepo() ) {
+                    // Example: phpbrew ext install github:php-memcached-dev/php-memcached php7 -- --disable-memcached-sasl
+                    $phpExtensions[$key]    = 'github:' . $extension->getGithubRepo() . ' ' . $extension->getBranch();
+                }
             }
         }
     }

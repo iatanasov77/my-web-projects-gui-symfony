@@ -9,10 +9,10 @@ class PhpBrew
     ];
     
     /*
-     * XDEBUG 3 Add Configuration
-     * ========================
+     * XDEBUG 3 Add Configuration to ini_file: /opt/phpbrew/php/php-7.4.10/var/db/xdebug.ini
+     * ========================================================================================
      * xdebug.mode = debug
-     * xdebug.start_with_request = 1
+     * xdebug.start_with_request = trigger
      * xdebug.discover_client_host = 1
      * xdebug.client_port = 9000
      */
