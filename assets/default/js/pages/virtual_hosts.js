@@ -50,20 +50,31 @@ $(function()
 	
 	$( '.btnDeleteHost' ).on( 'click', function( e )
 	{
-		var url	= $( this ).attr( 'data-url' );
-		
-		$.ajax({
-			type: "GET",
-		 	url: url,
-			success: function( response )
-			{
-				window.location.reload();
-			},
-			error: function()
-			{
-				alert( "SYSTEM ERROR!!!" );
-			}
-		});
+		e.preventDefault();
+	    
+	    $( "<div>Do you want to delete this Host?</div>" ).dialog({
+	        buttons: {
+	            "Ok": function () {
+	                var url	= $( this ).attr( 'data-url' );
+	                
+					$.ajax({
+						type: "GET",
+					 	url: url,
+						success: function( response )
+						{
+							window.location.reload();
+						},
+						error: function()
+						{
+							alert( "SYSTEM ERROR!!!" );
+						}
+					});
+	            },
+	            "Cancel": function () {
+	                $( this ).dialog( "close" );
+	            }
+	        }
+	    });
 	});
 	
 	// HostType Options

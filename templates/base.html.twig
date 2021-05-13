@@ -11,8 +11,9 @@
 
   <title>{{ siteTitle }}</title>
 
-        {% block styles %}
+    {% block styles %}
         {{ encore_entry_link_tags( 'css/app', null, 'default' ) }}
+        {{ encore_entry_link_tags( 'js/app', null, 'default' ) }}
         {{ encore_entry_link_tags( 'css/custom', null, 'default' ) }}
     {% endblock %}
   

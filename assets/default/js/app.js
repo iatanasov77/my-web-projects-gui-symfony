@@ -9,12 +9,14 @@
 const $ = require('jquery');
 window.$ = window.jQuery = $;
 
-require( 'jquery-ui-dist/jquery-ui.css' );
-require( 'jquery-ui-dist/jquery-ui.js' );
-
 // Vendor scripts
 require( '../vendor/bootstrap/js/bootstrap.bundle.js' );
 require( '../vendor/jquery-easing/jquery.easing.js' );
 
 // Main script
 require( './sb-admin-2.js' );
+
+// bootstrap should be before jquery-ui
+require( 'jquery-ui-dist/jquery-ui.js' );
+require( 'jquery-ui-dist/jquery-ui.css' );
+require( 'jquery-ui-dist/jquery-ui.theme.css' );
