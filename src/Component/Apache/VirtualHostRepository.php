@@ -64,17 +64,17 @@ class VirtualHostRepository
     
     public function generateVirtualHost( $vhost, $template = 'simple' )
     {
-        if ( $this->getVirtualHostByHost( $vhost->getHost() ) ) {
-            throw new \Exception( 'Host exists !!!' );
-        }
-        
-        $apache         = $this->container->get( 'vs_app.apache_service' );
         $vhostConfig    = $this->createVirtualHostConfig( $vhost, $template );
         file_put_contents( '/tmp/vhost.conf', htmlspecialchars_decode( $vhostConfig ) );
         
-        $vhostConfFile	= '/etc/httpd/conf.d/' . $vhost->getHost() . '.conf';
+        if ( isset( $this->vhostConfigs[$vhost->getHost()] ) ) {
+            $vhostConfFile = $this->vhostConfigs[$vhost->getHost()];
+        } else {
+            $vhostConfFile	= '/etc/httpd/conf.d/' . $vhost->getHost() . '.conf';
+        }
+        
         exec( 'sudo mv -f /tmp/vhost.conf ' . $vhostConfFile ); // Write VHost file
-        $apache->reload(); // Reload Apache
+        $this->container->get( 'vs_app.apache_service' )->reload(); // Reload Apache
     }
     
     public function setVirtualHost( $host, $phpVersion = 'default' )
