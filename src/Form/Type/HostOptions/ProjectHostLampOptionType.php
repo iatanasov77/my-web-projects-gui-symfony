@@ -7,6 +7,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use App\Component\Command\PhpBrew;
 use App\Entity\ProjectHostOption;
@@ -29,6 +30,10 @@ class ProjectHostLampOptionType extends AbstractType
             ->add( 'phpVersion', ChoiceType::class, [
                 'label' => 'PHP Version',
                 'choices' => $this->phpVersions
+            ])
+            ->add( 'vsApplicationAliases', CheckboxType::class, [
+                'label'     => 'VS Application Aliases',
+                'required'  => false,
             ])
         ;
     }

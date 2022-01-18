@@ -33,6 +33,9 @@ class VirtualHostFactory
         switch ( $hostEntity->getHostType() ) {
             case HostType::TYPE_LAMP:
                 $phpVersion = isset( $hostOptions['phpVersion'] ) ? $hostOptions['phpVersion'] : 'default';
+                $vsAliases  = isset( $hostOptions['vsApplicationAliases'] );
+                //var_dump( $hostOptions ); die;
+                
                 $vhost      = new VirtualHostLamp([
                     'template'          => $phpVersion == 'default' ? 'simple' : 'simple-fpm',
                     
@@ -44,6 +47,7 @@ class VirtualHostFactory
                     'DocumentRoot'      => $hostEntity->getDocumentRoot(),
                     'ServerAdmin'       => 'webmaster@' . $hostEntity->getHost(),
                     'LogDir'            => '/var/log/httpd/',
+                    'VsAliases'         => $vsAliases,
                     'WithSsl'           => $hostEntity->getWithSsl(),
                 ]);
                 

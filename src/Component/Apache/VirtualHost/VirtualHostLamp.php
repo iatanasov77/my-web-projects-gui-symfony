@@ -19,6 +19,11 @@ class VirtualHostLamp extends VirtualHost
      */
     protected $phpStatusLabel;
     
+    /**
+     * @var bool
+     */
+    protected $vsAliases;
+    
     public function __construct( $vhostConfig )
     {
         parent::__construct( $vhostConfig );
@@ -26,6 +31,7 @@ class VirtualHostLamp extends VirtualHost
         $this->phpVersion       = $vhostConfig['PhpVersion'];
         $this->phpStatus        = $vhostConfig['PhpStatus'];
         $this->phpStatusLabel   = $vhostConfig['PhpStatusLabel'];
+        $this->vsAliases        = isset( $vhostConfig['VsAliases'] ) && $vhostConfig['VsAliases'];
     }
     
     public function type()
@@ -36,7 +42,7 @@ class VirtualHostLamp extends VirtualHost
     public function twigVars() : Array
     {
         return array_merge( parent::twigVars(), [
-            
+            'vsAliases'  => $this->vsAliases,
         ]);
     }
     
@@ -72,6 +78,18 @@ class VirtualHostLamp extends VirtualHost
     public function setPhpStatusLabel( $phpStatusLabel )
     {
         $this->phpStatusLabel = $phpStatusLabel;
+        
+        return $this;
+    }
+    
+    public function getVsAliases()
+    {
+        return $this->vsAliases;
+    }
+    
+    public function setVsAliases( $vsAliases )
+    {
+        $this->vsAliases = $vsAliases;
         
         return $this;
     }
