@@ -26,6 +26,11 @@ vs_application:
                         uri: "/phpmyadmin"
                         attributes:
                             target: '_blank'
+                    mailcatcher:
+                        name: MailCatcher
+                        uri: "http://myprojects.lh:1080/"
+                        attributes:
+                            target: '_blank'
             dashboard:
                 name: Dashboard
                 uri: "/"
