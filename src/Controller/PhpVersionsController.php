@@ -32,7 +32,7 @@ class PhpVersionsController extends Controller
         if ( file_exists( $configSubsystemsFile ) ) {
             $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
             
-            $cassandraEnabled   = $configSubsystems['cassandra']['enabled'];
+            $cassandraEnabled   = isset( $configSubsystems['cassandra'] ) && $configSubsystems['cassandra']['enabled'];
         } else {
             $cassandraEnabled   = false;
         }
