@@ -1,3 +1,17 @@
+3.2.0	|	Release date: **10.04.2022**
+============================================
+* New Features:
+  - Add PhpBrew Extension 'xdebug'
+  - Begin Manage Python Virtual Environments.
+  - Add VirtualHost Update functionality for Lamp Hosts.
+  - Add Dialogs on click of Delete buttons.
+  - Add Vankosoft Aliases on Virtual Hosts.
+  - Add MailCatcher to the Menu External Tools.
+  - Migrate to Vankosoft Application and Symfony 5.
+* Bug-Fixes:
+  - Fix some bugs.
+
+
 3.1.0	|	Release date: **09.05.2021**
 ============================================
 * New Features and Improvements:
