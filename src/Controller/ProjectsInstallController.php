@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +20,7 @@ use App\Form\Type\ProjectInstallManualType;
 use App\Form\Type\ProjectDeleteType;
 use App\Form\Type\CategoryType;
 
-class ProjectsInstallController extends Controller
+class ProjectsInstallController extends AbstractController
 {
     /**
      * @Route("/projects/install/{id}", name="projects_install")

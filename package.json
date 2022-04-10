@@ -7,19 +7,13 @@
         "watch": "./node_modules/@symfony/webpack-encore/bin/encore.js dev --watch",
         "build": "./node_modules/@symfony/webpack-encore/bin/encore.js production --progress"
     },
-    "devDependencies": {
-        "@symfony/webpack-encore": "^0.28.0",
-        "copy-webpack-plugin": "^5.0.0",
-        "node-sass": "^4.12.0",
-        "sass-loader": "^7.1.0",
-        "webpack-notifier": "^1.6.0"
-    },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.12.1",
+        "@kanety/jquery-simple-tree-table": "^0.5.0",
         "core-js": "3",
         "jquery": "^3.5.0",
         "jquery-form": "^4.2.2",
         "ckeditor": "^4.0.0",
-        "@fortawesome/fontawesome-free": "^5.8.2",
         "bootstrap": "^4.3.1",
         "bootstrap-gtreetable": "gilek/bootstrap-gtreetable",
         "glyphicons": "^0.2",
@@ -32,5 +26,22 @@
         "popper.js": "^1.15.0",
         "jquery-multi-select": "https://github.com/mysociety/jquery-multi-select.git",
         "tooltipster": "^4.2.8"
+    },
+    "devDependencies": {
+        "@symfony/stimulus-bridge": "^2.0.0",
+        "@symfony/webpack-encore": "^1.0.0",
+        "core-js": "^3.0.0",
+        "file-loader": "^6.0.0",
+        "node-sass": "^6.0.1",
+        "regenerator-runtime": "^0.13.2",
+        "resolve-url-loader": "2",
+        "sass-loader": "^12.0.0",
+        "stimulus": "^2.0.0",
+        "webpack-notifier": "^1.6.0"
+    },
+    "resolutions": {
+        "@kanety/jquery-simple-tree-table/jquery": "3.4.1",
+        "jquery-ui/jquery": "3.4.1",
+        "jquery-ui-dist/jquery": "3.4.1"
     }
 }

@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -8,27 +8,45 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
+use App\Component\Command\Apache;
+use App\Component\Command\PhpBrew as PhpBrewCommand;
 use App\Component\PhpBrew;
 use App\Entity\PhpBrewExtension;
 
-class PhpVersionsController extends Controller
+class PhpVersionsController extends AbstractController
 {
     protected $phpBrew;
     
+    protected $apacheService;
+    
+    protected $phpbrewVariants;
+    
+    protected $phpbrewVariantsDefault;
+    
+    protected $projectDir;
+    
+    public function __construct(
+        PhpBrewCommand $phpBrewCommand,
+        Apache $apache,
+        array $phpbrewVariants,
+        array $phpbrewVariantsDefault,
+        string $projectDir
+    ) {
+        $this->phpBrew                  = $phpBrewCommand;
+        $this->apacheService            = $apache;
+        $this->phpbrewVariants          = $phpbrewVariants;
+        $this->phpbrewVariantsDefault   = $phpbrewVariantsDefault;
+        $this->projectDir               = $projectDir;
+    }
     /**
      * @Route("/php-versions", name="php-versions")
      */
     public function index( Request $request )
     {
-        $this->phpBrew          = $this->container->get( 'vs_app.php_brew' );
         $installedVersions      = $this->phpBrew->getInstalledVersions();
         $availableVersions      = $this->phpBrew->getAvailableVersions();
         
-        $phpbrewVariants        = $this->container->getParameter( 'phpbrew_variants' );
-        $phpbrewVariantsDefault = $this->container->getParameter( 'phpbrew_variants_default' );
-        //var_dump( json_encode( $phpbrewVariantsDefault ) ); die;
-        
-        $configSubsystemsFile   = $this->get('kernel')->getProjectDir() . "/var/subsystems.json";
+        $configSubsystemsFile   = $this->projectDir . "/var/subsystems.json";
         if ( file_exists( $configSubsystemsFile ) ) {
             $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
             
@@ -40,9 +58,9 @@ class PhpVersionsController extends Controller
         return $this->render('pages/php_versions.html.twig', [
             'versions_installed'        => $installedVersions,
             'versions_available'        => $availableVersions,
-            'phpbrew_variants'          => array_diff( $phpbrewVariants, $phpbrewVariantsDefault ),
+            'phpbrew_variants'          => array_diff( $this->phpbrewVariants, $this->phpbrewVariantsDefault ),
             'phpbrew_extensions'        => PhpBrew::extensions( ['cassandraEnabled' => $cassandraEnabled] ),
-            'phpbrew_variants_default'  => $phpbrewVariantsDefault,
+            'phpbrew_variants_default'  => $this->phpbrewVariantsDefault,
             'cassandraEnabled'          => $cassandraEnabled,
         ]);
     }
@@ -68,7 +86,6 @@ class PhpVersionsController extends Controller
      */
     public function gtreeTableSource( Request $request ): Response
     {
-        $this->phpBrew  = $this->container->get( 'vs_app.php_brew' );
         $versions       = $this->phpBrew->getAvailableVersions();
         
         $parent         = $request->query->get( 'version' );
@@ -100,7 +117,6 @@ class PhpVersionsController extends Controller
             }
             //var_dump($phpExtensions); die;
             
-            $this->phpBrew  = $this->container->get( 'vs_app.php_brew' );
             $process        = $this->phpBrew->install(
                 $version,
                 $phpBrewVariants,
@@ -131,7 +147,6 @@ class PhpVersionsController extends Controller
         $requestedVersion   = $request->attributes->get( 'version' );
         $parts              = explode( '-', $requestedVersion );
         
-        $this->phpBrew  = $this->container->get( 'vs_app.php_brew' );
         $this->phpBrew->setupFpm( $parts[0], '' );
         
         return new JsonResponse( ['success' => true] );
@@ -155,7 +170,7 @@ class PhpVersionsController extends Controller
         $parts      = explode( '-', $requestedVersion );
         $command    = [
             '/bin/sudo',
-            $this->get( 'kernel' )->getProjectDir() . '/bin/console',
+            $this->projectDir . '/bin/console',
             'vs:phpfpm',
             'start',
             '-p',
@@ -194,7 +209,7 @@ class PhpVersionsController extends Controller
          */
         $command    = [
             '/bin/sudo',
-            $this->get('kernel')->getProjectDir() . '/bin/console',
+            $this->projectDir . '/bin/console',
             'vs:phpfpm',
             'stop',
             '-p',
@@ -227,7 +242,7 @@ class PhpVersionsController extends Controller
          */
         $command    = [
             '/bin/sudo',
-            $this->get('kernel')->getProjectDir() . '/bin/console',
+            $this->projectDir . '/bin/console',
             'vs:phpfpm',
             'restart',
             '-p',
@@ -242,7 +257,7 @@ class PhpVersionsController extends Controller
         $process    = new Process( $command );
         $process->start();
         
-        $this->container->get( 'vs_app.apache_service' )->reload(); // Reload Apache Service
+        $this->apacheService->reload(); // Reload Apache Service
         $referer    = $request->headers->get( 'referer' ); // get the referer, it can be empty!
         
         return $this->redirect( $referer );

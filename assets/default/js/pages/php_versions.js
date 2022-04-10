@@ -1,5 +1,5 @@
 require( 'glyphicons' );
-require( '../../css/glyphicons.css' );
+//require( '../../css/glyphicons.css' );
 require( 'bootstrap-sass' );
 
 require( '../../css/multi-select.css' );

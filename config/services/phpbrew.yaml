@@ -25,6 +25,7 @@ services:
     vs_app.php_brew:
         public: true
         class: App\Component\Command\PhpBrew
-        calls:
-          - [ setContainer ]
+        arguments:
+            - '%phpbrew_variants_default%'
+            - '%php_versions_dir%'
     

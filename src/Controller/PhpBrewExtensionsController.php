@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +13,14 @@ use App\Component\PhpBrew;
 use App\Entity\PhpBrewExtension;
 use App\Form\Type\PhpBrewExtensionType;
 
-class PhpBrewExtensionsController extends Controller
+class PhpBrewExtensionsController extends AbstractController
 {
+    protected $projectDir;
+    
+    public function __construct( string $projectDir ) {
+        $this->projectDir   = $projectDir;
+    }
+    
     /**
      * @Route("/phpbrew/extensions", name="phpbrew_extensions_index")
      */
@@ -91,7 +97,7 @@ class PhpBrewExtensionsController extends Controller
     protected function phpbrewExtensionsOptions()
     {
         $options                = [];
-        $configSubsystemsFile   = $this->get('kernel')->getProjectDir() . "/var/subsystems.json";
+        $configSubsystemsFile   = $this->projectDir . "/var/subsystems.json";
         if ( file_exists( $configSubsystemsFile ) ) {
             $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
             

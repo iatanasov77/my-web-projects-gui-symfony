@@ -1,12 +1,15 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+
+use App\Component\Command\Apache;
+use App\Component\Apache\VirtualHostRepository;
 
 use App\Component\Globals;
 use App\Component\Project\Source\SourceFactory;
@@ -20,8 +23,19 @@ use App\Form\Type\ProjectInstallManualType;
 use App\Form\Type\ProjectDeleteType;
 use App\Form\Type\CategoryType;
 
-class ProjectsController extends Controller
+class ProjectsController extends AbstractController
 {
+    private $apacheService;
+    
+    private $vhRepo;
+    
+    public function __construct(
+        Apache $apache,
+        VirtualHostRepository $vhRepo
+    ) {
+        $this->apacheService    = $apache;
+        $this->vhRepo       = $vhRepo;
+    }
     
     /**
      * @Route("/projects", name="projects")
@@ -177,8 +191,6 @@ class ProjectsController extends Controller
             
             if ( $project ) {
                 $hosts  = $project->getHosts();
-                $vhosts = $this->container->get( 'vs_app.apache_virtual_host_repository' );
-                $apache = $this->container->get( 'vs_app.apache_service' );
                 
                 $em->remove( $project );
                 $em->flush();
@@ -188,9 +200,9 @@ class ProjectsController extends Controller
                  * and need to delete vhost configs of its
                  */
                 foreach( $hosts as $host ) {
-                    $vhosts->removeVirtualHost( $host->getHost() );
+                    $this->vhRepo->removeVirtualHost( $host->getHost() );
                 }
-                $apache->reload(); 
+                $this->apacheService->reload(); 
             }
             
             if ( $data['deleteFiles'] == true && is_dir( $projectRoot ) ) {

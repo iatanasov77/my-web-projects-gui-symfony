@@ -1,7 +1,7 @@
-<?php  namespace App\Entity;
+<?php namespace App\Entity\Application;
 
 use Doctrine\ORM\Mapping as ORM;
-use VS\ApplicationBundle\Model\Translation as BaseTranslation;
+use Vankosoft\ApplicationBundle\Model\Translation as BaseTranslation;
 
 /**
  * @ORM\Table(name="VSAPP_Translations")
@@ -9,5 +9,5 @@ use VS\ApplicationBundle\Model\Translation as BaseTranslation;
  */
 class Translation extends BaseTranslation
 {
-    
+     
 }
