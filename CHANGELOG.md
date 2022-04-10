@@ -1,3 +1,10 @@
+3.2.1	|	Release date: **10.04.2022**
+============================================
+* Bug-Fixes:
+  - Fix Asset php_versions.js
+  - Fix PhpBrew Command.
+
+
 3.2.0	|	Release date: **10.04.2022**
 ============================================
 * New Features:

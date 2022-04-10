@@ -25,7 +25,7 @@ function installPhpVersion( version, defaultVariants )
 
 $( function()
 {
-	$( '[data-toggle="tooltip"]' ).tooltipster();
+	//$( '[data-toggle="tooltip"]' ).tooltipster();
 	
 	$( '#btnRunPhpInstall' ).on( 'click', function () {
 		$( "#btnClosePhpInstall" ).hide();

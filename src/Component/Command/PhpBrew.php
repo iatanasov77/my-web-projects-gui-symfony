@@ -88,7 +88,7 @@ class PhpBrew
             $options[]  =  '--name=php-' . $version . '-' . $phpBrewCustomName;
         }
         
-        $currentCommand = array_merge( $command, $options, [$version], $this->variantsDefaults, $variants );
+        $currentCommand = array_merge( $command, $options, [$version], $this->phpbrewVariantsDefault, $variants );
         
         if ( PHP_INT_SIZE === 8 ) {
             $currentCommand[] = '--';
