@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -8,16 +8,20 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class TomcatController extends Controller
+use App\Component\Command\Tomcat;
+
+class TomcatController extends AbstractController
 {
     protected $tomcat;
     
+    public function __construct( Tomcat $tomcat ) {
+        $this->tomcat   = $tomcat;
+    }
     /**
      * @Route("/tomcat/instances", name="tomcat-instances")
      */
     public function instances( Request $request )
     {
-        $this->tomcat           = $this->container->get( 'app.tomcat' );
         $installedVersions      = $this->tomcat->getInstalledVersions();
         //$availableVersions      = $this->tomcat->getAvailableVersions();
         

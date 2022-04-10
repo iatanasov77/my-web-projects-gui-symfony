@@ -1,14 +1,35 @@
 vs_application:
     resources:
+        application:
+            classes:
+                model: App\Entity\Application\Application
         settings:
             classes:
-                model: App\Entity\Settings
+                model: App\Entity\Application\Settings
+        taxonomy:
+            classes:
+                model: App\Entity\Application\Taxonomy
+        taxon:
+            classes:
+                model: App\Entity\Application\Taxon
+            translation:
+                classes:
+                    model: App\Entity\Application\TaxonTranslation
+        taxon_image:
+            classes:
+                model: App\Entity\Application\TaxonImage
         translation:
             classes:
-                model: App\Entity\Translation
+                model: App\Entity\Application\Translation
+        logentry:
+            classes:
+                model: App\Entity\Application\LogEntry
+        locale:
+            classes:
+                model: App\Entity\Application\Locale
                 
     menu:              
-        mainMenu:
+        mainApplicationMenu:
             external_tools:
                 name: External Tools
                 uri: "javascript:;"
@@ -24,6 +45,11 @@ vs_application:
                     phpmyadmin:
                         name: PhpMyAdmin
                         uri: "/phpmyadmin"
+                        attributes:
+                            target: '_blank'
+                    mailcatcher:
+                        name: MailCatcher
+                        uri: "http://myprojects.lh:1080/"
                         attributes:
                             target: '_blank'
             dashboard:
@@ -63,6 +89,14 @@ vs_application:
                 attributes:
                     id: menu-tomcat-instances
                     iconClass: "fas fa-project-diagram"
+            
+            python_virtual_environments:
+                name: Python Virtual Environments
+                uri: "/python/virtual-environments"
+                attributes:
+                    id: menu-python_virtual_environments
+                    iconClass: "fas fa-project-diagram"        
+           
 
         profileMenu:
             profile:

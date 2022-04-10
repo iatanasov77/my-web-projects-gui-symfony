@@ -1,8 +1,12 @@
 imports:
+    - { resource: services/vs_application.yaml }
+    - { resource: services/menu.yaml }
     - { resource: services/twig_extensions.yaml }
     - { resource: services/commands.yaml }
     - { resource: services/phpbrew.yaml }
     - { resource: services/tomcat.yaml }
+    - { resource: services/python.yaml }
+    - { resource: services/controller.yaml }
 
 parameters:
     siteTitle: 'VS My Projects 2'
@@ -26,26 +30,27 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+        exclude:
+            - '../src/DataFixtures/'
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Form/'
+            - '../src/Tests/'
+            - '../src/Kernel.php'
+            - '../src/Controller/'
+            - '../src/Component/Command/'
         autowire: true
-        
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-    App\Controller\:
-        resource: '../src/Controller'
-        tags: ['controller.service_arguments']
-        autowire: false
   
     ###################################
     # GREAT DEBUGGING
     ###################################
-    my_blue_screen:
-        class: 'Tracy\BlueScreen'
-        properties:
-            info:
-                - 'environment: %kernel.environment%'
-
-    vasek_purchart.tracy_blue_screen.tracy.blue_screen: '@my_blue_screen'
+#     my_blue_screen:
+#         class: 'Tracy\BlueScreen'
+#         properties:
+#             info:
+#                 - 'environment: %kernel.environment%'
+# 
+#     vasek_purchart.tracy_blue_screen.tracy.blue_screen: '@my_blue_screen'
     
     ##################################
     # Form Types with Arguments

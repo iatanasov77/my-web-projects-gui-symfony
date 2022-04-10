@@ -210,31 +210,42 @@ $(function()
 	// Submit Delete Form
 	$( '#btnDeleteProject' ).on( 'click', function( e )
 	{
-		var form	= $( '#formDeleteProject' );
-		$.ajax({
-			type: "POST",
-		 	url: form.attr( 'action' ),
-		 	data: form.serialize(),
-		 	dataType: 'json',
-			success: function( response )
-			{
-				form[0].reset();
-				if ( response.status == 'error' ) {
-					alert( "FORM ERROR!!!" );
-
-				} else {
-					$( '#delete-project-modal' ).modal( 'toggle' );
-					
-					$( '#submitMessage > div.card-body' ).html( 'Successfuly deleting project.' );
-					$( '#submitMessage' ).show();
-					$( '#sectionProjects' ).html( response.data );
-				}
-			},
-			error: function()
-			{
-				alert( "SYSTEM ERROR!!!" );
-			}
-		});
+		e.preventDefault();
+	    
+	    $( "<div>Do you want to delete this Project?</div>" ).dialog({
+	        buttons: {
+	            "Ok": function () {
+	                var form	= $( '#formDeleteProject' );
+					$.ajax({
+						type: "POST",
+					 	url: form.attr( 'action' ),
+					 	data: form.serialize(),
+					 	dataType: 'json',
+						success: function( response )
+						{
+							form[0].reset();
+							if ( response.status == 'error' ) {
+								alert( "FORM ERROR!!!" );
+			
+							} else {
+								$( '#delete-project-modal' ).modal( 'toggle' );
+								
+								$( '#submitMessage > div.card-body' ).html( 'Successfuly deleting project.' );
+								$( '#submitMessage' ).show();
+								$( '#sectionProjects' ).html( response.data );
+							}
+						},
+						error: function()
+						{
+							alert( "SYSTEM ERROR!!!" );
+						}
+					});
+	            },
+	            "Cancel": function () {
+	                $( this ).dialog( "close" );
+	            }
+	        }
+	    });
 	});
 
 	$( '#create-project-modal' ).on( 'click', '#btnSaveProject', function( e )

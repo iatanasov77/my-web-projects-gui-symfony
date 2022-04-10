@@ -13,6 +13,18 @@
     
     CustomLog {{apacheLogDir}}{{host}}-access.log combined
     ErrorLog {{apacheLogDir}}{{host}}-error.log
+    
+    {% if vsAliases %}
+        {# Not Right Way But For Now Will Works #}
+        {% set documentRootArray    = documentRoot | split( '/' ) %}
+        {% set publicPathArray      = documentRootArray | slice( 0, -1 ) %}
+        
+        Alias /build "{{ publicPathArray | join( '/' ) }}/shared_assets/build"
+        <Directory "{{ publicPathArray | join( '/' ) }}/shared_assets/build">s
+            AllowOverride All
+            Require all granted
+        </Directory>
+    {% endif %}
 {% endblock %}
 
 {% block fpm %}

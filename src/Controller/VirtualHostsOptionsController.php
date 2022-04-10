@@ -1,6 +1,6 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -11,7 +11,7 @@ use App\Form\Type\HostOptions\ProjectHostTomcatOptionType;
 use App\Form\Type\HostOptions\ProjectHostPythonOptionType;
 use App\Form\Type\HostOptions\ProjectHostRubyOptionType;
 
-class VirtualHostsOptionsController extends Controller
+class VirtualHostsOptionsController extends AbstractController
 {
     /**
      * @Route("/hosts/options-form", name="virtual-hosts-options-form")

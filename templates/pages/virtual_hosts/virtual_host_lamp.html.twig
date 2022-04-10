@@ -34,11 +34,11 @@
 	    {% endif %}
     
     	<a href="javascript:void(0);" 
-            class="btn btn-info btn-circle btn-sm " 
+            class="btn btn-info btn-circle btn-sm btnUpdateVirtualHost" 
             title="Edit Host" 
             data-toggle="modal" 
-            data-target="#host-change-php-version-modal"
-            data-url="{{ path( 'virtual-hosts-set-php-version', {host: h.host}) }}"
+            data-target="#host-create-modal"
+            data-url="{{ path( 'virtual-hosts-update', {host: h.host}) }}"
         >
             <i class="fas fa-edit"></i>
         </a>

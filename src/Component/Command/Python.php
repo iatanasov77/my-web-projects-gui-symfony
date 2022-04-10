@@ -1,7 +1,22 @@
 <?php namespace App\Component\Command;
 
-class Python
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+
+class Python implements ContainerAwareInterface
 {
+    use ContainerAwareTrait;
+    
+    protected $installationDir;
+    protected $virtualEnviironments;
+    
+    public function getVirtualEnvironments()
+    {
+        $this->_init();
+        
+        return $this->virtualEnviironments;
+    }
+    
     public function virtualenv( $host )
     {
         $hostPath   = '/var/www/' . $host;
@@ -20,5 +35,28 @@ class Python
         
         exec( $venvPath . '/bin/pip3 install Django' );
         exec( 'cd ' . $projectPath . ' && ' . $venvPath . '/bin/django-admin startproject ' . $applicationName );
+    }
+    
+    protected function _init()
+    {
+        if ( ! $this->virtualEnviironments ) {
+            $this->installationDir  = $this->container->getParameter( 'python_virtual_environements_dir' );
+            
+            $this->virtualEnviironments    = [];
+            
+            $handle = is_dir( $this->installationDir ) ? opendir( $this->installationDir ) : null;
+            if ( $handle ) {
+                
+                while ( false !== ( $entry = readdir( $handle ) ) ) {
+                    if ( $entry != "." && $entry != ".." ) {
+                        $this->virtualEnviironments[$entry] = [
+                            'Status' => 'INSTALLED'
+                        ];
+                    }
+                }
+                
+                closedir( $handle );
+            }
+        }
     }
 }

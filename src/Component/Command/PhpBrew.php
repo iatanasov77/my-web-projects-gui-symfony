@@ -1,17 +1,13 @@
 <?php namespace App\Component\Command;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
 use App\Component\Apache\Php;
 
-class PhpBrew implements ContainerAwareInterface
+class PhpBrew
 {
-    use ContainerAwareTrait;
-    
     const DIR_PREFIX    = 'php-';
     
     protected $availableVersions;
@@ -20,6 +16,15 @@ class PhpBrew implements ContainerAwareInterface
     protected $installationVersionDir;
     
     protected $currentCommand;
+    
+    private $phpbrewVariantsDefault;
+    private $phpbrewVersionsDir;
+    
+    public function __construct( array $phpbrewVariantsDefault, string $phpbrewVersionsDir )
+    {
+        $this->phpbrewVariantsDefault   = $phpbrewVariantsDefault;
+        $this->phpbrewVersionsDir       = $phpbrewVersionsDir;
+    }
     
     public function getInstalledVersions()
     {
@@ -73,7 +78,6 @@ class PhpBrew implements ContainerAwareInterface
     ): Process {
         // Create the Command
         $options            = [];
-        $variantsDefaults   = $this->container->getParameter( 'phpbrew_variants_default' );
         $command            = ['sudo', 'phpbrew', '--debug', 'install'];
         
         if ( $displayBuildOutput ) {
@@ -84,7 +88,7 @@ class PhpBrew implements ContainerAwareInterface
             $options[]  =  '--name=php-' . $version . '-' . $phpBrewCustomName;
         }
         
-        $currentCommand = array_merge( $command, $options, [$version], $variantsDefaults, $variants );
+        $currentCommand = array_merge( $command, $options, [$version], $this->variantsDefaults, $variants );
         
         if ( PHP_INT_SIZE === 8 ) {
             $currentCommand[] = '--';
@@ -152,7 +156,7 @@ class PhpBrew implements ContainerAwareInterface
     
     public function setupFpm( $version, String $customName )
     {
-        $this->installationDir  = $this->container->getParameter( 'php_versions_dir' );
+        $this->installationDir  = $this->phpbrewVersionsDir;
         $dirName                = empty( $customName ) ? self::DIR_PREFIX . $version : self::DIR_PREFIX . $version . '-' . $customName;
         $versionPath            = $this->installationDir . '/' . $dirName;
         if ( ! is_dir( $versionPath ) ) {
@@ -187,7 +191,7 @@ class PhpBrew implements ContainerAwareInterface
     protected function _init()
     {
         if ( ! $this->installedVersions ) {
-            $this->installationDir  = $this->container->getParameter( 'php_versions_dir' );
+            $this->installationDir  = $this->phpbrewVersionsDir;
             
             $this->installedVersions    = [];
             

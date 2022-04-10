@@ -1,10 +1,15 @@
 <?php namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
+use App\Component\Command\PhpBrew;
+use App\Component\Apache\VirtualHostRepository;
+use App\Component\Apache\VirtualHostFactory;
+use App\Component\Apache\VirtualHostActions;
 
 use App\Component\Apache\Php;
 use App\Form\Type\ProjectHostType;
@@ -13,11 +18,30 @@ use App\Component\Globals;
 
 use App\Component\Project\Host as HostTypes;
 use App\Component\Apache\VirtualHost\VirtualHostLamp;
-use App\Entity\ProjectHostOption;
 use App\Component\Project\Host;
 
-class VirtualHostsController extends Controller
-{   
+class VirtualHostsController extends AbstractController
+{
+    private $phpBrew;
+    
+    private $vhRepo;
+    
+    private $vhFactory;
+    
+    private $vhActions;
+    
+    public function __construct(
+        PhpBrew $phpBrew,
+        VirtualHostRepository $vhRepo,
+        VirtualHostFactory $vhFactory,
+        VirtualHostActions $vhActions
+    ) {
+        $this->phpBrew      = $phpBrew;
+        $this->vhRepo       = $vhRepo;
+        $this->vhFactory    = $vhFactory;
+        $this->vhActions    = $vhActions;
+    }
+    
     /**
      * @Route("/hosts_new", name="virtual-hosts-new")
      */
@@ -32,16 +56,11 @@ class VirtualHostsController extends Controller
      */
     public function index( Request $request )
     {
-        $virtualHosts       = $this->container->get( 'vs_app.apache_virtual_host_repository' );
-        $phpBrew            = $this->container->get( 'vs_app.php_brew' );
-        $installedVersions  = $phpBrew->getInstalledVersions();
-        
-        //$repository = $this->getDoctrine()->getRepository( ProjectHost::class );
-        //$host       = $id ? $repository->find( $id ) : new ProjectHost();
-        $formHost       = $this->_hostForm( new ProjectHost() );
+        $installedVersions  = $this->phpBrew->getInstalledVersions();
+        $formHost           = $this->_hostForm( new ProjectHost() );
         
         return $this->render('pages/virtual_hosts.html.twig', [
-            'hosts'                 => $virtualHosts->virtualHosts(),
+            'hosts'                 => $this->vhRepo->virtualHosts(),
             'installedPhpVersions'  => $installedVersions,  
             'formHost'              => $formHost->createView(),
         ]);
@@ -52,8 +71,7 @@ class VirtualHostsController extends Controller
      */
     public function create( Request $request )
     {
-        $projectHost    = new ProjectHost();
-        $formHost       = $this->_hostForm( $projectHost );
+        $formHost       = $this->_hostForm( new ProjectHost() );
         
         $formHost->handleRequest( $request );
         if ( $formHost->isSubmitted() ) {
@@ -63,7 +81,7 @@ class VirtualHostsController extends Controller
             $optionsField   = 'project_host_' . strtolower( $host->getHostType() ) . '_option';
             $host->setOptions( $request->request->get( $optionsField ) );
             
-            $this->container->get( 'vs_app.apache_host_actions' )->createEnvironment( $host );
+            $this->vhActions->createEnvironment( $host );
             
             $em->persist( $host );
             $em->flush();
@@ -75,12 +93,45 @@ class VirtualHostsController extends Controller
     }
     
     /**
+     * @Route("/hosts/edit/{host}", name="virtual-hosts-update")
+     */
+    public function update( $host, Request $request )
+    {
+        $projectHost    = $this->loadHost( $host );
+        $formHost       = $this->_hostForm( $projectHost, $this->generateUrl( 'virtual-hosts-update', ['host' => $host] ) );
+        
+        $formHost->handleRequest( $request );
+        if ( $formHost->isSubmitted() ) {
+            $em     = $this->getDoctrine()->getManager();
+            $host   = $formHost->getData();
+            
+            $optionsField   = 'project_host_' . strtolower( $host->getHostType() ) . '_option';
+            $options        = $request->request->get( $optionsField );
+            if ( $options ) {
+                $host->setOptions( $options );
+            }
+            
+            $this->vhActions->createEnvironment( $host );
+            
+            $em->persist( $host );
+            $em->flush();
+            
+            $this->createVirtualhost( $host );
+            
+            return $this->redirectToRoute( 'virtual-hosts' );
+        }
+        
+        return $this->render( 'pages/virtual_hosts/forms/virtualhost.html.twig', [
+            'form'  => $formHost->createView(),
+        ]);
+    }
+    
+    /**
      * @Route("/hosts/{host}/delete", name="virtual-hosts-delete-host")
      */
     public function delete( $host, Request $request )
     {
-        $vhosts     = $this->container->get( 'vs_app.apache_virtual_host_repository' );
-        $hostConfig = $vhosts->getVirtualHostConfig( $host );
+        $hostConfig = $this->vhRepo->getVirtualHostConfig( $host );
         exec( 'sudo rm -f ' . $hostConfig ); // Remove apache vhost
         
         $repository = $this->getDoctrine()->getRepository( ProjectHost::class );
@@ -106,26 +157,19 @@ class VirtualHostsController extends Controller
     public function setPhpVersion( Request $request )
     {
         if ( $request->isMethod( 'post' ) ) {
-            $vhosts     = $this->container->get( 'vs_app.apache_virtual_host_repository' );
-     
             $host       = $request->attributes->get( 'host' );
             $phpVersion = ltrim( $request->request->get( 'php_version' ), 'php-' );
             
-            $vhosts->setVirtualhost( $host, $phpVersion );
+            $this->vhRepo->setVirtualhost( $host, $phpVersion );
 
             return $this->redirectToRoute( 'virtual-hosts' );
         }
     }
     
-    private function _hostForm( ProjectHost $host )
+    private function _hostForm( ProjectHost $projectHost, string $action = null )
     {
-        $projectHost    = new ProjectHost();
-        
-        //$projectHost->sethostType( HostTypes::TYPE_LAMP );
-        //$projectHost->setOptions( HostTypes::options( HostTypes::TYPE_LAMP ) );
-        
         $form   = $this->createForm( ProjectHostType::class, $projectHost, [
-            'action' => $this->generateUrl( 'virtual-hosts-create' ),
+            'action' => $action ?: $this->generateUrl( 'virtual-hosts-create' ),
             'method' => 'POST'
         ]);
         
@@ -134,10 +178,26 @@ class VirtualHostsController extends Controller
     
     private function createVirtualhost( ProjectHost $host )
     {
-        $vhosts     = $this->container->get( 'vs_app.apache_virtual_host_repository' );
-        $factory    = $this->container->get( 'vs_app.apache_virtual_host_factory' );
-        $vhost      = $factory->virtualHostFromEntity( $host );
+        $vhost      = $this->vhFactory->virtualHostFromEntity( $host );
         
-        $vhosts->generateVirtualhost( $vhost, $vhost->getTemplate() );
+        $this->vhRepo->generateVirtualhost( $vhost, $vhost->getTemplate() );
+    }
+    
+    private function loadHost( $host )
+    {
+        $repository     = $this->getDoctrine()->getRepository( ProjectHost::class );
+        $projectHost    = $repository->findOneBy(['host' => $host]);
+        
+        if ( ! $projectHost ) {
+            $projectHost    = new ProjectHost();
+            $apacheHost     = $this->vhRepo->getVirtualHostByHost( $host );
+            
+            $projectHost->setHost( $apacheHost->getHost() );
+            $projectHost->setHostType( HostTypes::TYPE_LAMP);
+            $projectHost->setDocumentRoot( $apacheHost->getDocumentRoot() );
+            $projectHost->setWithSsl( $apacheHost->getWithSsl() );
+        }
+        
+        return $projectHost;
     }
 }

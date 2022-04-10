@@ -54,7 +54,7 @@ class ProjectHost
     
     public function __construct()
     {
-        $this->options = new ArrayCollection();
+        $this->options = [];
     }
     
     public function getId(): ?int
