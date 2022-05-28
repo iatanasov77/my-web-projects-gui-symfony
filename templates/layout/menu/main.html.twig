@@ -3,11 +3,18 @@
 {% block root %}
     {% for parentItem in item.children %}
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li class="nav-item" style="width: 18rem !important;">
         {% if parentItem.children | length > 0 %}
-             <a class="nav-link" href="{{ parentItem.uri }}" data-toggle="collapse" data-target="#{{ parentItem.attributes.id }}" aria-expanded="true" aria-controls="{{ parentItem.attributes.id }}">
+             <a class="nav-link"
+                href="{{ parentItem.uri }}"
+                data-toggle="collapse"
+                data-target="#{{ parentItem.attributes.id }}"
+                aria-expanded="true"
+                aria-controls="{{ parentItem.attributes.id }}"
+                style="width: 18rem !important;"
+            >
                 <i class="{{ parentItem.attributes.iconClass }}"></i>
-                <span>{{ parentItem.name | truncate( 18 ) }}</span>
+                <span>{{ parentItem.name | truncate( 30 ) }}</span>
              </a>
              <div id="{{ parentItem.attributes.id }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -25,9 +32,12 @@
                 </div>
             </div>
         {% else %}     
-            <a class="nav-link" href="{{ parentItem.uri }}">
+            <a class="nav-link"
+                href="{{ parentItem.uri }}"
+                style="width: 18rem !important;"
+            >
                 <i class="{{ parentItem.attributes.iconClass }}"></i>
-                <span>{{ parentItem.name | truncate( 18 ) }}</span>
+                <span>{{ parentItem.name | truncate( 30 ) }}</span>
             </a>
         {% endif %}    
         </li>

@@ -30,8 +30,8 @@ vs_application:
                 
     menu:              
         mainApplicationMenu:
-            external_tools:
-                name: External Tools
+            mywebprojects_tools:
+                name: MyWebProjects Tools
                 uri: "javascript:;"
                 attributes:
                     id: menu-virtual-hosts
@@ -52,6 +52,20 @@ vs_application:
                         uri: "http://myprojects.lh:1080/"
                         attributes:
                             target: '_blank'
+                            
+            external_tools:
+                name: External Tools
+                uri: "javascript:;"
+                attributes:
+                    id: menu-external-tools
+                    iconClass: "fas fa-project-diagram"
+                childs:
+                    php_info:
+                        name: Test Jenkins Deployment
+                        uri: "http://test-jenkins.vankosoft.org"
+                        attributes:
+                            target: '_blank'
+                            
             dashboard:
                 name: Dashboard
                 uri: "/"
