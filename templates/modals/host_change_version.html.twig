@@ -11,8 +11,8 @@
                     </div>
                     <p>
                         
-                        <label>PHP Version:</label>
-                        <select name="php_version">
+                        <label for="php_version_php_version">PHP Version:</label>
+                        <select name="php_version" id="php_version_php_version">
                             <option value="">-- Select Version--</option>
                         {% for version,php in installedPhpVersions %}
                             <option value="{{ version }}">{{ version }}</option>
@@ -20,6 +20,12 @@
                         </select>
                         
                     </p>
+                    {#
+                    <p>
+                        <input type="checkbox" id="php_version_application_aliases" name="application_aliases" />
+                        <label for="php_version_application_aliases">VS Application Aliases</label>
+                    </p>
+                    #}
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-primary" value="Save" />

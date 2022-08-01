@@ -157,8 +157,9 @@ class VirtualHostsController extends AbstractController
     public function setPhpVersion( Request $request )
     {
         if ( $request->isMethod( 'post' ) ) {
-            $host       = $request->attributes->get( 'host' );
-            $phpVersion = ltrim( $request->request->get( 'php_version' ), 'php-' );
+            $host               = $request->attributes->get( 'host' );
+            $phpVersion         = ltrim( $request->request->get( 'php_version' ), 'php-' );
+            $applicationAliases = $request->request->get( 'application_aliases' );
             
             $this->vhRepo->setVirtualhost( $host, $phpVersion );
 
