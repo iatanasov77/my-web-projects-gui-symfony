@@ -19,6 +19,11 @@
 		        		Create Category
 		        	</button>
 		        	<div class="btn-space"></div>
+		        	
+		        	<button id="btnInstallThirdPartyProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
+                        Install Third Party Project
+                    </button>
+                    <div class="btn-space"></div>
 		        </div>
 		    </div>
 		    <div class="col-lg-12">
@@ -56,11 +61,13 @@
 	{% include 'modals/category_create.html.twig' %}
 	{% include 'modals/project_install.html.twig' %}
 	{% include 'modals/project_install_manual.html.twig' %}
+	{% include 'modals/project_third_party_create.html.twig' %}
 {% endblock %}
 
 {% block scripts %}
 	{{ parent() }}
 	
     {{ encore_entry_script_tags( 'js/pages/projects' ) }}
+    {{ encore_entry_script_tags( 'js/pages/projects_third_party' ) }}
 {% endblock %}
 

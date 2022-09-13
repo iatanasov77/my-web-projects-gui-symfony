@@ -49,3 +49,9 @@ services:
         
     App\Controller\ProjectsInstallController:
         tags: ['controller.service_arguments']
+        
+    App\Controller\ThirdPartyProjectsController:
+        arguments:
+#            - '@vs_app.apache_service'
+#            - '@vs_app.apache_virtual_host_repository'
+        tags: ['controller.service_arguments']

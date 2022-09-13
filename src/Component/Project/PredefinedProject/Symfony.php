@@ -1,12 +1,10 @@
 <?php namespace App\Component\Project\PredefinedProject;
 
-class Symfony implements PredefinedProjectInterface
+class Symfony extends PredefinedProject
 {
     const SOURCE_TYPE   = 'wget';
     const SOURCE_URL    = 'https://github.com/magento/magento2/archive/2.4.1.zip';
     const BRANCH        = '';
-    
-    
     
     public static function data()
     {
@@ -20,6 +18,18 @@ class Symfony implements PredefinedProjectInterface
     public function form()
     {
         return 'pages/projects/form_predefined/symfony.html.twig';
+    }
+    
+    public function parameters()
+    {
+        $branches   = $this->projectSourceService->getGitBranches( self::SOURCE_URL );
+        $tags       = $this->projectSourceService->getGitTags( self::SOURCE_URL );
+        
+        //return $this->projectSourceService->getGitTags( self::SOURCE_URL );
+        return [
+            'branches'  => \array_combine( $branches, $branches ),
+            'tags'      => \array_combine( $tags, $tags ),
+        ];
     }
     
     public function populate( &$project )

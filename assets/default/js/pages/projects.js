@@ -1,17 +1,4 @@
-var spinner = '<div id="project-spinner" style="text-align:center;"><i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i></div>';
-
-/**
- * onTopOf: ID of the element on top of display the spinner
- */
-function showSpinner( onTopOf ) {
-	$( onTopOf ).before( spinner );
-	$( '#project-spinner' ).css( {'opacity': '0.8', 'position':'absolute', 'text-align':'center', 'top':'170px', 'left':'210px', 'z-index':'9'} );
-	$( onTopOf ).css( {'pointer-events': 'none', 'position':'relative', 'width': '100%', 'height': '100%', 'opacity': '0.8'} );
-}
-function hideSpinner( onTopOf ) {
-	$( onTopOf ).removeAttr( 'style' );
-	$( '#project-spinner' ).remove();
-}
+import * as spinnerService from '../includes/spinner';
 
 $(function()
 {
@@ -61,7 +48,7 @@ $(function()
 
     $( '#btnCreateProject' ).on( 'click', function( e )
     {
-        $( '#formProjectContainer' ).html( spinner );
+        $( '#formProjectContainer' ).html( spinnerService.spinner );
         
         $.ajax({
             type: "GET",
@@ -79,7 +66,7 @@ $(function()
     
     $( '#btnCreateCategory' ).on( 'click', function( e )
     {
-        $( '#formCategoryContainer' ).html( spinner );
+        $( '#formCategoryContainer' ).html( spinnerService.spinner );
         
         $.ajax({
             type: "GET",
@@ -97,7 +84,7 @@ $(function()
     
 	$( '#sectionProjects' ).on( 'click', '.btnEdit', function( e )
 	{
-        $( '#formProjectContainer' ).html( spinner );
+        $( '#formProjectContainer' ).html( spinnerService.spinner );
         
 		$.ajax({
 			type: "GET",
@@ -250,7 +237,7 @@ $(function()
 
 	$( '#create-project-modal' ).on( 'click', '#btnSaveProject', function( e )
 	{
-		showSpinner( '#formProjectContainer' );
+		spinnerService.showSpinner( '#formProjectContainer' );
 		
 		var form	= $( '#formProject' );
 		
@@ -261,7 +248,7 @@ $(function()
 		 	dataType: 'json',
 			success: function( response )
 			{
-				hideSpinner( '#formProjectContainer' );
+				spinnerService.hideSpinner( '#formProjectContainer' );
 				
 				form[0].reset();
 				if ( response.status == 'error' ) {
@@ -290,7 +277,7 @@ $(function()
 			},
 			error: function(  )
 			{
-				hideSpinner( '#formProjectContainer' );
+				spinnerService.hideSpinner( '#formProjectContainer' );
 				alert( "SYSTEM ERROR!!!" );
 			}
        });
@@ -340,19 +327,19 @@ $(function()
 		var host	= $( this ).attr( 'data-host' );
 		var url		= '/hosts/' + host + '/delete';
 		
-		showSpinner( '#formProjectContainer' );
+		spinnerService.showSpinner( '#formProjectContainer' );
 		$.ajax({
 			type: "GET",
 		 	url: url,
 			success: function( response )
 			{
-				hideSpinner( '#formProjectContainer' );
+				spinnerService.hideSpinner( '#formProjectContainer' );
 				$btn.closest( 'li' ).remove();
 				//window.location.reload();
 			},
 			error: function()
 			{
-				hideSpinner( '#formProjectContainer' );
+				spinnerService.hideSpinner( '#formProjectContainer' );
 				alert( "SYSTEM ERROR!!!" );
 			}
 		});

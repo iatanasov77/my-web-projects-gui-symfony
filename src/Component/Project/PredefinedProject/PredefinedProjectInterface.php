@@ -3,5 +3,6 @@
 interface PredefinedProjectInterface
 {
     public function form();
+    public function parameters();
     public function populate( &$project );
 }

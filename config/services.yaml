@@ -7,6 +7,7 @@ imports:
     - { resource: services/tomcat.yaml }
     - { resource: services/python.yaml }
     - { resource: services/controller.yaml }
+    - { resource: services/installer.yaml }
 
 parameters:
     siteTitle: 'VS My Projects 2'

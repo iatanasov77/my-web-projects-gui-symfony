@@ -88,6 +88,7 @@ class ProjectsController extends AbstractController
     public function create( $id, Request $request )
     {
         $status     = Globals::STATUS_ERROR;
+        $errors     = [];
         
         $em         = $this->getDoctrine()->getManager();
         $repository = $this->getDoctrine()->getRepository( Project::class );
@@ -106,7 +107,6 @@ class ProjectsController extends AbstractController
             $em->flush();
             
             $status     = Globals::STATUS_OK;
-            $errors     = [];
         } else {
             foreach ( $form->getErrors( true, false ) as  $error) {
                 // My personnal need was to get translatable messages
@@ -278,8 +278,18 @@ class ProjectsController extends AbstractController
      */
     public function predefinedProjectForm( $predefinedType )
     {
-        $html   = $this->renderView( \App\Component\Project\PredefinedProject::instance( $predefinedType )->form() );
-        return new Response( $html );
+        $thirdPartyInstance = PredefinedProject::instance( $predefinedType );
+        
+        $form               = $thirdPartyInstance->form();
+        $parameters         = $thirdPartyInstance->parameters();
+        
+        //return new JsonResponse( $thirdPartyInstance->parameters() );
+        return new Response(
+            $this->renderView(
+                $form,
+                $parameters,
+            ),
+        );
     }
     
     private function _projectForm( Project $project )
