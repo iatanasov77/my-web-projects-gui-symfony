@@ -102,7 +102,9 @@ class PhpBrewExtensionsController extends AbstractController
             $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
             
             $options            = [
-                'cassandraEnabled'  => $configSubsystems['cassandra']['enabled'],
+                'cassandraEnabled'  => isset( $configSubsystems['cassandra'] ) ?
+                                        $configSubsystems['cassandra']['enabled'] :
+                                        false
             ];
         }
         
