@@ -28,6 +28,10 @@ class Sylius extends PredefinedProject
         
         //return $this->projectSourceService->getGitTags( self::SOURCE_URL );
         return [
+            'variants'  => [
+                'standard' => 'Sylius Standard Edition',
+                'core'      => 'Sylius CORE',
+            ],
             'branches'  => \array_combine( $branches, $branches ),
             'tags'      => \array_combine( $tags, $tags ),
         ];
