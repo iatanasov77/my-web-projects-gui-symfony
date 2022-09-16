@@ -5,7 +5,7 @@ use Vankosoft\ApplicationBundle\Component\Application\Kernel as BaseKernel;
 class Kernel extends BaseKernel
 {
     const VERSION   = '1.8.1';
-    const APP_ID    = '';
+    const APP_ID    = 'my_projects';
     
     /**
      * {@inheritDoc}
