@@ -27,6 +27,12 @@
                             >
                                 {{ childItem.name }} 
                             </a>
+                            {% if childItem.name == 'MailCatcher' %}
+                                <div class="ml-5">
+                                    <span style="font-weight: bold; text-decoration: underline;">If MailCatcher is Not Started Run:</span><br />
+                                    mailcatcher --ip 10.3.3.2
+                                </div>
+                            {% endif %}
                         {% endif %}
                     {% endfor %}
                 </div>
