@@ -1,3 +1,22 @@
+3.3.0	|	Release date: **31.10.2022**
+============================================
+* New Features and Improvements:
+  - Improve SideBar Menu
+  - Some Updates.
+  - Add Create Third Party Projects Modal Form.
+  - Creating/Improving Installers.
+  - Add Magento Parametrs For Installer.
+  - Set Debug Level of Logging.
+  - Set App Id in Kernel
+  - Add Help for MailCatcher Link In Main Menu.
+  - Update Template For Php Versions.
+  - Update Vankosoft Application Version.
+  - Git Ignore Unneded Files Installed From Composer.
+* Bug-Fixes:
+  - Fix for Apache/VirtualHostRepository.
+  - Fix PhpBrewExtensionsController
+
+
 3.2.1	|	Release date: **10.04.2022**
 ============================================
 * Bug-Fixes:
