@@ -1,23 +1,23 @@
 <?php namespace App\Component\Project\PredefinedProject;
 
-class Django extends PredefinedProject
+class PrestaShop extends PredefinedProject
 {
-    const SOURCE_TYPE   = 'wget';
-    const SOURCE_URL    = 'https://github.com/magento/magento2/archive/2.4.1.zip';
-    const BRANCH        = '';
+    const SOURCE_TYPE   = 'git';
+    const SOURCE_URL    = 'https://github.com/PrestaShop/PrestaShop.git';
+    const BRANCH        = '1.7';
     
     public static function data()
     {
         return [
-            'sourceType'    => self::SOURCE_TYPE,
-            'sourceUrl'     => self::SOURCE_URL,
-            'branch'        => self::BRANCH,
+            'sourceType' => self::SOURCE_TYPE,
+            'sourceUrl'  => self::SOURCE_URL,
+            'branch'    => self::BRANCH,
         ];
     }
     
     public function form()
     {
-        return 'pages/projects/form_predefined/django.html.twig';
+        return 'pages/projects/form_predefined/presta_shop.html.twig';
     }
     
     public function parameters()

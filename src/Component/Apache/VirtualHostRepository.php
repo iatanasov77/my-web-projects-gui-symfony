@@ -94,7 +94,7 @@ class VirtualHostRepository
     
     public function createVirtualHostConfig( $vhost, $template )
     {
-        $twig           = $this->container->get( 'templating' );
+        $twig           = $this->container->get( 'twig' );
         $twigVars       = $vhost->twigVars();
         if ( $vhost instanceof VirtualHostLamp ) {
             $phpBrew        = $this->container->get( 'vs_app.php_brew' );

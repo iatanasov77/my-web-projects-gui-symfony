@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        
+    my_projects.project_source:
+        class: App\Component\Installer\ProjectSource
+    

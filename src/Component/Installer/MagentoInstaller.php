@@ -55,46 +55,38 @@ class MagentoInstaller extends Installer
             
             $filesystem->touch( $installScript );
             $filesystem->chmod( $installScript, 0777 );
-            $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
-        
-            $filesystem->appendToFile( $installScript, "git clone --branch " . $this->project->getBranch() . " " . $this->project->getRepository()     . " .\n" );
             
-            $filesystem->appendToFile( $installScript, "rm -f composer.lock\n" );
-            $filesystem->appendToFile( $installScript, "composer install --prefer-source\n" );
-            
-            
-            /*
-             * bin/console sylius:install
-             * ===========================
-             * 1. Checking System requirements
-             * 2. Creating Sylus Database
-             * 3. Shop configuration    (Currency, Language, Administrator account)
-             * 4. Installing assets
-             */
-            
-            // Setup Database
-            $filesystem->appendToFile( $installScript, "sed -i 's/root@/root:vagrant@/g' .env\n" );
-            $filesystem->appendToFile( $installScript, "bin/console doctrine:database:create\n" );
-            $filesystem->appendToFile( $installScript, "bin/console --no-interaction doctrine:migrations:migrate\n" );
-            
-            if ( isset( $predefinedParams['installSampleData'] ) ) {
-                // bin/console sylius:install:sample-data
-                $filesystem->appendToFile( $installScript, "bin/console --no-interaction sylius:fixtures:load\n" );
-            }
-            
-            // Shop configuration
-            // Default admin aser/password: sylius/sylius
-            $filesystem->appendToFile( $installScript, "bin/console --no-interaction sylius:install:setup\n" );
-            
-            // Installing Assets
-            // Require Python 2 to be installed on system
-            $filesystem->appendToFile( $installScript, "bin/console sylius:install:assets\n" );
-            $filesystem->appendToFile( $installScript, "yarn install --no-bin-links\n" );
-            $filesystem->appendToFile( $installScript, "yarn build\n" );
+            //$this->createInstllFromSourceScript( $installScript, $predefinedParams );
+            $this->createInstllWithComposerScript( $installScript, $predefinedParams );
             
             return $installScript;
         } catch ( IOExceptionInterface $exception ) {
             echo "An error occurred while creating your directory at " . $exception->getPath();
         }
+    }
+    
+    private function createInstllFromSourceScript( string  $installScript, array $predefinedParams )
+    {
+        $filesystem = new Filesystem();
+        $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
+        
+        $filesystem->appendToFile( $installScript, "wget https://github.com/magento/magento2/archive/ " . $this->project->getBranch() . ".zip -P " .  $this->project->getProjectRoot() . "/ .\n" );
+        
+        $filesystem->appendToFile( $installScript, "rm -f composer.lock\n" );
+        $filesystem->appendToFile( $installScript, "composer install --prefer-source\n" );
+        
+        // Setup Database
+        $filesystem->appendToFile( $installScript, "sed -i 's/root@/root:vagrant@/g' .env\n" );
+        
+        // Magento Install
+        $filesystem->appendToFile( $installScript, "bin/magento setup::install\n" );
+    }
+    
+    private function createInstllWithComposerScript( string  $installScript, array $predefinedParams )
+    {
+        $filesystem = new Filesystem();
+        $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
+        
+        
     }
 }
