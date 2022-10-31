@@ -13,7 +13,7 @@
         
         "twig/extensions": "^1.5",
         "symfony/property-access": "^5.4",
-        "vankosoft/application": "1.8.*"
+        "vankosoft/application": "1.9.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
