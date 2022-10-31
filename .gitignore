@@ -21,6 +21,8 @@
 /yarn.lock
 /var/
 /config/fixtures/projects.yaml
+/migrations/
+/tests/
 
 ###> symfony/framework-bundle ###
 /.env.local
