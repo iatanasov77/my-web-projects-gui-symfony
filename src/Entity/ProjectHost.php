@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
- * @ORM\Table(name="projects_hosts")
+ * @ORM\Table(name="VSWPG_ProjectsHosts")
  */
 class ProjectHost
 {
