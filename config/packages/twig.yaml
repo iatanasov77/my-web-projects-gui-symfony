@@ -9,6 +9,9 @@ twig:
         locale: '%locale%'
         kernelRootDir: "%kernel.project_dir%"
         
+        rubyVersion: '%env(SYSTEM_RUBY_VERSION)%'
+        mailcatcherIp: '%env(MAILCATCHER_IP)%'
+        
     form_themes: [
       'bootstrap_4_layout.html.twig',
       '@FOSCKEditor/Form/ckeditor_widget.html.twig'
