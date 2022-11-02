@@ -10,7 +10,6 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.12.1",
         "@kanety/jquery-simple-tree-table": "^0.5.0",
-        "core-js": "3",
         "jquery": "^3.5.0",
         "jquery-form": "^4.2.2",
         "ckeditor": "^4.0.0",
