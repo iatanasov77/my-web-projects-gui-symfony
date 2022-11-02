@@ -45,9 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "VS\\ApplicationBundle\\": "lib/VS/ApplicationBundle/",
-            "VS\\CmsBundle\\": "lib/VS/CmsBundle/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
