@@ -1,3 +1,17 @@
+3.4.0	|	Release date: **05.11.2022**
+============================================
+* New Features and Improvements:
+  - Update package.json
+  - Start Using Migrations For Project Entities.
+  - Update composer.json
+  - Adding Some Twig Globals.
+  - Create Vagrant Machines Resource.
+  - Improve Projects.js
+* Bug-Fixes:
+  - Fix An Error.
+  - Fix DoctrineMigrations.
+
+
 3.3.0	|	Release date: **31.10.2022**
 ============================================
 * New Features and Improvements:
