@@ -240,7 +240,7 @@ $(function()
 		spinnerService.showSpinner( '#formProjectContainer' );
 		
 		var form	= $( '#formProject' );
-		
+		//alert( form.attr( 'action' ) ); return;
 		$.ajax({
 			type: "POST",
 		 	url: form.attr( 'action' ),

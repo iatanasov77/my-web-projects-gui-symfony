@@ -55,3 +55,8 @@ services:
 #            - '@vs_app.apache_service'
 #            - '@vs_app.apache_virtual_host_repository'
         tags: ['controller.service_arguments']
+        
+    App\Controller\VagrantMachinesController:
+        arguments:
+            - '@doctrine'
+        tags: ['controller.service_arguments']

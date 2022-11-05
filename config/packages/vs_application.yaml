@@ -78,6 +78,12 @@ vs_application:
                 attributes:
                     id: menu-dashboard
                     iconClass: "fas fa-fw fa-tachometer-alt"
+            vagrant_machines:
+                name: Vagrant Machines
+                uri: "/vagrant-machines"
+                attributes:
+                    id: menu-vagrant-machines
+                    iconClass: "fas fa-fw fa-tachometer-alt"
             projects:
                 name: Projects
                 uri: "/projects"

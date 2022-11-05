@@ -1,0 +1,10 @@
+{{ form_start( form, {'attr': {'id': 'formMachine'}} ) }}
+    {{ form_widget(form._token) }}
+    
+    <div id="machineTabContent" >
+        {{ form_row(form.machinesGroup) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.ipAddress) }}
+    </div>
+{{ form_end(form, {'render_rest': false}) }}
