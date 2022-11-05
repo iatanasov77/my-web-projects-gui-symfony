@@ -1,3 +1,8 @@
+// JqueryUi conflicts with JqueryEasyUi
+require( 'jquery-ui-dist/jquery-ui.js' );
+require( 'jquery-ui-dist/jquery-ui.css' );
+require( 'jquery-ui-dist/jquery-ui.theme.css' );
+
 import * as spinnerService from '../includes/spinner';
 
 $(function()
@@ -240,7 +245,7 @@ $(function()
 		spinnerService.showSpinner( '#formProjectContainer' );
 		
 		var form	= $( '#formProject' );
-		//alert( form.attr( 'action' ) ); return;
+		
 		$.ajax({
 			type: "POST",
 		 	url: form.attr( 'action' ),
