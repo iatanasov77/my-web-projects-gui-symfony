@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
- * @ORM\Table(name="categories")
+ * @ORM\Table(name="VSWPG_Categories")
  */
 class Category
 {

@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
- * @ORM\Table(name="projects")
+ * @ORM\Table(name="VSWPG_Projects")
  */
 class Project
 {
@@ -40,23 +40,23 @@ class Project
     protected $name;
     
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $description;
     
     /**
-     * @ORM\Column(name="source_type", type="string", columnDefinition="enum('wget', 'git', 'svn', 'install_manual')")
+     * @ORM\Column(name="source_type", type="string", columnDefinition="enum('wget', 'git', 'svn', 'install_manual')", nullable=true)
      */
     protected $sourceType;
     
     
     /**
-     * @ORM\Column(type="string", length=128)
+     * @ORM\Column(type="string", length=128, nullable=true)
      */
     protected $repository;
     
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=32, nullable=true)
      */
     protected $branch;
     
@@ -67,22 +67,22 @@ class Project
     protected $projectRoot;
     
     /**
-     * @ORM\Column(name="install_manual", type="string")
+     * @ORM\Column(name="install_manual", type="string", nullable=true)
      */
     protected $installManual;
     
     /**
-     * @ORM\Column(name="predefinedType", type="string", length=64)
+     * @ORM\Column(name="predefinedType", type="string", length=64, nullable=true)
      */
     protected $predefinedType;
     
     /**
-     * @ORM\Column(name="predefinedTypeParams", type="json")
+     * @ORM\Column(name="predefinedTypeParams", type="json", nullable=true)
      */
     protected $predefinedTypeParams;
     
     /**
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
      */
     protected $projectUrl;
 

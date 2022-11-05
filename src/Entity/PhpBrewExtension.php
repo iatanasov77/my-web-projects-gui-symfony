@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="phpbrew_extensions")
+ * @ORM\Table(name="VSWPG_PhpbrewExtensions")
  */
 class PhpBrewExtension
 {

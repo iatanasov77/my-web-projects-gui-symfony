@@ -10,6 +10,7 @@
 ##############################
 # Symfony
 ##############################
+/.env
 /composer.lock
 /symfony.lock
 /vendor/

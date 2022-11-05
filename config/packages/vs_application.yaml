@@ -1,3 +1,9 @@
+vs_application_instalator:
+    resources:
+        instalation_info:
+            classes:
+                model: App\Entity\Application\InstalationInfo
+
 vs_application:
     resources:
         application:
@@ -71,6 +77,12 @@ vs_application:
                 uri: "/"
                 attributes:
                     id: menu-dashboard
+                    iconClass: "fas fa-fw fa-tachometer-alt"
+            vagrant_machines:
+                name: Vagrant Machines
+                uri: "/vagrant-machines"
+                attributes:
+                    id: menu-vagrant-machines
                     iconClass: "fas fa-fw fa-tachometer-alt"
             projects:
                 name: Projects
