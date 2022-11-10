@@ -233,6 +233,9 @@ class PhpBrew
             
             $filesystem->appendToFile( $installScript, $installCommand );
             
+            $memoryLimitCommand = "\n\nsed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/php.ini\n\n";
+            $filesystem->appendToFile( $installScript, $memoryLimitCommand );
+            
             if ( ! empty( $extensions) ) {
                 $filesystem->appendToFile( $installScript, " && source /root/.phpbrew/bashrc" );
                 $filesystem->appendToFile( $installScript, " && phpbrew use " . $phpVersion );
