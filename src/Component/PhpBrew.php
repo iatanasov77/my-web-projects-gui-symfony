@@ -3,9 +3,10 @@
 class PhpBrew
 {
     const EXTENSIONS   = [
+        'Xdebug'    => 'xdebug',
         'MongoDB'   => 'mongodb', 
         'Cassandra' => 'cassandra',
-        'Xdebug'    => 'xdebug'
+        'GD'        => 'gd',
     ];
     
     /*
@@ -21,7 +22,7 @@ class PhpBrew
     {
         $extensions = [];
         foreach ( self::EXTENSIONS as $key => $val ) {
-            if ( isset( $options['cassandraEnabled'] ) && $options['cassandraEnabled'] == false ) {
+            if ( $val== 'cassandra' && isset( $options['cassandraEnabled'] ) && $options['cassandraEnabled'] == false ) {
                 continue;
             }
             $extensions[$key] = $val;

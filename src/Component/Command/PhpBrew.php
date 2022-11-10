@@ -236,6 +236,10 @@ class PhpBrew
             $memoryLimitCommand = "\n\nsed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/php.ini\n\n";
             $filesystem->appendToFile( $installScript, $memoryLimitCommand );
             
+            
+            
+            // phpbrew --debug ext install gd -- --with-gd=shared --with-libdir=lib64 --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr --enable-gd-native-ttf
+            // phpbrew --debug ext enable gd
             if ( ! empty( $extensions) ) {
                 $filesystem->appendToFile( $installScript, " && source /root/.phpbrew/bashrc" );
                 $filesystem->appendToFile( $installScript, " && phpbrew use " . $phpVersion );
