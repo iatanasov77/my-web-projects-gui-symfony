@@ -1,3 +1,11 @@
+3.4.1	|	Release date: **10.11.2022**
+============================================
+* New Features and Improvements:
+  - Add SQL Export.
+  - Improve PhpBrew Install Command
+  - Improve PHP Version Install Form.
+
+
 3.4.0	|	Release date: **05.11.2022**
 ============================================
 * New Features and Improvements:
