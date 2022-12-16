@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Globals;
 use App\Component\PhpBrew;
@@ -15,9 +16,13 @@ use App\Form\Type\PhpBrewExtensionType;
 
 class PhpBrewExtensionsController extends AbstractController
 {
+    private $doctrine;
+    
     protected $projectDir;
     
-    public function __construct( string $projectDir ) {
+    public function __construct( ManagerRegistry $doctrine, string $projectDir )
+    {
+        $this->doctrine     = $doctrine;
         $this->projectDir   = $projectDir;
     }
     
@@ -36,7 +41,7 @@ class PhpBrewExtensionsController extends AbstractController
      */
     public function editForm( $name, Request $request )
     {
-        $repository         = $this->getDoctrine()->getRepository( PhpBrewExtension::class );
+        $repository         = $this->doctrine->getRepository( PhpBrewExtension::class );
         $phpBrewExtension   = $repository->findOneBy( ['name' => $name] ) ?: new PhpBrewExtension();
         
         $phpBrewExtension->setName( $name );
@@ -58,8 +63,8 @@ class PhpBrewExtensionsController extends AbstractController
     {
         $status             = Globals::STATUS_ERROR;
         
-        $em                 = $this->getDoctrine()->getManager();
-        $repository         = $this->getDoctrine()->getRepository( PhpBrewExtension::class );
+        $em                 = $this->doctrine->getManager();
+        $repository         = $this->doctrine->getRepository( PhpBrewExtension::class );
         $phpBrewExtension   = $repository->find( $id ) ?: new PhpBrewExtension();
         $form               = $this->createForm( PhpBrewExtensionType::class, $phpBrewExtension, [
             'action' => $this->generateUrl( 'phpbrew_extensions_update', ['id' => (int)$phpBrewExtension->getId()] ),

@@ -5,6 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Command\PhpBrew;
 use App\Component\Apache\VirtualHostRepository;
@@ -31,11 +32,13 @@ class VirtualHostsController extends AbstractController
     private $vhActions;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         PhpBrew $phpBrew,
         VirtualHostRepository $vhRepo,
         VirtualHostFactory $vhFactory,
         VirtualHostActions $vhActions
     ) {
+        $this->doctrine     = $doctrine;
         $this->phpBrew      = $phpBrew;
         $this->vhRepo       = $vhRepo;
         $this->vhFactory    = $vhFactory;
@@ -75,7 +78,7 @@ class VirtualHostsController extends AbstractController
         
         $formHost->handleRequest( $request );
         if ( $formHost->isSubmitted() ) {
-            $em     = $this->getDoctrine()->getManager();
+            $em     = $this->doctrine->getManager();
             $host   = $formHost->getData();
             
             $optionsField   = 'project_host_' . strtolower( $host->getHostType() ) . '_option';
@@ -102,7 +105,7 @@ class VirtualHostsController extends AbstractController
         
         $formHost->handleRequest( $request );
         if ( $formHost->isSubmitted() ) {
-            $em     = $this->getDoctrine()->getManager();
+            $em     = $this->doctrine->getManager();
             $host   = $formHost->getData();
             
             $optionsField   = 'project_host_' . strtolower( $host->getHostType() ) . '_option';
@@ -134,10 +137,10 @@ class VirtualHostsController extends AbstractController
         $hostConfig = $this->vhRepo->getVirtualHostConfig( $host );
         exec( 'sudo rm -f ' . $hostConfig ); // Remove apache vhost
         
-        $repository = $this->getDoctrine()->getRepository( ProjectHost::class );
+        $repository = $this->doctrine->getRepository( ProjectHost::class );
         $hostEntity = $repository->findOneBy( ['host' => $host] );
         if ( $hostEntity ) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             
             $em->remove( $hostEntity );
             $em->flush();
@@ -186,7 +189,7 @@ class VirtualHostsController extends AbstractController
     
     private function loadHost( $host )
     {
-        $repository     = $this->getDoctrine()->getRepository( ProjectHost::class );
+        $repository     = $this->doctrine->getRepository( ProjectHost::class );
         $projectHost    = $repository->findOneBy(['host' => $host]);
         
         if ( ! $projectHost ) {

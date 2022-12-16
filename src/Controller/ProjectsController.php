@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Command\Apache;
 use App\Component\Apache\VirtualHostRepository;
@@ -25,16 +26,20 @@ use App\Form\Type\CategoryType;
 
 class ProjectsController extends AbstractController
 {
+    private $doctrine;
+    
     private $apacheService;
     
     private $vhRepo;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         Apache $apache,
         VirtualHostRepository $vhRepo
     ) {
+        $this->doctrine         = $doctrine;
         $this->apacheService    = $apache;
-        $this->vhRepo       = $vhRepo;
+        $this->vhRepo           = $vhRepo;
     }
     
     /**
@@ -42,7 +47,7 @@ class ProjectsController extends AbstractController
      */
     public function index()
     {
-        $repository = $this->getDoctrine()->getRepository( Category::class );
+        $repository = $this->doctrine->getRepository( Category::class );
         
         return $this->render('pages/projects.html.twig', [
             'categories'            => $repository->findAll(),
@@ -60,7 +65,7 @@ class ProjectsController extends AbstractController
      */
     public function editForm( $id, Request $request )
     {
-        $repository = $this->getDoctrine()->getRepository( Project::class );
+        $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
         
         return $this->render( 'pages/projects/project_form.html.twig', [
@@ -74,7 +79,7 @@ class ProjectsController extends AbstractController
      */
     public function editCategoryForm( $id, Request $request )
     {
-        $repository = $this->getDoctrine()->getRepository( Category::class );
+        $repository = $this->doctrine->getRepository( Category::class );
         $category   = $id ? $repository->find( $id ) : new Category();
         
         return $this->render( 'pages/projects/category_form.html.twig', [
@@ -90,8 +95,8 @@ class ProjectsController extends AbstractController
         $status     = Globals::STATUS_ERROR;
         $errors     = [];
         
-        $em         = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository( Project::class );
+        $em         = $this->doctrine->getManager();
+        $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
         $form       = $this->_projectForm( $project );
         
@@ -131,7 +136,7 @@ class ProjectsController extends AbstractController
      */
     public function installManual( $id )
     {
-        $repository     = $this->getDoctrine()->getRepository( Project::class );
+        $repository     = $this->doctrine->getRepository( Project::class );
         $project        = $repository->find( $id );
         
         $source         = SourceFactory::source( $project );
@@ -147,7 +152,7 @@ class ProjectsController extends AbstractController
      */
     public function editInstallManual( $id, Request $request )
     {
-        $repository     = $this->getDoctrine()->getRepository( Project::class );
+        $repository     = $this->doctrine->getRepository( Project::class );
         $project        = $repository->find( $id );
         
         $form           = $this->createForm( ProjectInstallManualType::class, $project, [
@@ -158,7 +163,7 @@ class ProjectsController extends AbstractController
         $form->handleRequest( $request );
         if ( $form->isSubmitted() ) { // && $form->isValid()
             //$project->setInstallManual(  );
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->doctrine->getManager();
             $em->persist( $form->getData() );
             $em->flush();
             
@@ -176,8 +181,8 @@ class ProjectsController extends AbstractController
     public function delete( Request $request )
     {
         $status     = Globals::STATUS_ERROR;
-        $em         = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository( Project::class );
+        $em         = $this->doctrine->getManager();
+        $repository = $this->doctrine->getRepository( Project::class );
         $form       = $this->createForm( ProjectDeleteType::class, null, [
             'action' => $this->generateUrl( 'projects_delete' ),
             'method' => 'POST'
@@ -234,8 +239,8 @@ class ProjectsController extends AbstractController
     {
         $status     = Globals::STATUS_ERROR;
         
-        $em         = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository( Category::class );
+        $em         = $this->doctrine->getManager();
+        $repository = $this->doctrine->getRepository( Category::class );
         $category   = $id ? $repository->find( $id ) : new Category();
         $form       = $this->_categoryForm( $category );
         
@@ -262,7 +267,7 @@ class ProjectsController extends AbstractController
             }
         }
         
-        $repoProjects   = $this->getDoctrine()->getRepository( Project::class );
+        $repoProjects   = $this->doctrine->getRepository( Project::class );
         $html           = $this->renderView( 'pages/projects/table_projects.html.twig', ['projects' => $repoProjects->findAll()] );
         $response   = [
             'status'    => $status,

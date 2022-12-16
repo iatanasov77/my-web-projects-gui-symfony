@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Globals;
 use App\Component\Project\Source\SourceFactory;
@@ -22,13 +23,18 @@ use App\Form\Type\CategoryType;
 
 class ProjectsInstallController extends AbstractController
 {
+    public function __construct( ManagerRegistry $doctrine )
+    {
+        $this->doctrine = $doctrine;
+    }
+    
     /**
      * @Route("/projects/install/{id}", name="projects_install")
      */
     public function install( Request $request, $id )
     {
         if ( $request->isMethod( 'post' ) ) {
-            $repository     = $this->getDoctrine()->getRepository( Project::class );
+            $repository     = $this->doctrine->getRepository( Project::class );
             $project        = $repository->find( $id );
             $form           = $this->_projectForm( $project );
             
@@ -53,7 +59,7 @@ class ProjectsInstallController extends AbstractController
      */
     public function uninstall( $id )
     {
-        $repository = $this->getDoctrine()->getRepository( Project::class );
+        $repository = $this->doctrine->getRepository( Project::class );
         $project   =  $repository->find( $id );
         
         return $this->redirectToRoute( 'projects' );
