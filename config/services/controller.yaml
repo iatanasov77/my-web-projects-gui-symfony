@@ -8,6 +8,7 @@ services:
         
     App\Controller\VirtualHostsController:
         arguments:
+            - '@doctrine'
             - '@vs_app.php_brew'
             - '@vs_app.apache_virtual_host_repository'
             - '@vs_app.apache_virtual_host_factory'
@@ -19,6 +20,7 @@ services:
         
     App\Controller\PhpVersionsController:
         arguments:
+            - '@doctrine'
             - '@vs_app.php_brew'
             - '@vs_app.apache_service'
             - '%phpbrew_variants%'
@@ -28,6 +30,7 @@ services:
     
     App\Controller\PhpBrewExtensionsController:
         arguments:
+            - '@doctrine'
             - '%kernel.project_dir%'
         tags: ['controller.service_arguments']
     
@@ -43,15 +46,19 @@ services:
         
     App\Controller\ProjectsController:
         arguments:
+            - '@doctrine'
             - '@vs_app.apache_service'
             - '@vs_app.apache_virtual_host_repository'
         tags: ['controller.service_arguments']
         
     App\Controller\ProjectsInstallController:
+        arguments:
+            - '@doctrine'
         tags: ['controller.service_arguments']
         
     App\Controller\ThirdPartyProjectsController:
         arguments:
+            - '@doctrine'
 #            - '@vs_app.apache_service'
 #            - '@vs_app.apache_virtual_host_repository'
         tags: ['controller.service_arguments']

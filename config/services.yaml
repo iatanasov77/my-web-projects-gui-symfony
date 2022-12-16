@@ -14,6 +14,15 @@ parameters:
     mailer_user: 'admin@myprojects.lh'
     lang: 'en'
     locale: 'en_US'
+    
+    # Gaufrette File Systems
+    vs_cms.gaufrette.profile.filesystem: vs_application_profile
+    vs_cms.gaufrette.filemanager.filesystem: vs_application_filemanager
+    # Shared Media Directories
+    vs_cms.filemanager_shared_media_gaufrette.profile: "%kernel.project_dir%/public/shared_media/gaufrette/profile"
+    vs_cms.filemanager_shared_media_gaufrette.filemanager: "%kernel.project_dir%/public/shared_media/gaufrette/filemanager"
+    vs_cms.filemanager_shared_media_artgris: '%kernel.project_dir%/public/shared_media/artgris'
+    
     virtual_hosts_dir: '/etc/httpd/conf.d'
 
 services:        

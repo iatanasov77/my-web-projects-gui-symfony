@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Command\Apache;
 use App\Component\Command\PhpBrew as PhpBrewCommand;
@@ -15,6 +16,8 @@ use App\Entity\PhpBrewExtension;
 
 class PhpVersionsController extends AbstractController
 {
+    private $doctrine;
+    
     protected $phpBrew;
     
     protected $apacheService;
@@ -26,12 +29,14 @@ class PhpVersionsController extends AbstractController
     protected $projectDir;
     
     public function __construct(
+        ManagerRegistry $doctrine,
         PhpBrewCommand $phpBrewCommand,
         Apache $apache,
         array $phpbrewVariants,
         array $phpbrewVariantsDefault,
         string $projectDir
     ) {
+        $this->doctrine                 = $doctrine;
         $this->phpBrew                  = $phpBrewCommand;
         $this->apacheService            = $apache;
         $this->phpbrewVariants          = $phpbrewVariants;
@@ -283,7 +288,7 @@ class PhpVersionsController extends AbstractController
     
     protected function transformPhpExtensions( &$phpExtensions )
     {
-        $repository         = $this->getDoctrine()->getRepository( PhpBrewExtension::class );
+        $repository         = $this->doctrine->getRepository( PhpBrewExtension::class );
         foreach ( $phpExtensions as $key => $ext ) {
             $extension = $repository->findOneBy( ['name' => $ext] );
             if ( $extension ) {

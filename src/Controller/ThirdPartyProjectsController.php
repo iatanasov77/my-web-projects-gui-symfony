@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Globals;
 use App\Entity\Project;
@@ -14,13 +15,17 @@ use App\Form\Type\ThirdPartyProjectType;
 
 class ThirdPartyProjectsController extends AbstractController
 {
-   
+    public function __construct( ManagerRegistry $doctrine )
+    {
+        $this->doctrine = $doctrine;
+    }
+    
     /**
      * @Route("/third-party-projects/edit/{id}", name="third_party_projects_edit_form")
      */
     public function editForm( $id, Request $request )
     {
-        $repository = $this->getDoctrine()->getRepository( Project::class );
+        $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
         
         return $this->render( 'pages/projects/third_party_project_form.html.twig', [
@@ -37,8 +42,8 @@ class ThirdPartyProjectsController extends AbstractController
         $status     = Globals::STATUS_ERROR;
         $errors     = [];
         
-        $em         = $this->getDoctrine()->getManager();
-        $repository = $this->getDoctrine()->getRepository( Project::class );
+        $em         = $this->doctrine->getManager();
+        $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
         $form       = $this->_projectForm( $project );
         

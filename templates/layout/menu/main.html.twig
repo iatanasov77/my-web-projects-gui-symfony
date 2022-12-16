@@ -14,7 +14,7 @@
                 style="width: 18rem !important;"
             >
                 <i class="{{ parentItem.attributes.iconClass }}"></i>
-                <span>{{ parentItem.name | truncate( 30 ) }}</span>
+                <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
              </a>
              <div id="{{ parentItem.attributes.id }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
@@ -44,7 +44,7 @@
                 style="width: 18rem !important;"
             >
                 <i class="{{ parentItem.attributes.iconClass }}"></i>
-                <span>{{ parentItem.name | truncate( 30 ) }}</span>
+                <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
             </a>
         {% endif %}    
         </li>
