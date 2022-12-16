@@ -1,3 +1,20 @@
+5.0.0	|	Release date: **16.12.2022**
+============================================
+* New Features:
+  - Upgrade to Symfony 6.2
+* Bug-Fixes:
+  - Fix Security Configuration About New Symfony Version.
+  - Fix Entity User.
+  - Fix COntainerInterface Namespace
+  - Remove Service Twig\Extensions\TextExtension It's not Exist.
+  - Add KNP Gaufrette Config.
+  - Fixing Missing Routes and Fixing Security Access Control Configuration.
+  - Inject Doctrine Service Into  Controllers.
+  - Fix Templates Treuncate Twig Filter.
+  - Update Application Version in Kernel.
+  - Fix Frontend With Fix of JQuery Version.
+
+
 3.4.1	|	Release date: **10.11.2022**
 ============================================
 * New Features and Improvements:
