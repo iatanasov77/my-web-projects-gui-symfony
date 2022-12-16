@@ -6,7 +6,7 @@
         <li class="nav-item">
             <a class="nav-link" href="#" data-toggle="collapse" data-target="#{{ parentItem.attributes.id }}" aria-expanded="true" aria-controls="{{ parentItem.attributes.id }}">
                 <i class="fas fa-fw fa-cog"></i>
-                <span>{{ parentItem.name | truncate( 18 ) }}</span>
+                <span>{{ parentItem.name | u.truncate( 18 ) }}</span>
             </a>
             <div id="{{ parentItem.attributes.id }}" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
