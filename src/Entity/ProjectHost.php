@@ -36,13 +36,13 @@ class ProjectHost
     protected $options;
     
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      */
     protected $host;
     
     /**
-     * @ORM\Column(name="document_root", type="string", length=128)
+     * @ORM\Column(name="document_root", type="string", length=255)
      * @Assert\NotBlank
      */
     protected $documentRoot;
