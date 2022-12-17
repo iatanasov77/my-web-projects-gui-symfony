@@ -112,8 +112,8 @@ class PhpVersionsController extends AbstractController
         if ( $request->isMethod( 'post' ) ) {
             
             $version            = $request->request->get( 'version' );
-            $phpBrewVariants    = $request->request->get( 'phpBrewVariants' ) ?? [];
-            $phpExtensions      = $request->request->get( 'phpExtensions' ) ?? [];
+            $phpBrewVariants    = $request->request->all( 'phpBrewVariants' ) ?? [];
+            $phpExtensions      = $request->request->all( 'phpExtensions' ) ?? [];
             $phpBrewCustomName  = $request->request->get( 'phpBrewCustomName' );
             $displayBuildOutput = $request->request->get( 'displayBuildOutput' ) ? true : false;
             $useGithub          = $request->request->get( 'useGithub' ) ? true : false;
