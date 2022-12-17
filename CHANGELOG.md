@@ -1,3 +1,9 @@
+5.0.1	|	Release date: **17.12.2022**
+============================================
+* Bug-Fixes:
+  - Fix Install PHP Version Action.
+
+
 5.0.0	|	Release date: **16.12.2022**
 ============================================
 * New Features:
