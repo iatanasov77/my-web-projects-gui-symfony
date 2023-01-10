@@ -241,10 +241,10 @@ class PhpBrew
             // phpbrew --debug ext install gd -- --with-gd=shared --with-libdir=lib64 --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr --enable-gd-native-ttf
             // phpbrew --debug ext enable gd
             if ( ! empty( $extensions) ) {
-                $filesystem->appendToFile( $installScript, " && source /root/.phpbrew/bashrc" );
-                $filesystem->appendToFile( $installScript, " && phpbrew use " . $phpVersion );
+                $filesystem->appendToFile( $installScript, "source /root/.phpbrew/bashrc\n" );
+                $filesystem->appendToFile( $installScript, "phpbrew use " . $phpVersion . "\n\n" );
                 foreach ( $extensions as $ext ) {
-                    $filesystem->appendToFile( $installScript, " && phpbrew --debug ext install " . $ext . " -- --with-openssl=/usr/local/opt/openssl" );
+                    $filesystem->appendToFile( $installScript, "phpbrew --debug ext install " . $ext . " -- --with-openssl=/usr/local/opt/openssl\n" );
                 }
             }
             
