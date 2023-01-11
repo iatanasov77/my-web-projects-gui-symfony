@@ -1,3 +1,16 @@
+5.1.0	|	Release date: **11.01.2023**
+============================================
+* New Features:
+  - Add to PhpBrew Install Extensions: 'soap' and 'sodium'.
+  - Fix PhpBrew Installed Extensin If Needed.
+  - PhpBrew Install Use ConsoleCommandTrait from VankosoftApplication Library.
+* Bug-Fixes:
+  - Fix Create Virtual Host.
+  - Fix Install PHP Extensions with PhpBrew.
+  - Fix Editing php.ini in PHP Version Install.
+  - Remove Database Table 'ext_log_entries' From Migrations.
+
+
 5.0.1	|	Release date: **17.12.2022**
 ============================================
 * Bug-Fixes:
