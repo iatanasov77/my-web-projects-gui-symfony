@@ -20,6 +20,7 @@ services:
         
     App\Controller\PhpVersionsController:
         arguments:
+            - '@kernel'
             - '@doctrine'
             - '@vs_app.php_brew'
             - '@vs_app.apache_service'

@@ -82,7 +82,7 @@ class VirtualHostsController extends AbstractController
             $host   = $formHost->getData();
             
             $optionsField   = 'project_host_' . strtolower( $host->getHostType() ) . '_option';
-            $host->setOptions( $request->request->get( $optionsField ) );
+            $host->setOptions( $request->request->all( $optionsField ) );
             
             $this->vhActions->createEnvironment( $host );
             

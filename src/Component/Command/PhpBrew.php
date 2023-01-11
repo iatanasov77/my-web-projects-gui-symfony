@@ -233,18 +233,20 @@ class PhpBrew
             
             $filesystem->appendToFile( $installScript, $installCommand );
             
-            $memoryLimitCommand = "\n\nsed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/php.ini\n\n";
+            // Edit php.ini
+            $memoryLimitCommand = "\n\n";
+            $memoryLimitCommand .= "sed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/cli/php.ini\n";
+            $memoryLimitCommand .= "sed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/fpm/php.ini\n";
+            $memoryLimitCommand .= "\n\n";
             $filesystem->appendToFile( $installScript, $memoryLimitCommand );
             
-            
-            
-            // phpbrew --debug ext install gd -- --with-gd=shared --with-libdir=lib64 --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr --enable-gd-native-ttf
-            // phpbrew --debug ext enable gd
+            // Install Extensions
             if ( ! empty( $extensions) ) {
-                $filesystem->appendToFile( $installScript, " && source /root/.phpbrew/bashrc" );
-                $filesystem->appendToFile( $installScript, " && phpbrew use " . $phpVersion );
+                $filesystem->appendToFile( $installScript, "source /root/.phpbrew/bashrc\n" );
+                $filesystem->appendToFile( $installScript, "phpbrew use " . $phpVersion . "\n\n" );
                 foreach ( $extensions as $ext ) {
-                    $filesystem->appendToFile( $installScript, " && phpbrew --debug ext install " . $ext . " -- --with-openssl=/usr/local/opt/openssl" );
+                    $filesystem->appendToFile( $installScript, "phpbrew --debug ext install " . $ext . " -- --with-openssl=/usr/local/opt/openssl\n" );
+                    $filesystem->appendToFile( $installScript, $this->fixExtension( $ext, $phpVersion ) );
                 }
             }
             
@@ -252,5 +254,18 @@ class PhpBrew
         } catch ( IOExceptionInterface $exception ) {
             echo "An error occurred while creating your directory at " . $exception->getPath();
         }
+    }
+    
+    protected function fixExtension( string $extension, string $phpVersion, string $customName = '' ): string
+    {
+        $command    = '';
+        switch ( $extension ) {
+            case 'libsodium':
+                $extPath     = $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/lib/php/extensions/no-debug-non-zts-20200930/";
+                $command    = "ln -s " . $extPath . "sodium.so " . $extPath . "libsodium.so\n";
+                break;
+        }
+        
+        return $command;
     }
 }

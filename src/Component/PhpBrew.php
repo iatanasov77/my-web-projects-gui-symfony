@@ -7,6 +7,8 @@ class PhpBrew
         'MongoDB'   => 'mongodb', 
         'Cassandra' => 'cassandra',
         'GD'        => 'gd',
+        'SOAP'      => 'soap',
+        'Sodium'    => 'libsodium',
     ];
     
     /*
