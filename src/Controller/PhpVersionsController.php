@@ -7,8 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpKernel\KernelInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
+use Vankosoft\ApplicationBundle\Controller\Traits\ConsoleCommandTrait;
 use App\Component\Command\Apache;
 use App\Component\Command\PhpBrew as PhpBrewCommand;
 use App\Component\PhpBrew;
@@ -16,9 +18,17 @@ use App\Entity\PhpBrewExtension;
 
 class PhpVersionsController extends AbstractController
 {
+    use ConsoleCommandTrait;
+    
+    private $kernel;
+    
     private $doctrine;
     
     protected $phpBrew;
+    
+    protected $installProcess;
+    
+    protected $installProcessCallback;
     
     protected $apacheService;
     
@@ -29,6 +39,7 @@ class PhpVersionsController extends AbstractController
     protected $projectDir;
     
     public function __construct(
+        KernelInterface $kernel,
         ManagerRegistry $doctrine,
         PhpBrewCommand $phpBrewCommand,
         Apache $apache,
@@ -36,12 +47,26 @@ class PhpVersionsController extends AbstractController
         array $phpbrewVariantsDefault,
         string $projectDir
     ) {
+        $this->kernel                   = $kernel;
         $this->doctrine                 = $doctrine;
         $this->phpBrew                  = $phpBrewCommand;
         $this->apacheService            = $apache;
         $this->phpbrewVariants          = $phpbrewVariants;
         $this->phpbrewVariantsDefault   = $phpbrewVariantsDefault;
         $this->projectDir               = $projectDir;
+        
+        $this->installProcessCallback   = function() {
+            echo '<span style="font-weight: bold;">Running command:</span> ' . $this->phpBrew->getCurrentCommand();
+            
+            foreach ( $this->installProcess as $type => $data ) {
+                if ( Process::ERR === $type ) {
+                    echo '[ ERR ] '. nl2br( $data ) . '<br />';
+                } else {
+                    echo nl2br( $data );
+                }
+            }
+        };
+        
     }
     /**
      * @Route("/php-versions", name="php-versions")
@@ -122,7 +147,7 @@ class PhpVersionsController extends AbstractController
             }
             //var_dump($phpExtensions); die;
             
-            $process        = $this->phpBrew->install(
+            $this->installProcess   = $this->phpBrew->install(
                 $version,
                 $phpBrewVariants,
                 $phpExtensions,
@@ -130,17 +155,9 @@ class PhpVersionsController extends AbstractController
                 $phpBrewCustomName
             );
     
-            return new StreamedResponse( function() use ( $process ) {
-                echo '<span style="font-weight: bold;">Running command:</span> ' . $this->phpBrew->getCurrentCommand();
-                
-                foreach ( $process as $type => $data ) {
-                    if ( Process::ERR === $type ) {
-                        echo '[ ERR ] '. nl2br( $data ) . '<br />';
-                    } else {
-                        echo nl2br( $data );
-                    }
-                }
-            });
+            // Use This For Next VankosoftApplication Version
+            // return $this->streamedProcessResponse( $this->installProcessCallback );
+            return new StreamedResponse( $this->installProcessCallback );
         }
     }
     
@@ -298,5 +315,10 @@ class PhpVersionsController extends AbstractController
                 }
             }
         }
+    }
+    
+    protected function getKernel(): KernelInterface
+    {
+        return $this->kernel;
     }
 }
