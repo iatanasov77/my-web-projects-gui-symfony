@@ -137,7 +137,7 @@ class PhpVersionsController extends AbstractController
                     if ( Process::ERR === $type ) {
                         echo '[ ERR ] '. nl2br( $data ) . '<br />';
                     } else {
-                        echo nl2br( $data ); 
+                        echo nl2br( $data );
                     }
                 }
             });

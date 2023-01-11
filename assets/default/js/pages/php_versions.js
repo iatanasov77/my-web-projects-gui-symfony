@@ -23,6 +23,33 @@ function installPhpVersion( version, defaultVariants )
 	});
 }
 
+function installData( serializedForm )
+{
+    let data    = {
+        'version': '',
+        'phpBrewCustomName': '',
+        'displayBuildOutput': 'True',
+        'phpBrewVariants': [],
+        'phpExtensions': [],
+        
+    };
+    
+    for ( i = 0; i < serializedForm.length; i++ ) {
+        switch ( serializedForm[i].name ) {
+            case 'phpBrewVariants[]':
+                data.phpBrewVariants.push( serializedForm[i].value );
+                break;
+            case 'phpExtensions[]':
+                data.phpExtensions.push( serializedForm[i].value );
+                break;
+            default:
+                data[serializedForm[i].name]    = serializedForm[i].value;
+        }
+    }
+    
+    return data;
+}
+
 $( function()
 {
 	//$( '[data-toggle="tooltip"]' ).tooltipster();
@@ -59,22 +86,21 @@ $( function()
 	
 	$( '#formPhpInstall' ).on( 'submit', function()
 	{
-		var url		= $( "#install-php-version-modal" ).attr( 'data-actionUrl' );
-		var data 	= $( this ).serializeArray();
+		var url               = $( "#install-php-version-modal" ).attr( 'data-actionUrl' );
+		var serializedData    = $( this ).serializeArray();
+		var data              = installData( serializedData );
+		//console.log( data ); return false;
 		
-		$( "#lablePhpVersion" ).text( 'Install PHP: ' + data[0].value );
+		$( "#lablePhpVersion" ).text( 'Install PHP: ' + data.version );
 		
 		$( "#formPhpInstall" ).hide( 1000 );
 		$( "#consolePhpInstall" ).show();
 		
-		//console.log( data );
-		//return false;
-
 		var lastResponseLength	= false;
 		$.ajax({
 			method: 'POST',
 			url: url,
-			data: data,
+			data: serializedData,
 			xhrFields: {
 	            // Getting on progress streaming response
 	            onprogress: function( e )
@@ -101,8 +127,9 @@ $( function()
 	        }
 		})
 		.done( function( html ) {
-			var setupUrl	= "/php-versions/" + data[0].value + "/setup";
-			var startUrl	= "/php-versions/" + data[0].value + "/start-fpm";
+			var setupUrl     = "/php-versions/" + data.version + "/setup";
+			var startUrl     = "/php-versions/" + data.version + "/start-fpm";
+			
 			$.get( setupUrl, function( response ) {
 				$( "#phpInstallContainer" ).append( '<br><br>PhpFpm Setup is Done!<br>' ).animate( {scrollTop: $( '#phpInstallContainer' ).prop( "scrollHeight" ) }, 0 );
 				$.get( startUrl, function( response ) {
