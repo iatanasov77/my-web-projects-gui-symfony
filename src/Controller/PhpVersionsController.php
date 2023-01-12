@@ -154,10 +154,8 @@ class PhpVersionsController extends AbstractController
                 $displayBuildOutput, 
                 $phpBrewCustomName
             );
-    
-            // Use This For Next VankosoftApplication Version
-            // return $this->streamedProcessResponse( $this->installProcessCallback );
-            return new StreamedResponse( $this->installProcessCallback );
+
+            return $this->streamedProcessResponse( $this->installProcessCallback );
         }
     }
     
