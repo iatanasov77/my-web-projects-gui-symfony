@@ -1,3 +1,11 @@
+5.1.1	|	Release date: **13.01.2023**
+============================================
+* New Features and Improvements:
+  - PhpBrew Install Action Use ConsoleCommandTrait
+  - Add SQL Export Of All Database Data..
+  - Update Doctrine Configurations.
+
+
 5.1.0	|	Release date: **11.01.2023**
 ============================================
 * New Features:
