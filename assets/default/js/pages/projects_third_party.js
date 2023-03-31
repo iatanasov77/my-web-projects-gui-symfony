@@ -45,7 +45,7 @@ $( function()
         });
     });
        
-    $( '#create-project-third-party-modal' ).on( 'click', '#btnSaveProjectThirdParty', function( e )
+    $( '#create-project-third-party-modal' ).on( 'click', '#btnInstallProjectThirdParty', function( e )
     {
         spinnerService.showSpinner( '#formProjectThirdPartyContainer' );
         
