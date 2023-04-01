@@ -48,4 +48,9 @@ class GitHubApi implements ProjectSourceInterface
         
         return $branches;
     }
+    
+    public function getVersions( string $package ): array
+    {
+        return [];
+    }
 }

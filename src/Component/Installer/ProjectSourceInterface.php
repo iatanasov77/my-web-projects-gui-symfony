@@ -1,7 +1,9 @@
 <?php namespace App\Component\Installer;
 
-interface ProjectSourceInterface
+use App\Component\Project\Source\GitSourceInterface;
+use App\Component\Project\Source\ComposerSourceInterface;
+
+interface ProjectSourceInterface extends GitSourceInterface, ComposerSourceInterface
 {
-    public function getGitTags( string $repo ): array;
-    public function getGitBranches( string $repo ): array;
+    
 }

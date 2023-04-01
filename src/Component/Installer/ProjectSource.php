@@ -33,4 +33,9 @@ class ProjectSource implements ProjectSourceInterface
         
         return \array_unique( $branches );
     }
+    
+    public function getVersions( string $package ): array
+    {
+        return [];
+    }
 }
