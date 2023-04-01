@@ -50,6 +50,7 @@ services:
             - '@doctrine'
             - '@vs_app.apache_service'
             - '@vs_app.apache_virtual_host_repository'
+            - '@my_projects.predefined_project'
         tags: ['controller.service_arguments']
         
     App\Controller\ProjectsInstallController:

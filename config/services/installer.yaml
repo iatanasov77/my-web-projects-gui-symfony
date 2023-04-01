@@ -5,4 +5,9 @@ services:
         
     my_projects.project_source:
         class: App\Component\Installer\ProjectSource
+       
+    my_projects.predefined_project: 
+        class: App\Component\Project\PredefinedProject
+        arguments:
+            - '@my_projects.project_source'
     

@@ -32,14 +32,18 @@ class ProjectsController extends AbstractController
     
     private $vhRepo;
     
+    private $predefinedProject;
+    
     public function __construct(
         ManagerRegistry $doctrine,
         Apache $apache,
-        VirtualHostRepository $vhRepo
+        VirtualHostRepository $vhRepo,
+        PredefinedProject $predefinedProject
     ) {
-        $this->doctrine         = $doctrine;
-        $this->apacheService    = $apache;
-        $this->vhRepo           = $vhRepo;
+        $this->doctrine             = $doctrine;
+        $this->apacheService        = $apache;
+        $this->vhRepo               = $vhRepo;
+        $this->predefinedProject    = $predefinedProject;
     }
     
     /**
@@ -283,7 +287,8 @@ class ProjectsController extends AbstractController
      */
     public function predefinedProjectForm( $predefinedType )
     {
-        $thirdPartyInstance = PredefinedProject::instance( $predefinedType );
+        //$thirdPartyInstance = PredefinedProject::instance( $predefinedType );
+        $thirdPartyInstance = $this->predefinedProject->instance( $predefinedType );
         
         $form               = $thirdPartyInstance->form();
         $parameters         = $thirdPartyInstance->parameters();

@@ -1,5 +1,7 @@
 <?php namespace App\Component\Installer;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
 /**
  * ============================================================
  * Manual: https://symfony.com/doc/current/http_client.html
@@ -7,6 +9,14 @@
  */
 class ProjectSource
 {
+    protected $httpClient;
+    
+    public function __construct( HttpClientInterface $httpClient )
+    {
+        //var_dump( $httpClient ); die;
+        $this->httpClient   = $httpClient;
+    }
+    
     public function getGitTags( string $repo ) {
         $gettags = shell_exec( "git ls-remote -t -h {$repo} refs/tags/*" );
         
