@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Form\Form;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Installer\InstallerFactory;
@@ -57,7 +58,7 @@ class ProjectsInstallController extends AbstractController
         return $this->redirectToRoute( 'projects' );
     }
     
-    private function _projectForm( Project $project ): ProjectType
+    private function _projectForm( Project $project ): Form
     {
         
         $form   = $this->createForm( ProjectType::class, $project, [
