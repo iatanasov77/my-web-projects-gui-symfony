@@ -9,17 +9,9 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Doctrine\Persistence\ManagerRegistry;
 
-use App\Component\Globals;
-use App\Component\Project\Source\SourceFactory;
 use App\Component\Installer\InstallerFactory;
-use App\Component\Project\PredefinedProject;
-use App\Entity\Category;
 use App\Entity\Project;
-use App\Form\Type\PredefinedProjectType;
 use App\Form\Type\ProjectType;
-use App\Form\Type\ProjectInstallManualType;
-use App\Form\Type\ProjectDeleteType;
-use App\Form\Type\CategoryType;
 
 class ProjectsInstallController extends AbstractController
 {
@@ -31,7 +23,7 @@ class ProjectsInstallController extends AbstractController
     /**
      * @Route("/projects/install/{id}", name="projects_install")
      */
-    public function install( Request $request, $id )
+    public function install( Request $request, $id ): Response
     {
         if ( $request->isMethod( 'post' ) ) {
             $repository     = $this->doctrine->getRepository( Project::class );
@@ -57,7 +49,7 @@ class ProjectsInstallController extends AbstractController
     /**
      * @Route("/projects/uninstall/{id}", name="projects_uninstall")
      */
-    public function uninstall( $id )
+    public function uninstall( $id ): Response
     {
         $repository = $this->doctrine->getRepository( Project::class );
         $project   =  $repository->find( $id );
@@ -65,7 +57,7 @@ class ProjectsInstallController extends AbstractController
         return $this->redirectToRoute( 'projects' );
     }
     
-    private function _projectForm( Project $project )
+    private function _projectForm( Project $project ): ProjectType
     {
         
         $form   = $this->createForm( ProjectType::class, $project, [

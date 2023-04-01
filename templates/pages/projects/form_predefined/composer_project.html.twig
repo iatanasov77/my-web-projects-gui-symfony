@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label>Project Version: </label>
+    <select class="form-control select-button phpVersionFormInput" name="predefinedTypeParams[version]">
+        {% for key, name in versions %}
+            <option value="{{ key }}">{{ name }}</option>
+    	{% endfor %}
+    </select>
+</div>

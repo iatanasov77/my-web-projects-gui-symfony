@@ -72,7 +72,7 @@ class PredefinedProject
                 return new Laravel( $this->container->get( 'my_projects.project_source' ) );
                 break;
             case PredefinedProject::PRESTA_SHOP:
-                return new PrestaShop( $this->container->get( 'my_projects.github_api' ) );
+                return new PrestaShop( $this->container->get( 'my_projects.packagist_api' ) );
                 break;
             case PredefinedProject::DJANGO:
                 return new Django( $this->container->get( 'my_projects.project_source' ) );

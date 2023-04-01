@@ -49,7 +49,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects", name="projects")
      */
-    public function index()
+    public function index(): Response
     {
         $repository = $this->doctrine->getRepository( Category::class );
         
@@ -67,7 +67,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/edit/{id}", name="projects_edit_form")
      */
-    public function editForm( $id, Request $request )
+    public function editForm( $id, Request $request ): Response
     {
         $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
@@ -81,7 +81,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/categories/edit/{id}", name="categories_edit_form")
      */
-    public function editCategoryForm( $id, Request $request )
+    public function editCategoryForm( $id, Request $request ): Response
     {
         $repository = $this->doctrine->getRepository( Category::class );
         $category   = $id ? $repository->find( $id ) : new Category();
@@ -94,7 +94,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/create/{id}", name="projects_create")
      */
-    public function create( $id, Request $request )
+    public function create( $id, Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         $errors     = [];
@@ -138,7 +138,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/install_manual/{id}", name="projects_install_manual")
      */
-    public function installManual( $id )
+    public function installManual( $id ): Response
     {
         $repository     = $this->doctrine->getRepository( Project::class );
         $project        = $repository->find( $id );
@@ -154,7 +154,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/edit_install_manual/{id}", name="edit_install_manual")
      */
-    public function editInstallManual( $id, Request $request )
+    public function editInstallManual( $id, Request $request ): Response
     {
         $repository     = $this->doctrine->getRepository( Project::class );
         $project        = $repository->find( $id );
@@ -182,7 +182,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route( "/projects/delete", name="projects_delete" )
      */
-    public function delete( Request $request )
+    public function delete( Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         $em         = $this->doctrine->getManager();
@@ -239,7 +239,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/categories/create/{id}", name="category_create")
      */
-    public function editCategory( $id, Request $request )
+    public function editCategory( $id, Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         
@@ -285,7 +285,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/predefined_project_form/{predefinedType}", name="predefined_project_form")
      */
-    public function predefinedProjectForm( $predefinedType )
+    public function predefinedProjectForm( $predefinedType ): Response
     {
         //$thirdPartyInstance = PredefinedProject::instance( $predefinedType );
         $thirdPartyInstance = $this->predefinedProject->instance( $predefinedType );
@@ -302,7 +302,7 @@ class ProjectsController extends AbstractController
         );
     }
     
-    private function _projectForm( Project $project )
+    private function _projectForm( Project $project ): ProjectType
     {
         $form   = $this->createForm( ProjectType::class, $project, [
             'action' => $this->generateUrl( 'projects_create', ['id' => (int)$project->getId()] ),
@@ -312,7 +312,7 @@ class ProjectsController extends AbstractController
         return $form;
     }
     
-    private function _categoryForm( Category $category )
+    private function _categoryForm( Category $category ): CategoryType
     {
         
         $form   = $this->createForm( CategoryType::class, $category, [
