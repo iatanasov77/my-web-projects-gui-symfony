@@ -5,8 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Process\Process;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Form\Form;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Command\Apache;
@@ -14,11 +13,9 @@ use App\Component\Apache\VirtualHostRepository;
 
 use App\Component\Globals;
 use App\Component\Project\Source\SourceFactory;
-use App\Component\Installer\InstallerFactory;
 use App\Component\Project\PredefinedProject;
 use App\Entity\Category;
 use App\Entity\Project;
-use App\Form\Type\PredefinedProjectType;
 use App\Form\Type\ProjectType;
 use App\Form\Type\ProjectInstallManualType;
 use App\Form\Type\ProjectDeleteType;
@@ -302,7 +299,7 @@ class ProjectsController extends AbstractController
         );
     }
     
-    private function _projectForm( Project $project ): ProjectType
+    private function _projectForm( Project $project ): Form
     {
         $form   = $this->createForm( ProjectType::class, $project, [
             'action' => $this->generateUrl( 'projects_create', ['id' => (int)$project->getId()] ),
@@ -312,7 +309,7 @@ class ProjectsController extends AbstractController
         return $form;
     }
     
-    private function _categoryForm( Category $category ): CategoryType
+    private function _categoryForm( Category $category ): Form
     {
         
         $form   = $this->createForm( CategoryType::class, $category, [
