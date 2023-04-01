@@ -22,6 +22,10 @@ class PackagistApi implements ProjectSourceInterface
         return [];
     }
     
+    /**
+     * https://packagist.org/packages/knplabs/packagist-api
+     * https://packagist.org/apidoc
+     */
     public function getVersions( string $package ): array
     {
         // Example: $package = 'sylius/sylius'
