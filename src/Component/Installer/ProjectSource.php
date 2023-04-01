@@ -1,6 +1,10 @@
 <?php namespace App\Component\Installer;
 
-
+/**
+ * ============================================================
+ * Manual: https://symfony.com/doc/current/http_client.html
+ * ============================================================
+ */
 class ProjectSource
 {
     public function getGitTags( string $repo ) {
