@@ -2,12 +2,16 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        public: true
         
     my_projects.project_source:
         class: App\Component\Installer\ProjectSource
+        
+    my_projects.github_api:
+        class: App\Component\HttpClient\GitHubApi
        
     my_projects.predefined_project: 
         class: App\Component\Project\PredefinedProject
         arguments:
-            - '@my_projects.project_source'
+            - '@service_container'
     

@@ -6,6 +6,8 @@ class PrestaShop extends PredefinedProject
     const SOURCE_URL    = 'https://github.com/PrestaShop/PrestaShop.git';
     const BRANCH        = '1.7';
     
+    const API_PATH      = '/repos/PrestaShop/PrestaShop';
+    
     public static function data()
     {
         return [
@@ -22,10 +24,9 @@ class PrestaShop extends PredefinedProject
     
     public function parameters()
     {
-        $branches   = $this->projectSourceService->getGitBranches( self::SOURCE_URL );
-        $tags       = $this->projectSourceService->getGitTags( self::SOURCE_URL );
+        $branches   = $this->projectSourceService->getGitBranches( self::API_PATH . '/branches' );
+        $tags       = $this->projectSourceService->getGitTags( self::API_PATH . '/tags' );
         
-        //return $this->projectSourceService->getGitTags( self::SOURCE_URL );
         return [
             'branches'  => \array_combine( $branches, $branches ),
             'tags'      => \array_combine( $tags, $tags ),

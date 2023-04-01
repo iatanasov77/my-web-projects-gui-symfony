@@ -1,5 +1,6 @@
 <?php namespace App\Component\Project;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use App\Component\Installer\ProjectSource;
 use App\Component\Project\PredefinedProject\PredefinedProjectInterface;
 use App\Component\Project\PredefinedProject\Sylius;
@@ -18,11 +19,11 @@ class PredefinedProject
     const PRESTA_SHOP   = 'presta_shop';
     const DJANGO        = 'django';
     
-    private $projectSource;
+    private $container;
     
-    public function __construct( ProjectSource $projectSource )
+    public function __construct( ContainerInterface $container )
     {
-        $this->projectSource    = $projectSource;
+        $this->container    = $container;
     }
     
     public static function json()
@@ -59,28 +60,22 @@ class PredefinedProject
     {
         switch ( $predefinedType ) {
             case PredefinedProject::SYLIUS:
-                //return new Sylius( new ProjectSource() );
-                return new Sylius( $this->projectSource );
+                return new Sylius( $this->container->get( 'my_projects.project_source' ) );
                 break;
             case PredefinedProject::MAGENTO:
-                //return new Magento( new ProjectSource() );
-                return new Magento( $this->projectSource );
+                return new Magento( $this->container->get( 'my_projects.project_source' ) );
                 break;
             case PredefinedProject::SYMFONY:
-                //return new Symfony( new ProjectSource() );
-                return new Symfony( $this->projectSource );
+                return new Symfony( $this->container->get( 'my_projects.project_source' ) );
                 break;
             case PredefinedProject::LARAVEL:
-                //return new Laravel( new ProjectSource() );
-                return new Laravel( $this->projectSource );
+                return new Laravel( $this->container->get( 'my_projects.project_source' ) );
                 break;
             case PredefinedProject::PRESTA_SHOP:
-                //return new PrestaShop( new ProjectSource() );
-                return new PrestaShop( $this->projectSource );
+                return new PrestaShop( $this->container->get( 'my_projects.github_api' ) );
                 break;
             case PredefinedProject::DJANGO:
-                //return new Django( new ProjectSource() );
-                return new Django( $this->projectSource );
+                return new Django( $this->container->get( 'my_projects.project_source' ) );
                 break;
             default:
                 throw new \Exception( 'Not Implemented' );

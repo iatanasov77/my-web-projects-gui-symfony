@@ -2,3 +2,7 @@ framework:
     http_client:
         default_options:
             max_redirects: 7
+            
+        scoped_clients:
+            githubApi:
+                base_uri: https://api.github.com

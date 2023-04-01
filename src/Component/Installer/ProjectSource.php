@@ -1,23 +1,9 @@
 <?php namespace App\Component\Installer;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-
-/**
- * ============================================================
- * Manual: https://symfony.com/doc/current/http_client.html
- * ============================================================
- */
-class ProjectSource
+class ProjectSource implements ProjectSourceInterface
 {
-    protected $httpClient;
-    
-    public function __construct( HttpClientInterface $httpClient )
+    public function getGitTags( string $repo ): array
     {
-        //var_dump( $httpClient ); die;
-        $this->httpClient   = $httpClient;
-    }
-    
-    public function getGitTags( string $repo ) {
         $gettags = shell_exec( "git ls-remote -t -h {$repo} refs/tags/*" );
         
         $tags    = \explode( "\n", $gettags );
@@ -33,7 +19,8 @@ class ProjectSource
         return \array_reverse( \array_unique( $tags ) );
     }
     
-    public function getGitBranches( string $repo ) {
+    public function getGitBranches( string $repo ): array
+    {
         $getbranches    = \shell_exec( "git ls-remote --heads -h {$repo} refs/heads/*" );
         
         $branches       = \explode( "\n", $getbranches );
