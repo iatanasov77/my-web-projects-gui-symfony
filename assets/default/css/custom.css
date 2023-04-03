@@ -47,7 +47,8 @@ tr.node[data-level="2"] span.node-icon-ce {
 	margin-top: 15px;
 }
 
-#phpInstallContainer {
+#phpInstallContainer,
+#projectInstallContainer {
 	overflow: auto;
     height: 300px;
     max-height: 300px;

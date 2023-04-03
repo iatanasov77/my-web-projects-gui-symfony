@@ -13,6 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Component\Installer\InstallerFactory;
 use App\Entity\Project;
 use App\Form\Type\ProjectType;
+use App\Form\Type\ThirdPartyProjectType;
 
 class ProjectsInstallController extends AbstractController
 {
@@ -58,11 +59,48 @@ class ProjectsInstallController extends AbstractController
         return $this->redirectToRoute( 'projects' );
     }
     
+    #[Route('/projects/third-party-install', name: 'projects_third_party_install')]
+    public function installThirdParty( Request $request ): Response
+    {
+        $form   = $this->_projectThirdPartyForm();
+        $form->handleRequest( $request );
+        if( $form->isSubmitted() ) {
+            $project                = $form->getData();
+            
+            $predefinedTypeParams   = $request->request->all( 'predefinedTypeParams' );
+            $project->setPredefinedTypeParams( $predefinedTypeParams );
+            
+            $installer      = InstallerFactory::installer( $project->getPredefinedType(), $project );
+            $process        = $installer->install();
+            
+            return new StreamedResponse( function() use ( $process ) {
+                foreach ( $process as $type => $data ) {
+                    if ( Process::ERR === $type ) {
+                        echo '[ ERR ] '. nl2br( $data ) . '<br />';
+                    } else {
+                        echo nl2br( $data );
+                    }
+                }
+            });
+        }
+    }
+    
     private function _projectForm( Project $project ): Form
     {
         
         $form   = $this->createForm( ProjectType::class, $project, [
             'action' => $this->generateUrl( 'projects_create', ['id' => (int)$project->getId()] ),
+            'method' => 'POST'
+        ]);
+        
+        return $form;
+    }
+    
+    private function _projectThirdPartyForm(): Form
+    {
+        
+        $form   = $this->createForm( ThirdPartyProjectType::class, new Project(), [
+            'action' => $this->generateUrl( 'projects_third_party_install' ),
             'method' => 'POST'
         ]);
         

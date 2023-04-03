@@ -8,6 +8,9 @@ class InstallerFactory {
     public static function installer( $predefinedType, Project $project )
     {
         switch ( $predefinedType ) {
+            case PredefinedProject::PRESTA_SHOP:
+                $installer = new PrestaShopInstaller( $project );
+                break;
             case PredefinedProject::SYLIUS:
                 $installer = new SyliusInstaller( $project );
                 break;
