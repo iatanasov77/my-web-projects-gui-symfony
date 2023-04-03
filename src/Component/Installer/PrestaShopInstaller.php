@@ -18,7 +18,9 @@ class PrestaShopInstaller extends Installer
     public function install()
     {
         $command    = ['sudo', $this->createInstllScript()]; # ['sudo', 'phpbrew', 'install']
-        $process    = new Process( $command, null, ['COMPOSER_HOME' => '/home/vagrant/.config/composer'] );
+        $process    = new Process( $command, null, [
+            'COMPOSER_HOME' => '/home/vagrant/.config/composer',
+        ]);
         
         /*
         if ( $installType != 'composer' ) {
@@ -65,7 +67,7 @@ class PrestaShopInstaller extends Installer
     private function createInstllFromSourceScript( string  $installScript, array $predefinedParams )
     {
         $filesystem = new Filesystem();
-        $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
+        $filesystem->appendToFile( $installScript, "#!/bin/bash\n\n" );
     }
     
     private function createInstllWithComposerScript( string  $installScript, array $predefinedParams )
@@ -73,6 +75,7 @@ class PrestaShopInstaller extends Installer
         $filesystem = new Filesystem();
         $filesystem->appendToFile( $installScript, "#!/bin/bash\n\n" );
         
-        $filesystem->appendToFile( $installScript, "/usr/local/bin/composer create-project prestashop/prestashop={$predefinedParams['version']} {$predefinedParams['version']}" );
+        $cmdComposer    = "/usr/local/bin/composer create-project prestashop/prestashop={$predefinedParams['version']} {$predefinedParams['version']}";
+        $filesystem->appendToFile( $installScript, $cmdComposer );
     }
 }
