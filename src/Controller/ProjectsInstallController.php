@@ -22,9 +22,7 @@ class ProjectsInstallController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    /**
-     * @Route("/projects/install/{id}", name="projects_install")
-     */
+    #[Route('/projects/install/{id}', name: 'projects_install')]
     public function install( Request $request, $id ): Response
     {
         if ( $request->isMethod( 'post' ) ) {
@@ -48,9 +46,7 @@ class ProjectsInstallController extends AbstractController
         }
     }
     
-    /**
-     * @Route("/projects/uninstall/{id}", name="projects_uninstall")
-     */
+    #[Route('/projects/uninstall/{id}', name: 'projects_uninstall')]
     public function uninstall( $id ): Response
     {
         $repository = $this->doctrine->getRepository( Project::class );
