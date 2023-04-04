@@ -11,7 +11,7 @@ require( 'jquery.terminal/css/jquery.terminal.css' );
 
 function testGreetings()
 {
-    $( '#projectInstallContainer' ).terminal( function(command)
+    $( '#projectInstallContainer' ).terminal( function( command )
     {
         if ( command !== '' ) {
             var result = window.eval( command );
