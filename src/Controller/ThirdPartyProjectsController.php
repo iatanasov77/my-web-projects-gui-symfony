@@ -5,8 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Process\Process;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Form\Form;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Globals;
@@ -20,10 +19,8 @@ class ThirdPartyProjectsController extends AbstractController
         $this->doctrine = $doctrine;
     }
     
-    /**
-     * @Route("/third-party-projects/edit/{id}", name="third_party_projects_edit_form")
-     */
-    public function editForm( $id, Request $request )
+    #[Route('/third-party-projects/edit/{id}', name: 'third_party_projects_edit_form')]
+    public function editForm( $id, Request $request ): Response
     {
         $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
@@ -34,10 +31,8 @@ class ThirdPartyProjectsController extends AbstractController
         ]);
     }
     
-    /**
-     * @Route("/third-party-projects/create/{id}", name="third_party_projects_create")
-     */
-    public function create( $id, Request $request )
+    #[Route('/third-party-projects/create/{id}', name: 'third_party_projects_create')]
+    public function create( $id, Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         $errors     = [];
@@ -78,7 +73,7 @@ class ThirdPartyProjectsController extends AbstractController
         return new JsonResponse( $response );
     }
     
-    private function _projectForm( Project $project )
+    private function _projectForm( Project $project ): Form
     {
         $form   = $this->createForm( ThirdPartyProjectType::class, $project, [
             'action' => $this->generateUrl( 'third_party_projects_create', ['id' => (int)$project->getId()] ),

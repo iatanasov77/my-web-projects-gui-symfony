@@ -4,14 +4,13 @@ use Symfony\Component\Process\Process;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 
-class PrestaShopInstaller extends Installer
+class DjangoInstaller extends Installer
 {
     /**
      * Steps for Instalation
-     * =======================   
-     * # composer create-project prestashop/prestashop=<version> <dir_to_install>
+     * =======================  
+     * # composer create-project laravel/laravel=<version> <dir_to_install>
      * # cd <dir_to_install>
-     * # php install-dev/index_cli.php --domain=prestashop-1.7.lh --db_name=PrestaShop_1.7 --db_user=root --db_password=vagrant --db_create=1
      * ========================
      * Enjoy :)
      */
@@ -75,7 +74,7 @@ class PrestaShopInstaller extends Installer
         $filesystem = new Filesystem();
         $filesystem->appendToFile( $installScript, "#!/bin/bash\n\n" );
         
-        $cmdComposer    = "/usr/local/bin/composer create-project prestashop/prestashop={$predefinedParams['version']} {$predefinedParams['version']}";
+        $cmdComposer    = "/usr/local/bin/composer create-project laravel/laravel={$predefinedParams['version']} {$predefinedParams['version']}";
         $filesystem->appendToFile( $installScript, $cmdComposer );
     }
 }

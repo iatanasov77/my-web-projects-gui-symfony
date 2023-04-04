@@ -34,6 +34,9 @@ class ThirdPartyProjectType extends AbstractType
                 'placeholder'   => '-- Select Predefined Project --',
                 'choices'       => PredefinedProject::choices(),
             ])
+            ->add( 'installType', HiddenType::class, [
+                'mapped'   => false,
+            ])
             ->add(
                 $builder
                     ->create( 'predefinedTypeParams', TextType::class )

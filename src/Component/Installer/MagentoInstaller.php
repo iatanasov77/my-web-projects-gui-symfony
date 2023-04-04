@@ -9,8 +9,7 @@ class MagentoInstaller extends Installer
    
     /**
      * 
-     * Add support for Composer 2 | Milestone 2.5
-     * https://github.com/magento/magento2/releases
+     * # composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition <install-directory-name>
      * 
      * Steps for Instalation
      * ==============================================================

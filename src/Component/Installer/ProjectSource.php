@@ -1,9 +1,9 @@
 <?php namespace App\Component\Installer;
 
-
-class ProjectSource
+class ProjectSource implements ProjectSourceInterface
 {
-    public function getGitTags( string $repo ) {
+    public function getGitTags( string $repo ): array
+    {
         $gettags = shell_exec( "git ls-remote -t -h {$repo} refs/tags/*" );
         
         $tags    = \explode( "\n", $gettags );
@@ -19,7 +19,8 @@ class ProjectSource
         return \array_reverse( \array_unique( $tags ) );
     }
     
-    public function getGitBranches( string $repo ) {
+    public function getGitBranches( string $repo ): array
+    {
         $getbranches    = \shell_exec( "git ls-remote --heads -h {$repo} refs/heads/*" );
         
         $branches       = \explode( "\n", $getbranches );
@@ -31,5 +32,10 @@ class ProjectSource
         );
         
         return \array_unique( $branches );
+    }
+    
+    public function getVersions( string $package ): array
+    {
+        return [];
     }
 }

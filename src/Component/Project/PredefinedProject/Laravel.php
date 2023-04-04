@@ -6,6 +6,8 @@ class Laravel extends PredefinedProject
     const SOURCE_URL    = 'https://github.com/magento/magento2/archive/2.4.1.zip';
     const BRANCH        = '';
     
+    const PACKAGE       = 'laravel/laravel';
+    
     public static function data()
     {
         return [
@@ -17,7 +19,8 @@ class Laravel extends PredefinedProject
     
     public function form()
     {
-        return 'pages/projects/form_predefined/laravel.html.twig';
+        //return 'pages/projects/form_predefined/laravel.html.twig';
+        return 'pages/projects/form_predefined/composer_project.html.twig';
     }
     
     public function parameters()
@@ -25,10 +28,19 @@ class Laravel extends PredefinedProject
         $branches   = $this->projectSourceService->getGitBranches( self::SOURCE_URL );
         $tags       = $this->projectSourceService->getGitTags( self::SOURCE_URL );
         
+        $versions   = $this->projectSourceService->getVersions( self::PACKAGE );
+        //var_dump( $versions ); die;
+        \array_walk( $versions,
+            function ( &$v ) {
+                $v  = $v->getVersion();
+            }
+        );
+        
         //return $this->projectSourceService->getGitTags( self::SOURCE_URL );
         return [
             'branches'  => \array_combine( $branches, $branches ),
             'tags'      => \array_combine( $tags, $tags ),
+            'versions'  => \array_combine( $versions, $versions ),
         ];
     }
     

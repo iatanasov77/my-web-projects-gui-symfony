@@ -5,8 +5,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Process\Process;
-use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\Form\Form;
 use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Command\Apache;
@@ -14,11 +13,9 @@ use App\Component\Apache\VirtualHostRepository;
 
 use App\Component\Globals;
 use App\Component\Project\Source\SourceFactory;
-use App\Component\Installer\InstallerFactory;
 use App\Component\Project\PredefinedProject;
 use App\Entity\Category;
 use App\Entity\Project;
-use App\Form\Type\PredefinedProjectType;
 use App\Form\Type\ProjectType;
 use App\Form\Type\ProjectInstallManualType;
 use App\Form\Type\ProjectDeleteType;
@@ -32,20 +29,24 @@ class ProjectsController extends AbstractController
     
     private $vhRepo;
     
+    private $predefinedProject;
+    
     public function __construct(
         ManagerRegistry $doctrine,
         Apache $apache,
-        VirtualHostRepository $vhRepo
+        VirtualHostRepository $vhRepo,
+        PredefinedProject $predefinedProject
     ) {
-        $this->doctrine         = $doctrine;
-        $this->apacheService    = $apache;
-        $this->vhRepo           = $vhRepo;
+        $this->doctrine             = $doctrine;
+        $this->apacheService        = $apache;
+        $this->vhRepo               = $vhRepo;
+        $this->predefinedProject    = $predefinedProject;
     }
     
     /**
      * @Route("/projects", name="projects")
      */
-    public function index()
+    public function index(): Response
     {
         $repository = $this->doctrine->getRepository( Category::class );
         
@@ -63,7 +64,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/edit/{id}", name="projects_edit_form")
      */
-    public function editForm( $id, Request $request )
+    public function editForm( $id, Request $request ): Response
     {
         $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
@@ -77,7 +78,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/categories/edit/{id}", name="categories_edit_form")
      */
-    public function editCategoryForm( $id, Request $request )
+    public function editCategoryForm( $id, Request $request ): Response
     {
         $repository = $this->doctrine->getRepository( Category::class );
         $category   = $id ? $repository->find( $id ) : new Category();
@@ -90,7 +91,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/create/{id}", name="projects_create")
      */
-    public function create( $id, Request $request )
+    public function create( $id, Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         $errors     = [];
@@ -134,7 +135,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/install_manual/{id}", name="projects_install_manual")
      */
-    public function installManual( $id )
+    public function installManual( $id ): Response
     {
         $repository     = $this->doctrine->getRepository( Project::class );
         $project        = $repository->find( $id );
@@ -150,7 +151,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/projects/edit_install_manual/{id}", name="edit_install_manual")
      */
-    public function editInstallManual( $id, Request $request )
+    public function editInstallManual( $id, Request $request ): Response
     {
         $repository     = $this->doctrine->getRepository( Project::class );
         $project        = $repository->find( $id );
@@ -178,7 +179,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route( "/projects/delete", name="projects_delete" )
      */
-    public function delete( Request $request )
+    public function delete( Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         $em         = $this->doctrine->getManager();
@@ -235,7 +236,7 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/categories/create/{id}", name="category_create")
      */
-    public function editCategory( $id, Request $request )
+    public function editCategory( $id, Request $request ): Response
     {
         $status     = Globals::STATUS_ERROR;
         
@@ -281,9 +282,10 @@ class ProjectsController extends AbstractController
     /**
      * @Route("/predefined_project_form/{predefinedType}", name="predefined_project_form")
      */
-    public function predefinedProjectForm( $predefinedType )
+    public function predefinedProjectForm( $predefinedType ): Response
     {
-        $thirdPartyInstance = PredefinedProject::instance( $predefinedType );
+        //$thirdPartyInstance = PredefinedProject::instance( $predefinedType );
+        $thirdPartyInstance = $this->predefinedProject->instance( $predefinedType );
         
         $form               = $thirdPartyInstance->form();
         $parameters         = $thirdPartyInstance->parameters();
@@ -297,7 +299,7 @@ class ProjectsController extends AbstractController
         );
     }
     
-    private function _projectForm( Project $project )
+    private function _projectForm( Project $project ): Form
     {
         $form   = $this->createForm( ProjectType::class, $project, [
             'action' => $this->generateUrl( 'projects_create', ['id' => (int)$project->getId()] ),
@@ -307,7 +309,7 @@ class ProjectsController extends AbstractController
         return $form;
     }
     
-    private function _categoryForm( Category $category )
+    private function _categoryForm( Category $category ): Form
     {
         
         $form   = $this->createForm( CategoryType::class, $category, [

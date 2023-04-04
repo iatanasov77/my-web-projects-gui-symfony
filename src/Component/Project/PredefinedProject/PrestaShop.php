@@ -6,6 +6,9 @@ class PrestaShop extends PredefinedProject
     const SOURCE_URL    = 'https://github.com/PrestaShop/PrestaShop.git';
     const BRANCH        = '1.7';
     
+    const API_PATH      = '/repos/PrestaShop/PrestaShop';
+    const PACKAGE       = 'prestashop/prestashop';
+    
     public static function data()
     {
         return [
@@ -17,18 +20,26 @@ class PrestaShop extends PredefinedProject
     
     public function form()
     {
-        return 'pages/projects/form_predefined/presta_shop.html.twig';
+        //return 'pages/projects/form_predefined/presta_shop.html.twig';
+        return 'pages/projects/form_predefined/composer_project.html.twig';
     }
     
     public function parameters()
     {
-        $branches   = $this->projectSourceService->getGitBranches( self::SOURCE_URL );
-        $tags       = $this->projectSourceService->getGitTags( self::SOURCE_URL );
+        $branches   = $this->projectSourceService->getGitBranches( self::API_PATH . '/branches' );
+        $tags       = $this->projectSourceService->getGitTags( self::API_PATH . '/tags' );
         
-        //return $this->projectSourceService->getGitTags( self::SOURCE_URL );
+        $versions   = $this->projectSourceService->getVersions( self::PACKAGE );
+        \array_walk( $versions,
+            function ( &$v ) {
+                $v  = $v->getVersion();
+            }
+        );
+        
         return [
             'branches'  => \array_combine( $branches, $branches ),
             'tags'      => \array_combine( $tags, $tags ),
+            'versions'  => \array_combine( $versions, $versions ),
         ];
     }
     
