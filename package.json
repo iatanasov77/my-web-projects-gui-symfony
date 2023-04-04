@@ -10,7 +10,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.12.1",
         "@kanety/jquery-simple-tree-table": "^0.5.0",
-        "jquery": "^3.5.0",
+        "jquery": "3.6.0",
         "jquery-form": "^4.2.2",
         "ckeditor": "^4.0.0",
         "bootstrap": "^4.3.1",
@@ -24,7 +24,8 @@
         "popper": "^1.0.1",
         "popper.js": "^1.15.0",
         "jquery-multi-select": "https://github.com/mysociety/jquery-multi-select.git",
-        "tooltipster": "^4.2.8"
+        "tooltipster": "^4.2.8",
+        "jquery.terminal": "^2.35.3"
     },
     "devDependencies": {
         "@symfony/stimulus-bridge": "^2.0.0",
@@ -39,9 +40,10 @@
         "webpack-notifier": "^1.6.0"
     },
     "resolutions": {
-        "@kanety/jquery-simple-tree-table/jquery": "3.5.0",
-        "jquery-ui/jquery": "3.5.0",
-        "jquery-ui-dist/jquery": "3.5.0",
-        "tooltipster/jquery": "3.5.0"
+        "@kanety/jquery-simple-tree-table/jquery": "3.6.0",
+        "jquery-ui/jquery": "3.6.0",
+        "jquery-ui-dist/jquery": "3.6.0",
+        "tooltipster/jquery": "3.6.0",
+        "jquery.terminal/jquery": "3.6.0"
     }
 }

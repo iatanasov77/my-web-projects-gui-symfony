@@ -11,17 +11,23 @@
           <div class="row">
 		    <div class="row" style="margin: 0 0 15px 25px;">
 		        <div class="btn-group" role="group" aria-label="Basic example">
+                    <button id="btnCreateCategory" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-category-modal">
+                        Create Category
+                    </button>
+                    <div class="btn-space"></div>
+                    
 		        	<button id="btnCreateProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-modal">
 		        		Create Project
-		        	</button>
-		        	<div class="btn-space"></div>
-		        	<button id="btnCreateCategory" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-category-modal">
-		        		Create Category
 		        	</button>
 		        	<div class="btn-space"></div>
 		        	
 		        	<button id="btnInstallThirdPartyProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
                         Install Third Party Project
+                    </button>
+                    <div class="btn-space"></div>
+                    
+                    <button id="btnTestJqueryTerminal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
+                        Test Jquery Terminal
                     </button>
                     <div class="btn-space"></div>
 		        </div>
@@ -64,10 +70,17 @@
 	{% include 'modals/project_third_party_create.html.twig' %}
 {% endblock %}
 
+{% block styles %}
+    {{ parent() }}
+    
+    {{ encore_entry_link_tags( 'js/pages/test_jquery_terminal', null, 'default' ) }}
+{% endblock %}
+
 {% block scripts %}
 	{{ parent() }}
 	
     {{ encore_entry_script_tags( 'js/pages/projects' ) }}
     {{ encore_entry_script_tags( 'js/pages/projects_third_party' ) }}
+    {{ encore_entry_script_tags( 'js/pages/test_jquery_terminal' ) }}
 {% endblock %}
 
