@@ -72,9 +72,12 @@ class ProjectsInstallController extends AbstractController
             return new StreamedResponse( function() use ( $process ) {
                 foreach ( $process as $type => $data ) {
                     if ( Process::ERR === $type ) {
-                        echo '[ ERR ] '. nl2br( $data ) . '<br />';
+                        //echo '[ ERR ] '. nl2br( $data ) . '<br />';
+                        echo nl2br( $data ) . '<br />';
+                        //echo \trim( $data );
                     } else {
                         echo nl2br( $data );
+                        //echo \trim( $data );
                     }
                 }
             });
