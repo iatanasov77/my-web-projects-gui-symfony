@@ -48,6 +48,8 @@ function createProject( form )
 
 function installProject( form )
 {
+    $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
+    
     var lastResponseLength  = false;
     $.ajax({
         method: 'POST',
@@ -147,13 +149,30 @@ $( function()
        
     $( '#create-project-third-party-modal' ).on( 'click', '#btnInstallProjectThirdParty', function( e )
     {
-        var form    = $( '#formProjectThirdParty' );
+        var form            = $( '#formProjectThirdParty' );
+        var predefinedType  = $( '#third_party_project_predefinedType' ).val();
         
-        if ( $( '#third_party_project_predefinedType' ).val() == 'presta_shop' ) {
-            $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
-            installProject( form );
-        } else {
-            createProject( form );
+        switch ( predefinedType ) {
+            case 'presta_shop':
+                installProject( form );
+                break;
+            case 'symfony':
+                createProject( form );
+                break;
+            case 'laravel':
+                createProject( form );
+                break;
+            case 'sylius':
+                createProject( form );
+                break;
+            case 'magento':
+                createProject( form );
+                break;
+            case 'django':
+                createProject( form );
+                break;
+            default:
+                alert( 'UNKNOWN PROJECT TYPE !!!' )
         }
     });
 
