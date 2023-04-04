@@ -56,6 +56,21 @@ function testCmd()
     });
 }
 
+function testHello()
+{
+    $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
+    
+    $( '#projectInstallContainer' ).terminal({
+        hello: function ( name )
+        {
+            this.echo('Hello, ' + name + '. Welcome to MyTerm');
+        }
+    },
+    {
+        greetings: 'Checkout help !'
+    });
+}
+
 /*
  * AJAX EXAMPLES
  *==============
@@ -66,6 +81,7 @@ function testAjax()
     $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
     
     $( '#projectInstallContainer' ).terminal( function( command, term ) {
+        /*
         var finish  = false;
         var msg     = "Wait I'm executing ajax call";
         
@@ -87,6 +103,14 @@ function testAjax()
                 }
             })();
             
+        });
+        */
+        
+        
+        $.post( '/projects/test-terminal' ).then( function( response ) {
+            console.log( response );
+            //term.echo( response ).resume();
+            term.echo( response );
         });
     }, {
         greetings: null,
@@ -147,6 +171,7 @@ $( function()
         //testGreetings();
         //testLogin();
         //testCmd();
+        //testHello();
         testAjax();
         //testPrompt();
     });
