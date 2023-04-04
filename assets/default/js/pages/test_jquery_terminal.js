@@ -30,6 +30,7 @@ function testGreetings()
 
 function testLogin()
 {
+    //$( '#projectInstallContainer' ).terminal( 'service.php', {login: true} );
     $( '#projectInstallContainer' ).terminal( '/projects/third-party-install', {login: true} );
 }
 
