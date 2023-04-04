@@ -1,3 +1,19 @@
+5.2.0	|	Release date: **04.04.2023**
+============================================
+* New Features and Improvements:
+  - Remove FrameworkExtraBundle Configs.
+  - Add Installation Script
+  - Clean Creation of Third Party Project.
+  - Add Symfony Http Client to Interact With GitHub For Fetching ThirdParty Projects Branches and Tags.
+  - Configure and Use HttpClient For ProjectSource Service
+  - Use HttpClient For PrestaShop Installer.
+  - Add a PackagistApi to Use into Installers.
+  - Create and Use PrestaShop Install Script.
+  - Improve Route Annotations.
+  - Improve Installers.
+  - Add Missing Installer Classes and Improve Installers.
+
+
 5.1.1	|	Release date: **13.01.2023**
 ============================================
 * New Features and Improvements:
