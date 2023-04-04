@@ -157,16 +157,16 @@ $( function()
                 installProject( form );
                 break;
             case 'symfony':
-                createProject( form );
+                installProject( form );
                 break;
             case 'laravel':
-                createProject( form );
+                installProject( form );
                 break;
             case 'sylius':
-                createProject( form );
+                installProject( form );
                 break;
             case 'magento':
-                createProject( form );
+                installProject( form );
                 break;
             case 'django':
                 createProject( form );
