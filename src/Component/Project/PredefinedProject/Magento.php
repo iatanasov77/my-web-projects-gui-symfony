@@ -7,6 +7,8 @@ class Magento extends PredefinedProject
     const SOURCE_URL    = 'https://github.com/magento/magento2.git';
     const BRANCH        = '2.4';
     
+    const PACKAGE       = 'magento/community-edition';
+    
     public static function data()
     {
         return [
@@ -18,7 +20,8 @@ class Magento extends PredefinedProject
     
     public function form()
     {
-        return 'pages/projects/form_predefined/magento.html.twig';
+        //return 'pages/projects/form_predefined/magento.html.twig';
+        return 'pages/projects/form_predefined/composer_project.html.twig';
     }
     
     public function parameters()
@@ -26,10 +29,19 @@ class Magento extends PredefinedProject
         $branches   = $this->projectSourceService->getGitBranches( self::SOURCE_URL );
         $tags       = $this->projectSourceService->getGitTags( self::SOURCE_URL );
         
+        $versions   = $this->projectSourceService->getVersions( self::PACKAGE );
+        //var_dump( $versions ); die;
+        \array_walk( $versions,
+            function ( &$v ) {
+                $v  = $v->getVersion();
+            }
+        );
+        
         //return $this->projectSourceService->getGitTags( self::SOURCE_URL );
         return [
             'branches'  => \array_combine( $branches, $branches ),
             'tags'      => \array_combine( $tags, $tags ),
+            'versions'  => \array_combine( $versions, $versions ),
         ];
     }
     

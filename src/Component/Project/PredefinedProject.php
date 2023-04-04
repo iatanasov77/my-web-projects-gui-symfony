@@ -60,16 +60,16 @@ class PredefinedProject
     {
         switch ( $predefinedType ) {
             case PredefinedProject::SYLIUS:
-                return new Sylius( $this->container->get( 'my_projects.project_source' ) );
+                return new Sylius( $this->container->get( 'my_projects.packagist_api' ) );
                 break;
             case PredefinedProject::MAGENTO:
-                return new Magento( $this->container->get( 'my_projects.project_source' ) );
+                return new Magento( $this->container->get( 'my_projects.packagist_api' ) );
                 break;
             case PredefinedProject::SYMFONY:
-                return new Symfony( $this->container->get( 'my_projects.project_source' ) );
+                return new Symfony( $this->container->get( 'my_projects.packagist_api' ) );
                 break;
             case PredefinedProject::LARAVEL:
-                return new Laravel( $this->container->get( 'my_projects.project_source' ) );
+                return new Laravel( $this->container->get( 'my_projects.packagist_api' ) );
                 break;
             case PredefinedProject::PRESTA_SHOP:
                 return new PrestaShop( $this->container->get( 'my_projects.packagist_api' ) );

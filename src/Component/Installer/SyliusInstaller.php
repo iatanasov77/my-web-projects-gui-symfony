@@ -11,7 +11,8 @@ class SyliusInstaller extends Installer
     /**
      * Steps for Instalation
      * =======================
-     * # composer create-project sylius/sylius-standard MyFirstShop
+     * # composer create-project sylius/sylius-standard=<version> <dir_to_install>
+     * # cd <dir_to_install>
      * # bin/console sylius:install
      * # yarn install
      * # yarn build
@@ -64,7 +65,7 @@ class SyliusInstaller extends Installer
     private function createInstllFromSourceScript( string  $installScript, array $predefinedParams )
     {
         $filesystem = new Filesystem();
-        $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
+        $filesystem->appendToFile( $installScript, "#!/bin/bash\n\n" );
         
         $filesystem->appendToFile( $installScript, "git clone --branch " . $this->project->getBranch() . " " . $this->project->getRepository()     . " .\n" );
         
@@ -104,7 +105,10 @@ class SyliusInstaller extends Installer
     private function createInstllWithComposerScript( string  $installScript, array $predefinedParams )
     {
         $filesystem = new Filesystem();
-        $filesystem->appendToFile( $installScript, "#!/bin/bash\n" );
+        $filesystem->appendToFile( $installScript, "#!/bin/bash\n\n" );
+        
+        $cmdComposer    = "/usr/local/bin/composer create-project prestashop/prestashop={$predefinedParams['version']} {$predefinedParams['version']}";
+        $filesystem->appendToFile( $installScript, $cmdComposer );
         
         
     }

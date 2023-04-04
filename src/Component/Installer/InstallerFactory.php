@@ -17,8 +17,17 @@ class InstallerFactory {
             case PredefinedProject::MAGENTO:
                 $installer = new MagentoInstaller( $project );
                 break;
+            case PredefinedProject::SYMFONY:
+                $installer = new SymfonyInstaller( $project );
+                break;
+            case PredefinedProject::LARAVEL:
+                $installer = new LaravelInstaller( $project );
+                break;
+            case PredefinedProject::DJANGO:
+                $installer = new DjangoInstaller( $project );
+                break;
             default:
-                throw new \Exception( 'Not Implemented' );
+                throw new \Exception( 'Not Implemented !!!' );
         }
         
         return $installer;
