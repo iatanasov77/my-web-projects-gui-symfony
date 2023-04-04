@@ -69,3 +69,6 @@ services:
         arguments:
             - '@doctrine'
         tags: ['controller.service_arguments']
+
+    App\Controller\TestTerminalController:
+        tags: ['controller.service_arguments']
