@@ -213,8 +213,12 @@ class PhpBrew
         }
         
         if ( ! $this->availableVersions ) {
-            $json   = file_get_contents( "/opt/phpbrew/php-releases.json" );
-            $this->availableVersions    = json_decode( $json, true );
+            if ( \file_exists( '/opt/phpbrew/php-releases.json' ) ) {
+                $json   = \file_get_contents( "/opt/phpbrew/php-releases.json" );
+                $this->availableVersions    = json_decode( $json, true );
+            } else {
+                $this->availableVersions    = [];
+            }
         }
     }
     
