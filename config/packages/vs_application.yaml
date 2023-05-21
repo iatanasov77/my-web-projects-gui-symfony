@@ -58,6 +58,11 @@ vs_application:
                         uri: "http://myprojects.lh:1080/"
                         attributes:
                             target: '_blank'
+                    portainer:
+                        name: 'Docker Portainer'
+                        uri: "https://myprojects.lh:9443//"
+                        attributes:
+                            target: '_blank'
                             
             external_tools:
                 name: External Tools

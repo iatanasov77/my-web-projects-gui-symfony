@@ -27,6 +27,7 @@
                             >
                                 {{ childItem.name }} 
                             </a>
+                            
                             {% if childItem.name == 'MailCatcher' %}
                                 <div class="ml-5">
                                     <span style="font-weight: bold; text-decoration: underline;">If MailCatcher is Not Started Run:</span><br />
@@ -34,6 +35,14 @@
                                     mailcatcher --ip {{ mailcatcherIp }}
                                 </div>
                             {% endif %}
+                            
+                            {% if childItem.name == 'Docker Portainer' %}
+                                <div class="ml-5">
+                                    <span style="font-weight: bold;">User:</span> admin<br />
+                                    <span style="font-weight: bold;">Password:</span> Portainer@123
+                                </div>
+                            {% endif %}
+                            
                         {% endif %}
                     {% endfor %}
                 </div>
