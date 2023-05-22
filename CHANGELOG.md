@@ -1,3 +1,17 @@
+5.2.1	|	Release date: **22.05.2023**
+============================================
+* New Features:
+  - Use JQuery Terminal For Third Project Installation Process.
+  - Use JQuery Terminal For PhpBrew Installation Process.
+  - Update package.json
+  - Menu Link to Docker Portainer.
+* Bug-Fixes and Some Tests:
+  - Add JqueryTerminal to Test It.
+  - Testing JQuery Terminal.
+  - Fix Frontend Packages.
+  - Some Fixes.
+
+
 5.2.0	|	Release date: **04.04.2023**
 ============================================
 * New Features and Improvements:
