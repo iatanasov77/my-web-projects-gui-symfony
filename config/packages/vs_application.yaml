@@ -60,7 +60,12 @@ vs_application:
                             target: '_blank'
                     portainer:
                         name: 'Docker Portainer'
-                        uri: "https://myprojects.lh:9443//"
+                        uri: "https://myprojects.lh:9443/"
+                        attributes:
+                            target: '_blank'
+                    elastic_search:
+                        name: 'Elastic Search'
+                        uri: "https://myprojects.lh:9200/"
                         attributes:
                             target: '_blank'
                             

@@ -43,6 +43,15 @@
                                 </div>
                             {% endif %}
                             
+                            {% if childItem.name == 'Elastic Search' %}
+                                <div class="ml-5">
+                                    <span style="font-weight: bold;">User:</span> elastic<br />
+                                    <span style="font-weight: bold;">Password:</span> dyle8gXdLWlk-li3hQzM<br /><br />
+                                    <span style="font-weight: bold;">Start Container:</span> docker start es01<br />
+                                    <span style="font-weight: bold;">Stop Container:</span> docker stop -t 10 es01
+                                </div>
+                            {% endif %}
+                            
                         {% endif %}
                     {% endfor %}
                 </div>
