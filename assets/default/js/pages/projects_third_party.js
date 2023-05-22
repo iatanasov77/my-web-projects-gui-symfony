@@ -1,54 +1,10 @@
 import * as spinnerService from '../includes/spinner';
-
-function createProject( form )
-{
-    spinnerService.showSpinner( '#formProjectThirdPartyContainer' );
-    
-    $.ajax({
-        type: "POST",
-        url: form.attr( 'action' ),
-        data: form.serialize(),
-        dataType: 'json',
-        success: function( response )
-        {
-            spinnerService.hideSpinner( '#formProjectThirdPartyContainer' );
-            
-            form[0].reset();
-            if ( response.status == 'error' ) {
-                
-                if ( response.errType == 'alert' ) {
-                    alert( response.data );
-                    return;
-                }
-                
-                var ul = $( '<ul>' );
-                $.each( response.errors, function( key, value ) {
-                    ul.append(
-                        $( document.createElement( 'li' ) ).text( key + ': ' + value )
-                    );
-                });
-                
-                $( '#errorMessage > div.card-body' ).html( ul );
-                $( '#errorMessage' ).show();
-            } else {
-                $( '#create-project-third-party-modal' ).modal( 'toggle' );
-                
-                $( '#submitMessage > div.card-body' ).html( 'Successfuly adding project.' );
-                $( '#submitMessage' ).show();
-                $( '#sectionProjects' ).html( response.data );
-            }
-        },
-        error: function(  )
-        {
-            spinnerService.hideSpinner( '#formProjectThirdPartyContainer' );
-            alert( "SYSTEM ERROR!!!" );
-        }
-   });
-}
+import 'jquery.terminal/js/jquery.terminal.js';
+require( 'jquery.terminal/css/jquery.terminal.css' );
 
 function installProject( form )
 {
-    $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
+    // $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
     
     var lastResponseLength  = false;
     $.ajax({
@@ -95,6 +51,19 @@ function installProject( form )
     .fail( function() {
         alert( "AJAX return an ERROR !!!" );
     });
+}
+
+function installProjectTerminal( form )
+{
+    $( '#formProjectThirdPartyContainer' ).html( '<div class="console" id="consoleProjectInstall"><div id="projectInstallContainer"></div></div>' );
+    
+    var term    = $( '#projectInstallContainer' ).terminal({
+        install: function() {
+            installProject( form );
+        }
+    });
+    
+    term.exec( 'install' );
 }
 
 $( function()
@@ -154,22 +123,22 @@ $( function()
         
         switch ( predefinedType ) {
             case 'presta_shop':
-                installProject( form );
+                installProjectTerminal( form );
                 break;
             case 'symfony':
-                createProject( form );
+                installProjectTerminal( form );
                 break;
             case 'laravel':
-                createProject( form );
+                installProjectTerminal( form );
                 break;
             case 'sylius':
-                createProject( form );
+                installProjectTerminal( form );
                 break;
             case 'magento':
-                createProject( form );
+                installProjectTerminal( form );
                 break;
             case 'django':
-                createProject( form );
+                installProjectTerminal( form );
                 break;
             default:
                 alert( 'UNKNOWN PROJECT TYPE !!!' )

@@ -73,6 +73,8 @@ Encore
     .addEntry( 'js/pages/phpbrew_extensions', './assets/default/js/pages/phpbrew_extensions.js' )
     .addEntry( 'js/pages/projects_third_party', './assets/default/js/pages/projects_third_party.js' )
     .addEntry( 'js/pages/vagrant_machines', './assets/default/js/pages/vagrant_machines.js' )
+    
+    .addEntry( 'js/pages/test_jquery_terminal', './assets/default/js/pages/test_jquery_terminal.js' )
 ;
 const defaultConfig = Encore.getWebpackConfig();
 defaultConfig.name = 'default';
