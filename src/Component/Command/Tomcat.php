@@ -1,12 +1,14 @@
 <?php namespace App\Component\Command;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Process\Process;
 
-class Tomcat implements ContainerAwareInterface
+class Tomcat
 {
-    use ContainerAwareTrait;
+    /**
+     * @var ContainerInterface $container
+     */
+    private $container;
     
     protected $availableVersions;
     protected $installedVersions;
@@ -15,6 +17,11 @@ class Tomcat implements ContainerAwareInterface
     
     protected $currentCommand;
     
+    public function __construct( ContainerInterface $container )
+    {
+        $this->container    = $container;
+    }
+        
     public function getInstalledVersions()
     {
         $this->_init();

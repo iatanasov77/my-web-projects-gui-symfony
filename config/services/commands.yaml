@@ -6,8 +6,8 @@ services:
 
     vs_app.apache_host_actions:
         class: App\Component\Apache\VirtualHostActions
-        calls:
-          - [ setContainer ]
+        arguments: 
+            - '@service_container'
     
     vs_app.apache_virtual_host_factory:
         class: App\Component\Apache\VirtualHostFactory
@@ -19,11 +19,8 @@ services:
 
     vs_app.apache_service:
         class: App\Component\Command\Apache
-        calls:
-          - [ setContainer ]
-          
-    vs_app.python:
-        class: App\Component\Command\Python
+        arguments: 
+            - '@service_container'
         
     my_projects.command.test_terminal:
         class: App\Command\TestTerminalCommand

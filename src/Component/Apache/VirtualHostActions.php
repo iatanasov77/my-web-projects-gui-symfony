@@ -1,13 +1,20 @@
 <?php namespace App\Component\Apache;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use App\Component\Project\Host as HostTypes;
 
 class VirtualHostActions implements ContainerAwareInterface
 {
-    use ContainerAwareTrait;
+    /**
+     * @var ContainerInterface $container
+     */
+    private $container;
+    
+    public function __construct( ContainerInterface $container )
+    {
+        $this->container        = $container;
+    }
     
     public function createEnvironment( &$hostEntity )
     {
