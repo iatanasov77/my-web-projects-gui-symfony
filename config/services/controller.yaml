@@ -38,6 +38,7 @@ services:
     App\Controller\TomcatController:
         arguments:
             - '@app.tomcat'
+            - '@vs_app.subsystems'
         tags: ['controller.service_arguments']
         
     App\Controller\PythonController:
