@@ -56,14 +56,32 @@
                     {% endfor %}
                 </div>
             </div>
-        {% else %}     
-            <a class="nav-link"
-                href="{{ parentItem.uri }}"
-                style="width: 18rem !important;"
-            >
-                <i class="{{ parentItem.attributes.iconClass }}"></i>
-                <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
-            </a>
+        {% else %}
+            {% if parentItem.name == 'Tomcat Instances' and myprojectsSubsystems.get()['tomcat']['enabled'] %}     
+                <a class="nav-link"
+                    href="{{ parentItem.uri }}"
+                    style="width: 18rem !important;"
+                >
+                    <i class="{{ parentItem.attributes.iconClass }}"></i>
+                    <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
+                </a>
+            {% elseif parentItem.name == 'Python Virtual Environments' and myprojectsSubsystems.get()['python']['enabled'] %}     
+                <a class="nav-link"
+                    href="{{ parentItem.uri }}"
+                    style="width: 18rem !important;"
+                >
+                    <i class="{{ parentItem.attributes.iconClass }}"></i>
+                    <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
+                </a>
+            {% else %}
+                <a class="nav-link"
+                    href="{{ parentItem.uri }}"
+                    style="width: 18rem !important;"
+                >
+                    <i class="{{ parentItem.attributes.iconClass }}"></i>
+                    <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
+                </a>
+            {% endif %}
         {% endif %}    
         </li>
     {% endfor %}

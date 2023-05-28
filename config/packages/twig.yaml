@@ -8,6 +8,7 @@ twig:
         lang: '%lang%'
         locale: '%locale%'
         kernelRootDir: "%kernel.project_dir%"
+        myprojectsSubsystems: "@vs_app.subsystems"
         
         rubyVersion: '%env(SYSTEM_RUBY_VERSION)%'
         mailcatcherIp: '%env(MAILCATCHER_IP)%'
