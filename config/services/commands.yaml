@@ -8,6 +8,7 @@ services:
         class: App\Component\SubSystems
         arguments: 
             - '%kernel.project_dir%'
+            - '%vankosoft_host%'
             
     vs_app.apache_host_actions:
         class: App\Component\Apache\VirtualHostActions

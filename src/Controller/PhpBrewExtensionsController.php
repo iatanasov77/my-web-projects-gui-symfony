@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 use App\Component\Globals;
 use App\Component\PhpBrew;
+use App\Component\SubSystems;
 use App\Entity\PhpBrewExtension;
 use App\Form\Type\PhpBrewExtensionType;
 
@@ -18,12 +19,12 @@ class PhpBrewExtensionsController extends AbstractController
 {
     private $doctrine;
     
-    protected $projectDir;
+    protected $subsystems;
     
-    public function __construct( ManagerRegistry $doctrine, string $projectDir )
+    public function __construct( ManagerRegistry $doctrine, SubSystems $subsystems )
     {
         $this->doctrine     = $doctrine;
-        $this->projectDir   = $projectDir;
+        $this->subsystems   = $subsystems;
     }
     
     /**
@@ -101,17 +102,14 @@ class PhpBrewExtensionsController extends AbstractController
     
     protected function phpbrewExtensionsOptions()
     {
-        $options                = [];
-        $configSubsystemsFile   = $this->projectDir . "/var/subsystems.json";
-        if ( file_exists( $configSubsystemsFile ) ) {
-            $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
-            
-            $options            = [
-                'cassandraEnabled'  => isset( $configSubsystems['cassandra'] ) ?
-                                        $configSubsystems['cassandra']['enabled'] :
-                                        false
-            ];
-        }
+        $options    = [];
+        $subsystems = $this->subsystems->get();
+        
+        $options    = [
+            'cassandraEnabled'  => isset( $subsystems['cassandra'] ) ?
+                                    $subsystems['cassandra']['enabled'] :
+                                    false
+        ];
         
         return $options;
     }
