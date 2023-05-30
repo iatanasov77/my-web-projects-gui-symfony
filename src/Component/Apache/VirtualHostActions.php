@@ -4,7 +4,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use App\Component\Project\Host as HostTypes;
 
-class VirtualHostActions implements ContainerAwareInterface
+class VirtualHostActions
 {
     /**
      * @var ContainerInterface $container
