@@ -1,3 +1,18 @@
+5.2.2	|	Release date: **14.06.2023**
+============================================
+* New Features:
+  - Add Menu Link to Elastic Search.
+  - Improve Vagrant Machines Page.
+  - Add Tomcat Dashboard Links into Tomcat Instances Page.
+  - Show Subsystem Menu Links If Subsystem is Enabled Only.
+  - Use Subsystems Service Everywhere.
+  - Update CkEditor Package.
+  - Update Bootstrap.
+  - Reorder Side Menue.
+* Bug-Fixes:
+  - Some Fixes.
+
+
 5.2.1	|	Release date: **22.05.2023**
 ============================================
 * New Features:
