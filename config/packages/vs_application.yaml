@@ -94,6 +94,12 @@ vs_application:
                 attributes:
                     id: menu-vagrant-machines
                     iconClass: "fas fa-fw fa-tachometer-alt"
+            virtual_hosts:
+                name: Hosts
+                uri: "/hosts"
+                attributes:
+                    id: menu-virtual-hosts
+                    iconClass: "fas fa-project-diagram"
             projects:
                 name: Projects
                 uri: "/projects"
@@ -111,12 +117,6 @@ vs_application:
                 route: phpbrew_extensions_index
                 attributes:
                     id: menu-phpbrew-extensions
-                    iconClass: "fas fa-project-diagram"
-            virtual_hosts:
-                name: Hosts
-                uri: "/hosts"
-                attributes:
-                    id: menu-virtual-hosts
                     iconClass: "fas fa-project-diagram"
                     
             tomcat_instances:
