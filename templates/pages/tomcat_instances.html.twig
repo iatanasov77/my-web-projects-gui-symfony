@@ -41,8 +41,10 @@
                                 {% for v, info in versions_installed %}
                                     <tr>
                                         <td>{{ v }}</td>
-                                        <td width="370">
-
+                                        <td width="100">
+                                            <a href="http://{{ current_host }}:{{ instances_configs[v]['httpConnectorPort'] }}" target="__blank" class="btn btn-success btn-circle btn-sm btnOpen" title="Open">
+                                                <i class="fas fa-home"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 {% endfor %}

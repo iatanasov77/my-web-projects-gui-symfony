@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 11, 2023 at 07:10 PM
+-- Generation Time: May 22, 2023 at 07:14 PM
 -- Server version: 8.0.26
--- PHP Version: 8.2.0
+-- PHP Version: 8.1.19
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `VsMyWebProjects_BACKUP`
+-- Database: `VsMyWebProjects`
 --
 
 --
@@ -102,7 +102,26 @@ INSERT INTO `VSWPG_ProjectsHosts` (`id`, `project_id`, `host_type`, `options`, `
 (41, 11, 'Lamp', '{\"phpVersion\": \"8.1.13\"}', 'prestashop-8.0.lh', '/projects/PrestaShop/8.0.1', 0),
 (42, 11, 'Lamp', '{\"phpVersion\": \"default\"}', 'sylius-1.12.lh', '/projects/Sylius/1.12/public', 0),
 (43, 11, 'Lamp', '{\"phpVersion\": \"8.0.26\"}', 'magento-2.4.lh', '/projects/Magento/2.4/pub', 0),
-(44, 11, 'Lamp', '{\"phpVersion\": \"7.4.33\"}', 'test-phpbrew.lh', '/projects/TestHosts/TestPhpBrew', 0);
+(44, 11, 'Lamp', '{\"phpVersion\": \"7.4.33\"}', 'test-phpbrew.lh', '/projects/TestHosts/TestPhpBrew', 0),
+(45, 6, 'Lamp', '{\"phpVersion\": \"default\", \"vsApplicationAliases\": \"1\"}', 'downloads.vankosoft.lh', '/projects/VankoSoft.org/public/vankosoft-downloads', 0),
+(46, 11, 'Lamp', '{\"phpVersion\": \"default\"}', 'admin.test-payment-bundle.lh', '/projects/TestHosts/VankosoftApplication/TestPaymentBundle/public/admin-panel', 0),
+(47, 11, 'Lamp', '{\"phpVersion\": \"default\", \"vsApplicationAliases\": \"1\"}', 'test-payment-bundle.lh', '/projects/TestHosts/VankosoftApplication/TestPaymentBundle/public/test-payment-bundle', 0),
+(48, 11, 'Lamp', '{\"phpVersion\": \"default\"}', 'admin.test-vankosoft-application-extended.lh', '/projects/TestHosts/VankosoftApplication/TestVankosoftApplicationExtended/public/admin-panel', 0),
+(49, 11, 'Lamp', '{\"phpVersion\": \"default\", \"vsApplicationAliases\": \"1\"}', 'test-vankosoft-application-extended.lh', '/projects/TestHosts/VankosoftApplication/TestVankosoftApplicationExtended/public/test-vankosoft-application-extended', 0),
+(50, 11, 'Lamp', '{\"phpVersion\": \"default\", \"vsApplicationAliases\": \"1\"}', 'test-vankosoft-application.lh', '/projects/TestHosts/VankosoftApplication/TestVankosoftApplication/public/test-vankosoft-application', 0),
+(51, 11, 'Lamp', '{\"phpVersion\": \"default\"}', 'admin.test-vankosoft-application.lh', '/projects/TestHosts/VankosoftApplication/TestVankosoftApplication/public/admin-panel', 0);
+
+--
+-- Dumping data for table `VSWPG_VagrantMachines`
+--
+
+INSERT INTO `VSWPG_VagrantMachines` (`id`, `machines_group`, `name`, `description`, `private_ip_address`, `public_ip_address`) VALUES
+(1, 'developement_machines', 'VS_MyWebProjects', NULL, '10.3.3.2', '192.168.0.106'),
+(2, 'devops_machines', 'VS_DevOpsServer', NULL, '10.3.3.3', '192.168.0.105'),
+(3, 'devops_machines', 'VS_KubernetesController', NULL, '10.0.254.2', NULL),
+(4, 'developement_machines', 'VS_DesktopProjects', NULL, '10.3.3.6', '192.168.0.244'),
+(5, 'developement_machines', 'VS_DesktopProjects_QT6', NULL, '10.3.3.7', '192.168.0.245'),
+(6, 'developement_machines', 'VS_MyWebProjects_NotPhp', NULL, '10.3.3.4', '10.3.3.4');
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 

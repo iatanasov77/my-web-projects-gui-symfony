@@ -1,14 +1,21 @@
 <?php namespace App\Component\Command;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class Python implements ContainerAwareInterface
+class Python
 {
-    use ContainerAwareTrait;
+    /**
+     * @var ContainerInterface $container
+     */
+    private $container;
     
     protected $installationDir;
     protected $virtualEnviironments;
+    
+    public function __construct( ContainerInterface $container )
+    {
+        $this->container    = $container;
+    }
     
     public function getVirtualEnvironments()
     {

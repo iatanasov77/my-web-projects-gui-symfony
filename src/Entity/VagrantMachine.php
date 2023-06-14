@@ -34,10 +34,16 @@ class VagrantMachine
     protected $description;
     
     /**
-     * @ORM\Column(name="ip_address", type="string", length=16)
+     * @ORM\Column(name="private_ip_address", type="string", length=16)
      * @Assert\NotBlank
      */
-    protected $ipAddress;
+    protected $privateIpAddress;
+    
+    /**
+     * @ORM\Column(name="public_ip_address", type="string", length=16, nullable=true)
+     * @Assert\NotBlank
+     */
+    protected $publicIpAddress;
     
     
     public function getId(): ?int
@@ -81,14 +87,26 @@ class VagrantMachine
         return $this;
     }
     
-    public function getIpAddress(): ?string
+    public function getPrivateIpAddress(): ?string
     {
-        return $this->ipAddress;
+        return $this->privateIpAddress;
     }
     
-    public function setIpAddress(string $ipAddress): self
+    public function setPrivateIpAddress(string $privateIpAddress): self
     {
-        $this->ipAddress = $ipAddress;
+        $this->privateIpAddress = $privateIpAddress;
+        
+        return $this;
+    }
+    
+    public function getPublicIpAddress(): ?string
+    {
+        return $this->publicIpAddress;
+    }
+    
+    public function setPublicIpAddress(string $publicIpAddress): self
+    {
+        $this->publicIpAddress = $publicIpAddress;
         
         return $this;
     }

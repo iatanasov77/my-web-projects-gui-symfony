@@ -24,6 +24,7 @@ services:
             - '@doctrine'
             - '@vs_app.php_brew'
             - '@vs_app.apache_service'
+            - '@vs_app.subsystems'
             - '%phpbrew_variants%'
             - '%phpbrew_variants_default%'
             - '%kernel.project_dir%'
@@ -32,12 +33,13 @@ services:
     App\Controller\PhpBrewExtensionsController:
         arguments:
             - '@doctrine'
-            - '%kernel.project_dir%'
+            - '@vs_app.subsystems'
         tags: ['controller.service_arguments']
     
     App\Controller\TomcatController:
         arguments:
             - '@app.tomcat'
+            - '@vs_app.subsystems'
         tags: ['controller.service_arguments']
         
     App\Controller\PythonController:

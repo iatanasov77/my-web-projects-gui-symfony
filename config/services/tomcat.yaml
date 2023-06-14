@@ -5,9 +5,10 @@ services:
     _defaults:
         autowire: true
         autoconfigure: true
+        public: true
 
     app.tomcat:
         public: true
         class: App\Component\Command\Tomcat
-        calls:
-          - [ setContainer ]
+        arguments: 
+            - '@service_container'

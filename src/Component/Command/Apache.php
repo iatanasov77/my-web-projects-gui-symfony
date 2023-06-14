@@ -1,13 +1,16 @@
 <?php namespace App\Component\Command;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use App\Component\Helper;
 
-class Apache implements ContainerAwareInterface
+class Apache
+
 {
-    use ContainerAwareTrait;
+    /**
+     * @var ContainerInterface $container
+     */
+    private $container;
     
     /**
      * @var string
@@ -24,8 +27,10 @@ class Apache implements ContainerAwareInterface
      */
     protected $dirLogs;
     
-    public function __coonstruct()
+    public function __coonstruct( ContainerInterface $container )
     {
+        $this->container    = $container;
+        
         $this->service      = 'centos' == Helper::OsId() ? 'httpd' : 'apache2';
         $this->dirVhosts    = 'centos' == Helper::OsId() ? '/etc/httpd/conf.d/' : '/etc/apache2/sites-available/';
         $this->dirLogs      = 'centos' == Helper::OsId() ? '/var/log/httpd/' : '/var/log/apache2/';

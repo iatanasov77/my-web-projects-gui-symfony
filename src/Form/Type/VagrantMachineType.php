@@ -20,7 +20,8 @@ class VagrantMachineType extends AbstractType
             
             ->add( 'name', TextType::class, [ 'label' => 'Machine Name'] )
             ->add( 'description', TextType::class, [ 'label' => 'Machine Description'] )
-            ->add( 'ipAddress', TextType::class, [ 'label' => 'IP Address'] )
+            ->add( 'privateIpAddress', TextType::class, [ 'label' => 'Private IP'] )
+            ->add( 'publicIpAddress', TextType::class, [ 'label' => 'Public IP'] )
         ;
     }
     

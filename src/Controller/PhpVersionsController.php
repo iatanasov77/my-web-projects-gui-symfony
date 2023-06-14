@@ -14,6 +14,7 @@ use Vankosoft\ApplicationBundle\Controller\Traits\ConsoleCommandTrait;
 use App\Component\Command\Apache;
 use App\Component\Command\PhpBrew as PhpBrewCommand;
 use App\Component\PhpBrew;
+use App\Component\SubSystems;
 use App\Entity\PhpBrewExtension;
 
 class PhpVersionsController extends AbstractController
@@ -32,6 +33,8 @@ class PhpVersionsController extends AbstractController
     
     protected $apacheService;
     
+    protected $subsystems;
+    
     protected $phpbrewVariants;
     
     protected $phpbrewVariantsDefault;
@@ -43,6 +46,7 @@ class PhpVersionsController extends AbstractController
         ManagerRegistry $doctrine,
         PhpBrewCommand $phpBrewCommand,
         Apache $apache,
+        SubSystems $subsystems,
         array $phpbrewVariants,
         array $phpbrewVariantsDefault,
         string $projectDir
@@ -51,6 +55,7 @@ class PhpVersionsController extends AbstractController
         $this->doctrine                 = $doctrine;
         $this->phpBrew                  = $phpBrewCommand;
         $this->apacheService            = $apache;
+        $this->subsystems               = $subsystems;
         $this->phpbrewVariants          = $phpbrewVariants;
         $this->phpbrewVariantsDefault   = $phpbrewVariantsDefault;
         $this->projectDir               = $projectDir;
@@ -73,17 +78,11 @@ class PhpVersionsController extends AbstractController
      */
     public function index( Request $request )
     {
-        $installedVersions      = $this->phpBrew->getInstalledVersions();
-        $availableVersions      = $this->phpBrew->getAvailableVersions();
+        $installedVersions  = $this->phpBrew->getInstalledVersions();
+        $availableVersions  = $this->phpBrew->getAvailableVersions();
         
-        $configSubsystemsFile   = $this->projectDir . "/var/subsystems.json";
-        if ( file_exists( $configSubsystemsFile ) ) {
-            $configSubsystems   = json_decode( file_get_contents( $configSubsystemsFile ), true );
-            
-            $cassandraEnabled   = isset( $configSubsystems['cassandra'] ) && $configSubsystems['cassandra']['enabled'];
-        } else {
-            $cassandraEnabled   = false;
-        }
+        $subsystems         = $this->subsystems->get();
+        $cassandraEnabled   = isset( $subsystems['cassandra'] ) && $subsystems['cassandra']['enabled'];
         
         return $this->render('pages/php_versions.html.twig', [
             'versions_installed'        => $installedVersions,
