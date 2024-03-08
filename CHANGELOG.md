@@ -1,3 +1,11 @@
+5.3.0	|	Release date: **08.03.2024**
+============================================
+* New Features:
+  - Add Open Button into the Hosts Page.
+  - Improve Php Version Install.
+  - Update About New Version of Vankosoft Library and Symfony 6.4
+
+
 5.2.2	|	Release date: **14.06.2023**
 ============================================
 * New Features:
