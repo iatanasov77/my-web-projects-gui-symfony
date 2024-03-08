@@ -6,50 +6,41 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
- * @ORM\Table(name="VSWPG_ProjectsHosts")
- */
+use App\Repository\ProjectRepository;
+
+#[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[ORM\Table(name: "VSWPG_ProjectsHosts")]
 class ProjectHost
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     protected $id;
     
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Project", inversedBy="hosts")
-     */
+    /** @var Project */
+    #[ORM\ManyToOne(targetEntity: "Project", inversedBy: "hosts")]
     protected $project;
     
-    /**
-     * @ORM\Column(name="host_type", type="string", length=32)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(name: "host_type", type: "string", length: 32)]
+    #[Assert\NotBlank]
     protected $hostType;
     
-    /**
-     * @ORM\Column(type="json")
-     */
+    /** @var array */
+    #[ORM\Column(type: "json")]
     protected $options;
     
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank]
     protected $host;
     
-    /**
-     * @ORM\Column(name="document_root", type="string", length=255)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(name: "document_root", type: "string", length: 255)]
+    #[Assert\NotBlank]
     protected $documentRoot;
     
-    /**
-     * @ORM\Column(name="with_ssl", type="boolean")
-     */
+    /** @var bool */
+    #[ORM\Column(name: "with_ssl", type: "boolean")]
     protected $withSsl;
     
     public function __construct()

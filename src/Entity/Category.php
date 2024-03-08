@@ -4,27 +4,22 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
- * @ORM\Table(name="VSWPG_Categories")
- */
+use App\Repository\CategoryRepository;
+
+#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\Table(name: "VSWPG_Categories")]
 class Category
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     protected $id;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    /** @var string */
+    #[ORM\Column(type: "string")]
     protected $name;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="category")
-     */
+    /** @var Project[] */
+    #[ORM\OneToMany(targetEntity: "Project", mappedBy: "category")]
     protected $projects;
     
     public function __construct()
