@@ -30,31 +30,36 @@ doctrine:
         mappings:
             App:
                 is_bundle: false
-                type: annotation
+                #type: annotation
+                type: attribute
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
                 
             gedmo_tree:
-                type: annotation
+                #type: annotation
+                type: attribute
                 prefix: Gedmo\Tree\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Tree/Entity"
                 alias: GedmoTree # (optional) it will default to the name set for the mapping
                 is_bundle: false
             translatable:
-                type: annotation
+                #type: annotation
+                type: attribute
                 prefix: Gedmo\Translatable\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Translatable/Entity/MappedSuperclass"
                 alias: GedmoTranslatable
                 is_bundle: false
             loggable:
-                type: annotation
+                #type: annotation
+                type: attribute
                 prefix: Gedmo\Loggable\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Loggable/Entity"
                 alias: GedmoLoggable
                 is_bundle: false
             sortable:
-                type: annotation
+                #type: annotation
+                type: attribute
                 prefix: Gedmo\Sortable\Entity
                 dir: "%kernel.project_dir%/vendor/gedmo/doctrine-extensions/src/Sortable/Entity"
                 alias: GedmoSortable

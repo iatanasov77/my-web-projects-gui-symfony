@@ -3,48 +3,38 @@
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- * @ORM\Table(name="VSWPG_VagrantMachines")
- */
+#[ORM\Entity]
+#[ORM\Table(name: "VSWPG_VagrantMachines")]
 class VagrantMachine
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     protected $id;
     
-    /**
-     * @ORM\Column(name="machines_group", type="string", length=128)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(name: "machines_group", type: "string", length: 128)]
+    #[Assert\NotBlank]
     protected $machinesGroup;
     
-    /**
-     * @ORM\Column(name="name", type="string", length=128)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 128)]
+    #[Assert\NotBlank]
     protected $name;
     
-    /**
-     * @ORM\Column(name="description", type="string", length=128, nullable=true)
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 128, nullable: true)]
+    #[Assert\NotBlank]
     protected $description;
     
-    /**
-     * @ORM\Column(name="private_ip_address", type="string", length=16)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(name: "private_ip_address", type: "string", length: 16)]
+    #[Assert\NotBlank]
     protected $privateIpAddress;
     
-    /**
-     * @ORM\Column(name="public_ip_address", type="string", length=16, nullable=true)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(name: "public_ip_address", type: "string", length: 16, nullable: true)]
+    #[Assert\NotBlank]
     protected $publicIpAddress;
-    
     
     public function getId(): ?int
     {

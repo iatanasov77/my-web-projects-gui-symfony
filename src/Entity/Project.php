@@ -4,87 +4,70 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use App\Repository\ProjectRepository;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ProjectRepository")
- * @ORM\Table(name="VSWPG_Projects")
- */
+#[ORM\Entity(repositoryClass: ProjectRepository::class)]
+#[ORM\Table(name: "VSWPG_Projects")]
 class Project
 {
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
+    protected $id;
+    
+    /** @var Category */
+    #[ORM\ManyToOne(targetEntity: "Category", inversedBy: "projects", cascade: ["all"], fetch: "EAGER")]
+    protected $category;
+    
+    /** @var ProjectHost[] */
+    #[ORM\OneToMany(targetEntity: "ProjectHost", mappedBy: "project", cascade: ["all"], orphanRemoval: true)]
+    protected $hosts;
+    
+    /** @var string */
+    #[ORM\Column(type: "string", length: 128)]
+    #[Assert\NotBlank]
+    protected $name;
+    
+    /** @var string */
+    #[ORM\Column(type: "text", nullable: true)]
+    protected $description;
+    
+    /** @var string */
+    #[ORM\Column(name: "source_type", type: "string", columnDefinition: "enum('wget', 'git', 'svn', 'install_manual')", nullable: true)]
+    protected $sourceType;
+    
+    /** @var string */
+    #[ORM\Column(type: "string", length: 128, nullable: true)]
+    protected $repository;
+    
+    /** @var string */
+    #[ORM\Column(type: "string", length: 32, nullable: true)]
+    protected $branch;
+    
+    /** @var string */
+    #[ORM\Column(name: "project_root", type: "string", length: 128)]
+    #[Assert\NotBlank]
+    protected $projectRoot;
+    
+    /** @var string */
+    #[ORM\Column(name: "install_manual", type: "string", nullable: true)]
+    protected $installManual;
+    
+    /** @var string */
+    #[ORM\Column(name: "predefinedType", type: "string", length: 64, nullable: true)]
+    protected $predefinedType;
+    
+    /** @var array */
+    #[ORM\Column(name: "predefinedTypeParams", type: "json", nullable: true)]
+    protected $predefinedTypeParams;
+    
+    /** @var string */
+    #[ORM\Column(name: "url", type: "string", length: 255, nullable: true)]
+    protected $projectUrl;
+    
     public function __construct()
     {
         $this->hosts    = new ArrayCollection();
     }
-    
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    protected $id;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="projects")
-     */
-    protected $category;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ProjectHost", mappedBy="project", cascade={"remove"})
-     */
-    protected $hosts;
-    
-    /**
-     * @ORM\Column(type="string", length=128)
-     * @Assert\NotBlank
-     */
-    protected $name;
-    
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    protected $description;
-    
-    /**
-     * @ORM\Column(name="source_type", type="string", columnDefinition="enum('wget', 'git', 'svn', 'install_manual')", nullable=true)
-     */
-    protected $sourceType;
-    
-    
-    /**
-     * @ORM\Column(type="string", length=128, nullable=true)
-     */
-    protected $repository;
-    
-    /**
-     * @ORM\Column(type="string", length=32, nullable=true)
-     */
-    protected $branch;
-    
-    /**
-     * @ORM\Column(name="project_root", type="string", length=128)
-     * @Assert\NotBlank
-     */
-    protected $projectRoot;
-    
-    /**
-     * @ORM\Column(name="install_manual", type="string", nullable=true)
-     */
-    protected $installManual;
-    
-    /**
-     * @ORM\Column(name="predefinedType", type="string", length=64, nullable=true)
-     */
-    protected $predefinedType;
-    
-    /**
-     * @ORM\Column(name="predefinedTypeParams", type="json", nullable=true)
-     */
-    protected $predefinedTypeParams;
-    
-    /**
-     * @ORM\Column(name="url", type="string", length=255, nullable=true)
-     */
-    protected $projectUrl;
 
     public function getId(): ?int
     {

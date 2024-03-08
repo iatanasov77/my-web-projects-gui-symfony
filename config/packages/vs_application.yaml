@@ -33,6 +33,24 @@ vs_application:
         locale:
             classes:
                 model: App\Entity\Application\Locale
+        cookie_consent_translation:
+            classes:
+                model: App\Entity\Application\CookieConsentTranslation
+        tags_whitelist_context:
+            classes:
+                model: App\Entity\Application\TagsWhitelistContext
+        tags_whitelist_tag:
+            classes:
+                model: App\Entity\Application\TagsWhitelistTag
+        widget_group:
+            classes:
+                model: App\Entity\Application\WidgetGroup
+        widget:
+            classes:
+                model: App\Entity\Application\Widget
+        widgets_registry:
+            classes:
+                model: App\Entity\Application\WidgetsRegistry
                 
     menu:              
         mainApplicationMenu:

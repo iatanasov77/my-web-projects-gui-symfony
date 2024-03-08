@@ -7,37 +7,32 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="VSWPG_PhpbrewExtensions")
  */
+#[ORM\Entity]
+#[ORM\Table(name: "VSWPG_PhpbrewExtensions")]
 class PhpBrewExtension
 {
-    /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
+    /** @var int */
+    #[ORM\Id, ORM\Column(type: "integer"), ORM\GeneratedValue(strategy: "IDENTITY")]
     protected $id;
     
-    /**
-     * @ORM\Column(type="string", length=32, unique=true)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 32, unique: true)]
+    #[Assert\NotBlank]
     protected $name;
     
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank]
     protected $description;
     
-    /**
-     * @ORM\Column(type="string", length=128)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 128)]
+    #[Assert\NotBlank]
     protected $githubRepo;
     
-    /**
-     * @ORM\Column(type="string", length=128)
-     * @Assert\NotBlank
-     */
+    /** @var string */
+    #[ORM\Column(type: "string", length: 128)]
+    #[Assert\NotBlank]
     protected $branch;
 
     public function getId(): ?int

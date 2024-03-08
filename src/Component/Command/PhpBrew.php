@@ -237,12 +237,19 @@ class PhpBrew
             
             $filesystem->appendToFile( $installScript, $installCommand );
             
-            // Edit php.ini
+            // Edit 'memory_limit' in php.ini
             $memoryLimitCommand = "\n\n";
             $memoryLimitCommand .= "sed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/cli/php.ini\n";
             $memoryLimitCommand .= "sed -i 's/memory_limit = .*/memory_limit = '-1'/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/fpm/php.ini\n";
             $memoryLimitCommand .= "\n\n";
             $filesystem->appendToFile( $installScript, $memoryLimitCommand );
+            
+            // Edit 'pdo_mysql.default_socket' in php.ini
+            $pdoMysqlSocketCommand = "\n\n";
+            $pdoMysqlSocketCommand .= "sed -i 's/pdo_mysql.default_socket=.*/pdo_mysql.default_socket=\/var\/lib\/mysql\/mysql.sock/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/cli/php.ini\n";
+            $pdoMysqlSocketCommand .= "sed -i 's/pdo_mysql.default_socket=.*/pdo_mysql.default_socket=\/var\/lib\/mysql\/mysql.sock/' " . $this->phpbrewVersionsDir . "/php-" . $phpVersion . "/etc/fpm/php.ini\n";
+            $pdoMysqlSocketCommand .= "\n\n";
+            $filesystem->appendToFile( $installScript, $pdoMysqlSocketCommand );
             
             // Install Extensions
             if ( ! empty( $extensions) ) {
