@@ -99,6 +99,18 @@ vs_application:
                         uri: "http://test-jenkins.vankosoft.org"
                         attributes:
                             target: '_blank'
+                    gtmetrix:
+                        name: Website Performance Testing
+                        uri: "https://gtmetrix.com"
+                        attributes:
+                            target: '_blank'
+                    seotester:
+                        name: SEO Tester Online
+                        uri: "https://www.seotesteronline.com/"
+                        attributes:
+                            target: '_blank'
+                        
+                        
                             
             dashboard:
                 name: Dashboard
