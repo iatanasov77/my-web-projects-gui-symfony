@@ -1,21 +1,25 @@
 <?php namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+#[AsCommand(
+    name: 'vs:phpfpm',
+    description: 'Start PhpFpm Service. Confugure it if it is not. Starting from /opt/phpbrew/php/.... for now.',
+    hidden: false
+)]
 class PhpFpmCommand extends ContainerAwareCommand
 {
-    protected static $defaultName = 'vs:phpfpm';
-    
     protected $installationPath;
     
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription( 'Start PhpFpm Service. Confugure it if it is not. Starting from /opt/phpbrew/php/.... for now.' )
             ->setHelp( '"Usage: php bin/console vs:phpfpm start -v 7.4.8 -n MyCustomName";' )
             
             ->addArgument( 'run-command', InputArgument::REQUIRED, 'Available Values: start | stop | restart' )
@@ -25,7 +29,7 @@ class PhpFpmCommand extends ContainerAwareCommand
         ;
     }
     
-    protected function execute( InputInterface $input, OutputInterface $output )
+    protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         posix_getuid() === 0 || die( "You must to be root.\n" );
         
@@ -63,6 +67,8 @@ class PhpFpmCommand extends ContainerAwareCommand
         } else {
             throw  new \Exception( 'Unsupported command !!!' );
         }
+        
+        return Command::SUCCESS;
     }
     
     protected function setup()

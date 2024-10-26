@@ -1,5 +1,6 @@
 <?php namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -9,10 +10,13 @@ use Psr\Container\ContainerInterface;
 use Cocur\Slugify\Slugify;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
+#[AsCommand(
+    name: 'vs:fixtures:generate',
+    description: 'Genrate fixture yaml from records in database.',
+    hidden: false
+)]
 class GenerateFixtureCommand extends Command
 {
-    protected static $defaultName = 'vs:fixtures:generate';
-    
     protected $doctrine;
     protected $path;
     protected $accessor;
@@ -26,20 +30,21 @@ class GenerateFixtureCommand extends Command
         $this->accessor = PropertyAccess::createPropertyAccessor();
     }
     
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription( 'Genrate fixture yaml from records in database.' )
             ->setHelp( 'Genrate fixture yaml from records in database.' )
         ;
     }
     
-    protected function execute( InputInterface $input, OutputInterface $output )
+    protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         $config   = Yaml::parseFile( $this->path . 'fixtures.yaml' );
         foreach ( $config['fixtures'] as $fixture ) {
             $this->generateFixtures( $fixture );
         }
+        
+        return Command::SUCCESS;
     }
     
     protected function generateFixtures( $fixture )

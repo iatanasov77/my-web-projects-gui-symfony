@@ -1,22 +1,26 @@
 <?php namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(
+    name: 'vs:bumpversion',
+    description: 'Bump the release version.',
+    hidden: false
+)]
 class BumpVersionCommand extends Command
 {    
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setName( 'vs:bumpversion' )
-            ->setDescription( 'Bump the release version.' )
             ->setHelp( 'Bump the version and add CHANGES info from commit messages.' )
         ;
     }
     
-    protected function execute( InputInterface $input, OutputInterface $output )
+    protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         $versionFile		= 'VERSION';
         $changesFile		= 'CHANGELOG.md';
@@ -74,5 +78,7 @@ class BumpVersionCommand extends Command
         // Commit VERSION and CHANGES files
         exec( sprintf( 'git add %s %s', basename( $versionFile ), basename( $changesFile ) ) );
         exec( sprintf( 'git commit -m "Version bump to %s"', $suggestedVersion ) );
+        
+        return Command::SUCCESS;
     }
 }

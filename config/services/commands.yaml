@@ -28,8 +28,8 @@ services:
         arguments: 
             - '@service_container'
         
-    my_projects.command.test_terminal:
-        class: App\Command\TestTerminalCommand
-        tags:
-            - 'console.command'
+#     my_projects.command.test_terminal:
+#         class: App\Command\TestTerminalCommand
+#         tags:
+#             - 'console.command'
 

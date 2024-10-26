@@ -49,6 +49,7 @@ services:
             - '../src/Kernel.php'
             - '../src/Controller/'
             - '../src/Component/Command/'
+            - '../src/Command/'
         autowire: true
   
     ###################################
