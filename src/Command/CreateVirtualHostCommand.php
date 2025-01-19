@@ -1,18 +1,22 @@
 <?php namespace App\Command;
 
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
 
+#[AsCommand(
+    name: 'vs:mkvhost',
+    description: 'Creates a virtual host.',
+    hidden: false
+)]
 class CreateVirtualHostCommand extends ContainerAwareCommand
 {
-    protected static $defaultName = 'vs:mkvhost';
-    
-    protected function configure()
+    protected function configure(): void
     {
         $this
-            ->setDescription( 'Creates a virtual host.' )
             ->setHelp( '"Usage: php bin/console vs:mkvhost -t vhost_template -s your_domain.com -d /path/to/document_root --fpm-socket /path/to/fpm.sock";' )
         ;
         
@@ -25,10 +29,12 @@ class CreateVirtualHostCommand extends ContainerAwareCommand
         ;
     }
     
-    protected function execute( InputInterface $input, OutputInterface $output )
+    protected function execute( InputInterface $input, OutputInterface $output ): int
     {
         $this->executeHere( $input, $output );
         //$this->executeWithVsMkVhost( $input, $output );
+        
+        return Command::SUCCESS;
     }
     
     protected function executeWithVsMkVhost( InputInterface $input, OutputInterface $output )

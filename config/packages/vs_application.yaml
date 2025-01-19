@@ -99,18 +99,24 @@ vs_application:
                         uri: "http://test-jenkins.vankosoft.org"
                         attributes:
                             target: '_blank'
+                    gtmetrix:
+                        name: Website Performance Testing
+                        uri: "https://gtmetrix.com"
+                        attributes:
+                            target: '_blank'
+                    seotester:
+                        name: SEO Tester Online
+                        uri: "https://www.seotesteronline.com/"
+                        attributes:
+                            target: '_blank'
+                        
+                        
                             
             dashboard:
                 name: Dashboard
                 uri: "/"
                 attributes:
                     id: menu-dashboard
-                    iconClass: "fas fa-fw fa-tachometer-alt"
-            vagrant_machines:
-                name: Vagrant Machines
-                uri: "/vagrant-machines"
-                attributes:
-                    id: menu-vagrant-machines
                     iconClass: "fas fa-fw fa-tachometer-alt"
             virtual_hosts:
                 name: Hosts

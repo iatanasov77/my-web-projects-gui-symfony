@@ -1,3 +1,12 @@
+5.4.0	|	Release date: **19.01.2025**
+============================================
+* New Features:
+  - Add Some External Tools Into Main Menu.
+  - Add a FavIcon
+  - Fix All About New Bundles Versions.
+  - Remove Vagrant Machines Resource. It is Creted in VankoSoft.Org API.
+
+
 5.3.0	|	Release date: **08.03.2024**
 ============================================
 * New Features:
