@@ -11,7 +11,7 @@
         "symfony/runtime": "6.4.*",
         "symfony/flex": "^1.17|^2",
         
-        "vankosoft/application": "1.10.*",
+        "vankosoft/application": "1.12.*",
         
         "symfony/http-client": "6.4.*",
         "knplabs/packagist-api": "2.0.*"

@@ -4,7 +4,7 @@ use Vankosoft\ApplicationBundle\Component\Application\Kernel as BaseKernel;
 
 class Kernel extends BaseKernel
 {
-    const VERSION   = '1.10.0';
+    const VERSION   = '1.12.0';
     const APP_ID    = 'my_projects';
     
     /**

@@ -28,14 +28,13 @@ return [
     Sylius\Bundle\ThemeBundle\SyliusThemeBundle::class => ['all' => true],
     Sylius\Bundle\FixturesBundle\SyliusFixturesBundle::class => ['all' => true],
     SyliusLabs\DoctrineMigrationsExtraBundle\SyliusLabsDoctrineMigrationsExtraBundle::class => ['all' => true],
-    
     Vankosoft\AgentBundle\VSAgentBundle::class => ['all' => true],
     Vankosoft\ApplicationInstalatorBundle\VSApplicationInstalatorBundle::class => ['all' => true],
     Vankosoft\ApplicationBundle\VSApplicationBundle::class => ['all' => true],
     Vankosoft\CmsBundle\VSCmsBundle::class => ['all' => true],
     Vankosoft\UsersBundle\VSUsersBundle::class => ['all' => true],
-    
     FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
     Bazinga\Bundle\JsTranslationBundle\BazingaJsTranslationBundle::class => ['all' => true],
     Hackzilla\Bundle\PasswordGeneratorBundle\HackzillaPasswordGeneratorBundle::class => ['all' => true],
+    daddl3\SymfonyCKEditor5WebpackViteBundle\SymfonyCKEditor5WebpackViteBundle::class => ['all' => true],
 ];
