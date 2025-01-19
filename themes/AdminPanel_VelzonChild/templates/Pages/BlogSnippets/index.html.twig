@@ -1,0 +1,35 @@
+{% extends "@VSApplication/layout.html.twig" %}
+
+{# Import Macros #}
+{% import "@VSApplication/Macros/alerts.html.twig" as alerts %}
+{% from "@VSApplication/Macros/pagination.html.twig" import pagination %}
+
+{# Override Blocs #}
+{% block title %}{{ parent() }} :: {{ 'vankosoft_org.template.page_title_blog_snippets'  | trans( {},'VankoSoftOrg' ) }}{% endblock %}
+{% block pageTitle %}
+	<h4 class="pageheader-title">
+    	<i class="fas fa-code"></i> 
+        {{ 'vankosoft_org.template.page_title_blog_snippets'  | trans( {},'VankoSoftOrg' ) }}
+   	</h4>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            {% include 'Pages/BlogSnippets/partial/simpleTreeTable.html.twig' %}
+        </div>
+    </div>
+    
+    {% include '@VSApplication/Partial/resource-delete.html.twig' %}
+{% endblock %}
+
+{% block head_styles %} 
+    {{ parent() }}
+    {{ encore_entry_link_tags( 'js/snippets', null, 'VelzonTheme' ) }}
+{% endblock %}
+
+{% block body_scripts %}
+    {{ parent() }}
+    
+    {{ encore_entry_script_tags( 'js/snippets', null, 'VelzonTheme' ) }}
+{% endblock %}

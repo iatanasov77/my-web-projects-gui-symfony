@@ -1,0 +1,150 @@
+{% extends "@VSApplication/layout.html.twig" %}
+
+{# Import Macros #}
+{% import "@VSApplication/Macros/form.html.twig" as vs_form %}
+{% import "@VSApplication/Macros/alerts.html.twig" as alerts %}
+
+{% if( item.id ) %}
+    {% set pageTitle = ( 'vankosoft_org.template.page_title_project_issue_update' | trans( {},'VankoSoftOrg' ) ) ~ ': ' ~ item.title %}
+{% else %}
+    {% set pageTitle = 'vankosoft_org.template.page_title_project_issue_create' | trans( {},'VankoSoftOrg' ) %}
+{% endif %}
+
+{% block title %}{{ parent() }} :: {{ pageTitle }}{% endblock %}
+{% block pageTitle %}
+	<h4 class="pageheader-title">
+    	<i class="fas fa-bug"></i> 
+        {{ pageTitle }}
+   	</h4>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+            <div class="card">
+            	<h5 class="card-header">{{ 'vankosoft_org.template.page_title_project_issue_details'  | trans( {},'VankoSoftOrg' ) }}</h5>
+            	<div class="card-body">
+            	
+                    {% if formErrors is defined %}
+                        {{ vs_form.errors( formErrors ) }}     
+                    {% endif %}
+            	   
+            		<div id="FormContainer" data-itemId="{{ item.id }}">
+                        
+                        {% if useFormMethod is defined %}{% set formMethod = useFormMethod %}{% else %}{% set formMethod = 'PUT' %}{% endif %}
+                        {{ form_start(form, { 'attr': {'class': 'form-horizontal '}, 'method': formMethod }) }}
+                            
+                            <div class="form-group">
+                                {{ form_label(form.title, null, {
+                                    'label_attr': {'class': 'form-label'}
+                                    }) 
+                                }}
+                                
+                                {{ form_widget(form.title, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            
+                            <div class="form-group">
+                                {{ form_label(form.description, null, {
+                                    'label_attr': {'class': 'form-label'}
+                                    }) 
+                                }}
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            
+                            {{ form_widget( form.selectedProjects ) }}
+                            <div class="form-group">
+                                {{ form_label(form.projects, null, {
+                                    'label_attr': {'class': 'form-label'}
+                                    }) 
+                                }}
+                                {{ form_widget(form.projects, {'attr': {
+                                    'class': 'form-select'
+                                }}) }}
+                            </div>
+                            
+                            {{ form_widget( form.labelsWhitelist, { 'value' : labelsWhitelist | join(',') } ) }}
+                            <div class="form-group mb-5 mb-5">
+                                {{ form_label(form.labels, null, {
+                                    'label_attr': {'class': 'form-label'}
+                                    }) 
+                                }}
+                                {{ form_widget(form.labels, {
+                                    'attr': {
+                                        'class': 'form-control',
+                                        
+                                    }
+                                }) }}
+                            </div>
+                        
+                            <fieldset class="border border-dark rounded p-3">
+                                <legend class="w-auto float-none ps-2 pe-2">
+                                    {{ 'vs_application.form.project_issue.status'  | trans( {},'VSApplicationBundle' ) }}
+                                </legend>
+                                
+                                {% for status in form.status %}
+                                    <div class="me-2">
+                                        {{ form_widget( status, { 'attr': { 'class': 'form-check-input', 'checked': loop.index == 1 } } ) }}
+                                        {{ form_label( status, null, { 'label_attr': { 'class': 'form-check-label' } } ) }}
+                                    </div>
+                                {% endfor %}
+                            </fieldset>
+                        
+                            <div class="row">&nbsp;</div>
+                            
+                            {{ vs_form.buttons( form, metadata is defined ? metadata : null ) }}
+                        {{ form_end(form, {'render_rest': false}) }}
+                        
+                    </div>
+            		
+                </div>
+            </div>
+            
+            {% if( item.id ) %}
+                <div class="card">
+                    <div class="card-header">
+                        <div class="float-start" style="height:30px; padding-top:10px;">
+                            {{ 'vankosoft_org.template.project_issue_comments_title' | trans( {},'VankoSoftOrg' ) }}
+                        </div>
+                        <div class="btn-group float-end">
+                            <a class="btn btn-primary btnIssueComment"
+                                title="{{ 'vankosoft_org.template.button_create_issue_comment' | trans( {},'VankoSoftOrg' ) }}"
+                                href="{{ path('vsorg_project_issue_comment_create', {'issueId': item.id, 'parentCommentId': 0}) }}"
+                                data-commentId="0"
+                            >
+                                {{ 'vankosoft_org.template.button_create_issue_comment' | trans( {},'VankoSoftOrg' ) }}
+                            </a>&nbsp;
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        {% if item.comments | length > 0 %}
+                            {% include 'Pages/ProjectIssues/partial/simpleTreeTable.html.twig' %}
+                        {% else %}
+                            {{ alerts.info( 'vs_application.template.there_are_no_items_to_display' | trans( {},'VSApplicationBundle' ) ) }}
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            
+        </div>
+    </div>
+    
+    {% include '@VSApplication/Partial/resource-delete.html.twig' %}
+{% endblock %}
+
+{% block modals %}
+    {% include 'Pages/ProjectIssues/modal/issue_comment_edit.html.twig' %}
+{% endblock %}
+
+{% block head_styles %}
+	{{ parent() }}
+	
+	{{ encore_entry_link_tags( 'js/project-issue-comments-edit', null, 'VelzonTheme' ) }}
+	{{ encore_entry_link_tags( 'js/project-issues-edit', null, 'VelzonTheme' ) }}
+{% endblock %}
+
+{% block body_scripts %}
+    {{ parent() }}
+    
+    {{ encore_entry_script_tags( 'js/project-issue-comments-edit', null, 'VelzonTheme' ) }}
+    {{ encore_entry_script_tags( 'js/project-issues-edit', null, 'VelzonTheme' ) }}
+{% endblock %}

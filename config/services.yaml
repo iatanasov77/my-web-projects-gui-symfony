@@ -10,10 +10,30 @@ imports:
     - { resource: services/installer.yaml }
 
 parameters:
-    siteTitle: 'VS My Projects 2'
-    mailer_user: 'admin@myprojects.lh'
-    lang: 'en'
     locale: 'en_US'
+    
+    applicationIcon: 'build/default/images/superman.svg'
+    applicationCompany: 'vs_application.template.vankosoft_application'
+    applicationTitle: 'VS My Projects 2'
+    hasTopSearch: true
+    
+    vs_application.version: !php/const App\Kernel::VERSION
+    vs_application.public_dir: "%kernel.project_dir%/public/admin-panel"
+    vs_application.taxon_repository_throw_exception: false
+    vs_application.page_categories.taxonomy_code: 'page-categories'
+    
+    vs_users.login_route: 'vs_application_login'
+    vs_users.login_by: 'username'
+    vs_users.form_create_account: false
+    vs_users.default_redirect: 'vs_application_dashboard'
+    vs_users.crud.display_siblings: false
+    
+    # The cookie_lifetime would be set to a relatively high value, 
+    # and the garbage collection gc_maxlifetime would be set to destroy sessions at whatever the desired idle period is.
+    #########################################################################################################################
+    vs_users.gc_maxlifetime: 1800   # 30 minutes
+    vs_users.cookie.domain: '%env(COOKIE_DOMAIN)%'
+    vs_users.cookie.lifetime: 86400 # 24 hours
     
     # Gaufrette File Systems
     vs_cms.gaufrette.profile.filesystem: vs_application_profile

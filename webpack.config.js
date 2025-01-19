@@ -2,10 +2,10 @@ var Encore = require('@symfony/webpack-encore');
 
 Encore
 // the project directory where compiled assets will be stored
-    .setOutputPath('public/assets/default/build/')
+    .setOutputPath('public/build/default/')
 
     // the public path used by the web server to access the previous directory
-    .setPublicPath('/assets/default/build/')
+    .setPublicPath('/build/default/')
 
     // delete old files before creating them
     .cleanupOutputBeforeBuild()
@@ -72,7 +72,6 @@ Encore
     .addEntry( 'js/pages/php_versions', './assets/default/js/pages/php_versions.js' )
     .addEntry( 'js/pages/phpbrew_extensions', './assets/default/js/pages/phpbrew_extensions.js' )
     .addEntry( 'js/pages/projects_third_party', './assets/default/js/pages/projects_third_party.js' )
-    .addEntry( 'js/pages/vagrant_machines', './assets/default/js/pages/vagrant_machines.js' )
     
     .addEntry( 'js/pages/test_jquery_terminal', './assets/default/js/pages/test_jquery_terminal.js' )
 ;
@@ -81,4 +80,15 @@ defaultConfig.name = 'default';
 
 //=================================================================================================
 
-module.exports = [defaultConfig];
+/**
+ *  AdminPanel Velzon Theme
+ */
+Encore.reset();
+const adminPanelVelzonConfig    = require( './themes/AdminPanel_VelzonChild/webpack.config' );
+
+//=================================================================================================
+
+module.exports = [
+    defaultConfig,
+    adminPanelVelzonConfig
+];

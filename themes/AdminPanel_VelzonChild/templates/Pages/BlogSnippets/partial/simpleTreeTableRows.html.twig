@@ -1,0 +1,53 @@
+{# <tr data-node-id="{{ item.id }}" {% if parentId %}data-node-pid="{{ item.parent.id }}"{% endif %}> #}
+<tr class="{{ rowClass }}"
+    data-node-id="{% if isSnippet %}snippet-{{ item.id }}{% else %}{{ item.id }}{% endif %}" 
+    {% if parentId %}data-node-pid="{{ parentId }}"{% endif %}
+>
+    <td>{{ item.name }}</td>
+    <td>
+    {% if isSnippet and item.category %}
+        {{ item.category.name }}
+    {% endif %}
+    </td>
+    
+    <td>
+    {% if isSnippet %}
+        <div class="btn-group">
+            <a class="btn btn-primary"
+               href="{{ path('vsorg_blogsnippets_update', {'id': item.id}) }}"
+               title="{{ 'vs_application.template.items_index_row_action_edit' | trans( {},'VSApplicationBundle' ) }}"
+            >
+                <i class="fas fa-edit"></i>
+            </a>
+            <a class="btn btn-danger btnDeleteResource"
+                href="{{ path('vsorg_blogsnippets_delete', {'id': item.id}) }}"
+                data-csrfToken="{{ csrf_token( item.id ) }}"
+                data-redirectUrl="{{ path( 'vsorg_blogsnippets_index' ) }}"
+                title="{{ 'vs_application.template.items_index_row_action_delete' | trans( {},'VSApplicationBundle' ) }}"
+            >
+                <i class="icon_close_alt2"></i>
+            </a>
+        </div>
+        {% endif %}
+    </td>
+
+</tr>
+
+{% if item.children is defined %}
+    {% for child in item.children %}
+        {% if child.owner == app.user %}
+            {% set rowClass = ( rowClass == 'simpleTreeTable_Row_Even' ) ? 'simpleTreeTable_Row_Odd' : 'simpleTreeTable_Row_Even' %}
+            {% include 'Pages/BlogSnippets/partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': child, 'isSnippet': 0, 'rowClass': rowClass} %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{# #}
+{% if item.snippets is defined %}
+    {% for snippet in item.snippets %}
+        {% if snippet.owner == app.user %}
+            {% set rowClass = ( rowClass == 'simpleTreeTable_Row_Even' ) ? 'simpleTreeTable_Row_Odd' : 'simpleTreeTable_Row_Even' %}
+            {% include 'Pages/BlogSnippets/partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': snippet, 'isSnippet': 1} %}
+        {% endif %}
+    {% endfor %}
+{% endif %}

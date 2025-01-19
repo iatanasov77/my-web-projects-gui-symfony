@@ -1,0 +1,32 @@
+<tr data-node-id="{{ comment.id }}" {% if parentId %}data-node-pid="{{ comment.parent.id }}"{% endif %}>
+    <td>{{ comment.authorName }}</td>
+    
+    <td>
+        <a class="btn btn-primary btnIssueComment"
+           title="{{ 'vankosoft_org.template.button_reply_issue_comment' | trans( {},'VankoSoftOrg' ) }}"
+           href="{{ path('vsorg_project_issue_comment_create', {'issueId': item.id, 'parentCommentId': comment.id}) }}"
+           data-commentId="0"
+        >
+            <i class="fas fa-reply"></i>
+        </a>
+    	<a class="btn btn-primary btnIssueComment"
+    	   title="{{ 'vs_application.template.items_index_row_action_edit' | trans( {},'VSApplicationBundle' ) }}"
+    	   href="{{ path('vsorg_project_issue_comment_edit', {'issueId': item.id, 'commentId': comment.id}) }}"
+           data-commentId="{{ comment.id }}"
+    	>
+            <i class="fas fa-edit"></i>
+    	</a>
+    	<a class="btn btn-danger btnTocPageDelete btnDeleteComment"
+            href="{{ path('vsorg_project_issue_comments_delete', {'id': comment.id}) }}"
+            data-csrfToken="{{ csrf_token( comment.id ) }}"
+            data-redirectUrl="{{ path( 'vsorg_project_issues_update', {'id': item.id} ) }}" 
+            title="{{ 'vs_application.template.items_index_row_action_delete' | trans( {},'VSApplicationBundle' ) }}"
+        >
+            <i class="icon_close_alt2"></i>
+        </a>
+    </td>
+</tr>
+
+{% for child in comment.children %}
+	{% include 'Pages/ProjectIssues/partial/simpleTreeTableRows.html.twig' with {'parentId': comment.id, 'comment': child} %}   
+{% endfor %}

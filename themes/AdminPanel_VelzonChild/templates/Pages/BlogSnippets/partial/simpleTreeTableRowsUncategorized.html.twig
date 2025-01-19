@@ -1,0 +1,13 @@
+<tr data-node-id="-1" id="uncategorized-snippets">
+    <td>{{ 'vankosoft_org.template.uncategorized' | trans( {},'VankoSoftOrg' ) }}</td>
+    <td></td>
+    <td></td>
+</tr>
+<script>var uncategorizedSnippets=0;</script>
+
+{% for item in uncategorizedSnippets %}
+    <script>uncategorizedSnippets++;</script>
+    
+    {% set rowClass = ( rowClass == 'simpleTreeTable_Row_Even' ) ? 'simpleTreeTable_Row_Odd' : 'simpleTreeTable_Row_Even' %}
+    {% include 'Pages/BlogSnippets/partial/simpleTreeTableRows.html.twig' with {'parentId': -1, 'item': item, 'isSnippet': 1, 'rowClass': rowClass} %}
+{% endfor %}

@@ -1,0 +1,38 @@
+<tr data-node-id="{{ item.id }}" {% if parentId %}data-node-pid="{{ parentId }}"{% endif %}>
+    <td>{{ item.name }}</td>
+    <td>
+        {% for locale in translations[item.id] %}
+            <i class="flag flag-{{ locale | split( '_' )[1] | lower }}"></i>
+            {% if not loop.last %}&nbsp;{% endif %}
+        {% endfor %}
+    </td>
+    <td>
+        {% if item.enabled %}
+            <i class="fas fa-check" style="color: #82c91e;">
+        {% else %}
+            <i class="fas fa-times" style="color: #ff1e1e;"></i>
+        {% endif %}
+    </td>
+    <td>
+        <div class="btn-group">
+        	<a class="btn btn-primary"
+        	   href="{{ path('vsorg_blogposts_categories_update', {'id': item.id}) }}"
+        	   title="{{ 'vs_application.template.items_index_row_action_edit' | trans( {},'VSApplicationBundle' ) }}"
+            >
+                <i class="fas fa-edit"></i>
+            </a>
+            <a class="btn btn-danger btnDeleteResource" 
+                href="{{ path('vsorg_blogposts_categories_delete', {'id': item.id}) }}"
+                data-csrfToken="{{ csrf_token( item.id ) }}"
+                data-redirectUrl="{{ path( 'vsorg_blogposts_categories_index' ) }}"
+                title="{{ 'vs_application.template.items_index_row_action_delete' | trans( {},'VSApplicationBundle' ) }}"
+            >
+                <i class="icon_close_alt2"></i>
+            </a>
+        </div>
+    </td>
+</tr>
+
+{% for child in item.children %}
+	{% include 'Pages/BlogPostsCategories/partial/simpleTreeTableRows.html.twig' with {'parentId': item.id, 'item': child} %}   
+{% endfor %}

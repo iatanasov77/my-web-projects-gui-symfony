@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ lang }}">
+<html lang="{{ app.request.locale | slice( 0, 2 ) }}">
     <head>
-        <title>{{ siteTitle }}</title>
+        <title>{{ applicationTitle }}</title>
         <link rel="shortcut icon" type="image/png" href="{{ asset( 'assets/default/build/img/vankosoft-thumb.png' ) }}" />
         
         <meta charset="utf-8">
