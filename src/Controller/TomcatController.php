@@ -31,7 +31,7 @@ class TomcatController extends AbstractController
         $subsystems         = $this->subsystems->get();
         //echo "<pre>"; var_dump($subsystems['tomcat']['instances']); die;
         
-        return $this->render('pages/tomcat_instances.html.twig', [
+        return $this->render('Pages/tomcat_instances.html.twig', [
             'versions_installed'    => $installedVersions,
             'instances_configs'     => $subsystems['tomcat']['instances'],
             'current_host'          => $request->getHost(),

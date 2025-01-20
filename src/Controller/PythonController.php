@@ -25,7 +25,7 @@ class PythonController extends AbstractController
     {
         $virtualEnvironments    = $this->python->getVirtualEnvironments();
         
-        return $this->render('pages/python_virtual_environments.html.twig', [
+        return $this->render('Pages/python_virtual_environments.html.twig', [
             'virtual_environments'        => $virtualEnvironments,
         ]);
     }

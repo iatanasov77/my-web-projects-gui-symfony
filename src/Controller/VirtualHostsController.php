@@ -62,7 +62,7 @@ class VirtualHostsController extends AbstractController
         $installedVersions  = $this->phpBrew->getInstalledVersions();
         $formHost           = $this->_hostForm( new ProjectHost() );
         
-        return $this->render('pages/virtual_hosts.html.twig', [
+        return $this->render('Pages/virtual_hosts.html.twig', [
             'hosts'                 => $this->vhRepo->virtualHosts(),
             'installedPhpVersions'  => $installedVersions,  
             'formHost'              => $formHost->createView(),
@@ -124,7 +124,7 @@ class VirtualHostsController extends AbstractController
             return $this->redirectToRoute( 'virtual-hosts' );
         }
         
-        return $this->render( 'pages/virtual_hosts/forms/virtualhost.html.twig', [
+        return $this->render( 'Pages/virtual_hosts/forms/virtualhost.html.twig', [
             'form'  => $formHost->createView(),
         ]);
     }

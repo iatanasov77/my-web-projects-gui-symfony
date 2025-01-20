@@ -25,7 +25,7 @@ class ThirdPartyProjectsController extends AbstractController
         $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
         
-        return $this->render( 'pages/projects/third_party_project_form.html.twig', [
+        return $this->render( 'Pages/projects/third_party_project_form.html.twig', [
             'form'      => $this->_projectForm( $project )->createView(),
             'project'   => $project
         ]);
@@ -63,7 +63,7 @@ class ThirdPartyProjectsController extends AbstractController
             }
         }
         
-        $html   = $this->renderView( 'pages/projects/table_projects.html.twig', ['projects' => $repository->findAll()] );
+        $html   = $this->renderView( 'Pages/projects/table_projects.html.twig', ['projects' => $repository->findAll()] );
         $response   = [
             'status'    => $status,
             'data'      => $html,

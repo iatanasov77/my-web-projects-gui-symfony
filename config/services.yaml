@@ -8,17 +8,18 @@ imports:
     - { resource: services/python.yaml }
     - { resource: services/controller.yaml }
     - { resource: services/installer.yaml }
+    - { resource: services/widgets.yaml }
 
 parameters:
     locale: 'en_US'
     
-    applicationIcon: 'build/default/images/superman.svg'
-    applicationCompany: 'vs_application.template.vankosoft_application'
-    applicationTitle: 'VS My Projects 2'
-    hasTopSearch: true
+    applicationIcon: 'build/my-projects-velzon-default/img/vankosoft-thumb.png'
+    applicationCompany: ''
+    applicationTitle: 'VS My Projects'
+    hasTopSearch: false
     
     vs_application.version: !php/const App\Kernel::VERSION
-    vs_application.public_dir: "%kernel.project_dir%/public/admin-panel"
+    vs_application.public_dir: "%kernel.project_dir%/public"
     vs_application.taxon_repository_throw_exception: false
     vs_application.page_categories.taxonomy_code: 'page-categories'
     

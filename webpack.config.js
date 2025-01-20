@@ -38,10 +38,10 @@ Encore
 	     from: './assets/default/img',
 	     to: 'img/[name].[ext]',
 	 })
-    .copyFiles({
-	     from: './node_modules/bootstrap-sass/assets/fonts/bootstrap',
-	     to: 'fonts/bootstrap/[name].[ext]',
-	 })
+//     .copyFiles({
+// 	     from: './node_modules/bootstrap-sass/assets/fonts/bootstrap',
+// 	     to: 'fonts/bootstrap/[name].[ext]',
+// 	 })
     .copyFiles([
 		
 		// CkEditor
@@ -81,14 +81,14 @@ defaultConfig.name = 'default';
 //=================================================================================================
 
 /**
- *  AdminPanel Velzon Theme
+ *  MyProjects Velzon Theme
  */
 Encore.reset();
-const adminPanelVelzonConfig    = require( './themes/AdminPanel_VelzonChild/webpack.config' );
+const myProjectsVelzonConfig    = require( './themes/MyProjects_VelzonDefault/webpack.config' );
 
 //=================================================================================================
 
 module.exports = [
     defaultConfig,
-    adminPanelVelzonConfig
+    myProjectsVelzonConfig
 ];

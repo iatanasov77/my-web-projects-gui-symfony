@@ -84,7 +84,7 @@ class PhpVersionsController extends AbstractController
         $subsystems         = $this->subsystems->get();
         $cassandraEnabled   = isset( $subsystems['cassandra'] ) && $subsystems['cassandra']['enabled'];
         
-        return $this->render('pages/php_versions.html.twig', [
+        return $this->render('Pages/php_versions.html.twig', [
             'versions_installed'        => $installedVersions,
             'versions_available'        => $availableVersions,
             'phpbrew_variants'          => array_diff( $this->phpbrewVariants, $this->phpbrewVariantsDefault ),

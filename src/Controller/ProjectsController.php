@@ -50,7 +50,7 @@ class ProjectsController extends AbstractController
     {
         $repository = $this->doctrine->getRepository( Category::class );
         
-        return $this->render('pages/projects.html.twig', [
+        return $this->render('Pages/projects.html.twig', [
             'categories'            => $repository->findAll(),
             'createCategoryForm'    => $this->_categoryForm( new Category() )->createView(),
             'createProjectForm'     => $this->_projectForm( new Project() )->createView(),
@@ -69,7 +69,7 @@ class ProjectsController extends AbstractController
         $repository = $this->doctrine->getRepository( Project::class );
         $project    = $id ? $repository->find( $id ) : new Project();
         
-        return $this->render( 'pages/projects/project_form.html.twig', [
+        return $this->render( 'Pages/projects/project_form.html.twig', [
             'form'      => $this->_projectForm( $project )->createView(),
             'project'   => $project
         ]);
@@ -83,7 +83,7 @@ class ProjectsController extends AbstractController
         $repository = $this->doctrine->getRepository( Category::class );
         $category   = $id ? $repository->find( $id ) : new Category();
         
-        return $this->render( 'pages/projects/category_form.html.twig', [
+        return $this->render( 'Pages/projects/category_form.html.twig', [
             'form'      => $this->_categoryForm( $category )->createView()
         ]);
     }
@@ -122,7 +122,7 @@ class ProjectsController extends AbstractController
             }
         }
         
-        $html   = $this->renderView( 'pages/projects/table_projects.html.twig', ['projects' => $repository->findAll()] );
+        $html   = $this->renderView( 'Pages/projects/table_projects.html.twig', ['projects' => $repository->findAll()] );
         $response   = [
             'status'    => $status,
             'data'      => $html,
@@ -171,7 +171,7 @@ class ProjectsController extends AbstractController
             return $this->redirectToRoute( 'projects' );
         }
         
-        return $this->render( 'pages/projects/project_install_manual.html.twig', [
+        return $this->render( 'Pages/projects/project_install_manual.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -223,7 +223,7 @@ class ProjectsController extends AbstractController
             }
         }
         
-        $html   = $this->renderView( 'pages/projects/table_projects.html.twig', ['projects' => $repository->findAll()] );
+        $html   = $this->renderView( 'Pages/projects/table_projects.html.twig', ['projects' => $repository->findAll()] );
         $response   = [
             'status'    => $status,
             'data'      => $html,
@@ -269,7 +269,7 @@ class ProjectsController extends AbstractController
         }
         
         $repoProjects   = $this->doctrine->getRepository( Project::class );
-        $html           = $this->renderView( 'pages/projects/table_projects.html.twig', ['projects' => $repoProjects->findAll()] );
+        $html           = $this->renderView( 'Pages/projects/table_projects.html.twig', ['projects' => $repoProjects->findAll()] );
         $response   = [
             'status'    => $status,
             'data'      => $html,

@@ -32,7 +32,7 @@ class PhpBrewExtensionsController extends AbstractController
      */
     public function index()
     {
-        return $this->render( 'pages/phpbrew_extensions.html.twig', [
+        return $this->render( 'Pages/phpbrew_extensions.html.twig', [
             'extensions'    => PhpBrew::extensions( $this->phpbrewExtensionsOptions() ),
         ]);
     }
@@ -51,7 +51,7 @@ class PhpBrewExtensionsController extends AbstractController
             'method'        => 'POST',
         ]);
         
-        return $this->render( 'pages/phpbrew/extension_form.html.twig', [
+        return $this->render( 'Pages/phpbrew/extension_form.html.twig', [
             'form'              => $form->createView(),
             'phpBrewExtension'  => $phpBrewExtension
         ]);
@@ -90,7 +90,7 @@ class PhpBrewExtensionsController extends AbstractController
             }
         }
         
-        $html   = $this->renderView( 'pages/phpbrew/table_extensions.html.twig', ['extensions' => PhpBrew::extensions( $this->phpbrewExtensionsOptions() )] );
+        $html   = $this->renderView( 'Pages/phpbrew/table_extensions.html.twig', ['extensions' => PhpBrew::extensions( $this->phpbrewExtensionsOptions() )] );
         $response   = [
             'status'    => $status,
             'data'      => $html,

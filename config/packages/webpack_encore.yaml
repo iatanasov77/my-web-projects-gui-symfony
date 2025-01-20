@@ -1,9 +1,14 @@
 framework:
     assets:
-      json_manifest_path: '%kernel.project_dir%/public/build/default/manifest.json'
-
+        json_manifest_path: '%kernel.project_dir%/public/build/default/manifest.json'
+        packages:
+            default:
+                json_manifest_path: '%kernel.project_dir%/public/build/default/manifest.json'
+            my=projects-velzon-default:
+                json_manifest_path: '%kernel.project_dir%/public/build/my-projects-velzon-default/manifest.json'
+    
 webpack_encore:
     output_path: '%kernel.project_dir%/public/build/default'
     builds:
         defaultConfig: '%kernel.project_dir%/public/build/default'
-        VelzonTheme: '%kernel.project_dir%/public/build/velzon-theme'
+        MyProjects_VelzonDefault: '%kernel.project_dir%/public/build/my-projects-velzon-default'

@@ -160,20 +160,25 @@ vs_application:
 
         profileMenu:
             profile:
-                name: "My Profile"
-                route: ia_users_profile_show
+                name: vs_application.menu.my_profile
+                route: vs_users_profile_show
                 attributes:
                     iconClass: "fas fa-user mr-2"
-            logout:
-                name: "Log Out"
-                route: app_logout
-                attributes:
-                    iconClass: "fas fa-power-off mr-2"
+            
             documentation:
-                name: "Documentation"
+                name: vs_application.menu.documentation
                 uri: "javascript:;"
                 attributes:
                     iconClass: "fas fa-cog mr-2"
+            
+            divider_1:
+                isDivider: true
+            
+            logout:
+                name: vs_application.menu.logout
+                route: vs_application_logout
+                attributes:
+                    iconClass: "fas fa-power-off mr-2"
                     
         # Developement Menu loaded in 'templates/layout/menu/developement.html.twig'          
         devMenu:
