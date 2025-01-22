@@ -1,0 +1,19 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+
+    globals:
+        app_environment: '%env(APP_ENV)%'
+        applicationIcon: '%applicationIcon%'
+        applicationCompany: '%applicationCompany%'
+        applicationTitle: '%applicationTitle%'
+        hasTopSearch: '%hasTopSearch%'
+        formCreateAccount: '%vs_users.form_create_account%'
+        installedBundles: '%kernel.bundles%'
+        pageCategoriesTaxonomyCode: '%vs_application.page_categories.taxonomy_code%'
+        
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+when@test:
+    twig:
+        strict_variables: true

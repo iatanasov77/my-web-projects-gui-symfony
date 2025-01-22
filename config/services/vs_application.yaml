@@ -1,9 +1,0 @@
-parameters:
-    vs_application.version: !php/const App\Kernel::VERSION
-    vs_application.public_dir: "%kernel.project_dir%/public"
-
-services:
-    _defaults:
-        autowire: true      # Automatically injects dependencies in your services.
-        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-

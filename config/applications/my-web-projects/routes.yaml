@@ -1,0 +1,12 @@
+app_home:
+    path: /
+    controller: App\Controller\MyWebProjects\DefaultController::index
+    
+app_set_lang:
+    path: /set_lang/{lang}
+    controller: App\Controller\MyWebProjects\DefaultController::setLanguage
+    
+app_set_locale:
+    path: /set_locale/{locale}
+    controller: App\Controller\MyWebProjects\DefaultController::setLocale
+ 

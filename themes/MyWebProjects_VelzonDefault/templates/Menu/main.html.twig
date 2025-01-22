@@ -1,0 +1,117 @@
+{% extends 'knp_menu.html.twig' %}
+
+{% block root %}
+    {% set hasChilds = false %}
+    {% for parentItem in item.children %}
+        {% if parentItem is not empty %}
+            {% set hasChilds = true %}
+        {% endif %}
+    {% endfor %}
+    
+    {% for parentItem in item.children %}
+        
+        {% if( parentItem.displayed and parentItem.hasChildren ) %}
+            
+            {# Detect Current Parent #}
+            {% set isCurrentParent = false %}
+            {% if ( parentItem.hasChildren ) %}
+                {% for childItem in parentItem.children %}
+                    {% if childItem.isCurrent %}
+                        {% set isCurrentParent = true %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            
+             <li class="nav-item ">
+                <a class="nav-link menu-link {% if isCurrentParent %}active{% endif %}"
+                    data-bs-toggle="collapse"
+                    role="button"
+                    {% if isCurrentParent %}aria-expanded="true"{% else %}aria-expanded="false"{% endif %}
+                    data-bs-target="#submenu-system-{{ loop.index }}"
+                    aria-controls="submenu-system-{{ loop.index }}"
+                    href="#submenu-system-{{ loop.index }}"
+                 >
+                    {#
+                    <i data-feather="{{ parentItem.attributes.iconClass }}" class="icon-dual"></i> 
+                    #}
+                    <i class="{{ parentItem.attributes.iconClass }}"></i> 
+                    <span data-key="t-{{ parentItem.name }}">{{ parentItem.name }}</span>
+                </a>
+                
+                {% if(parentItem.hasChildren) %}
+                    <div class="collapse menu-dropdown {% if isCurrentParent %}show{% endif %}" id="submenu-system-{{ loop.index }}">
+                        <ul class="nav nav-sm flex-column">
+                            {% for childItem in parentItem.children %}
+                                {% if ( childItem.displayed ) %}
+                                    <li class="nav-item">
+                                       <a class="nav-link {% if childItem.isCurrent %}active{% endif %}"
+                                           data-key="t-{{ childItem.name }}"
+                                           href="{{ childItem.uri }}"
+                                           {% if childItem.attributes.target %}target="{{ childItem.attributes.target }}"{% endif %}
+                                       >
+                                           {{ childItem.name }}
+                                       </a>
+                                       
+                                       {% if childItem.name == 'MailCatcher' %}
+                                            <div class="ml-5">
+                                                <span style="font-weight: bold; text-decoration: underline;">If MailCatcher is Not Started Run:</span><br />
+                                                rvm use {{ rubyVersion }}<br />
+                                                mailcatcher --ip {{ mailcatcherIp }}
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if childItem.name == 'Docker Portainer' %}
+                                            <div class="ml-5">
+                                                <span style="font-weight: bold;">User:</span> admin<br />
+                                                <span style="font-weight: bold;">Password:</span> Portainer@123
+                                            </div>
+                                        {% endif %}
+                                        
+                                        {% if childItem.name == 'Elastic Search' %}
+                                            <div class="ml-5">
+                                                <span style="font-weight: bold;">User:</span> elastic<br />
+                                                <span style="font-weight: bold;">Password:</span> dyle8gXdLWlk-li3hQzM<br /><br />
+                                                <span style="font-weight: bold;">Start Container:</span> docker start es01<br />
+                                                <span style="font-weight: bold;">Stop Container:</span> docker stop -t 10 es01
+                                            </div>
+                                        {% endif %}
+                                   </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% else %}
+                    {% if parentItem.name == 'Tomcat Instances' and myprojectsSubsystems.get()['tomcat']['enabled'] %}     
+                        <a class="nav-link"
+                            href="{{ parentItem.uri }}"
+                            style="width: 18rem !important;"
+                        >
+                            <i class="{{ parentItem.attributes.iconClass }}"></i>
+                            <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
+                        </a>
+                    {% elseif parentItem.name == 'Python Virtual Environments' and myprojectsSubsystems.get()['python']['enabled'] %}     
+                        <a class="nav-link"
+                            href="{{ parentItem.uri }}"
+                            style="width: 18rem !important;"
+                        >
+                            <i class="{{ parentItem.attributes.iconClass }}"></i>
+                            <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
+                        </a>
+                    {% else %}
+                        <a class="nav-link"
+                            href="{{ parentItem.uri }}"
+                            style="width: 18rem !important;"
+                        >
+                            <i class="{{ parentItem.attributes.iconClass }}"></i>
+                            <span>{{ parentItem.name | u.truncate( 30 ) }}</span>
+                        </a>
+                    {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </li>
+        {% endif %}
+        
+    {% endfor %}
+    
+{% endblock %}

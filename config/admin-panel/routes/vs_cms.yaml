@@ -1,0 +1,35 @@
+vs_cms_pages:
+    resource: "@VSCmsBundle/Resources/config/routing/pages.yml"
+    prefix: /cms
+    options:
+        expose: true
+    
+vs_cms_images:
+    resource: "@VSCmsBundle/Resources/config/routing/images.yml"
+    prefix: /cms
+
+vs_cms_toc:
+    resource: "@VSCmsBundle/Resources/config/routing/toc.yml"
+    prefix: /cms
+    options:
+        expose: true
+        
+vs_cms_website_elements:
+    resource: "@VSCmsBundle/Resources/config/routing/website_elements.yaml"
+    prefix: /
+    options:
+        expose: true
+
+vs_cms_filemanager:
+    resource: "@VSCmsBundle/Resources/config/routing/filemanager.yml"
+    prefix: /cms/vs_filemanager
+    
+artgris_filemanager:
+    resource: "@ArtgrisFileManagerBundle/Resources/config/routing.yml"
+    prefix: /cms/artgris_filemanager
+    
+oneup_uploader:
+    resource: .
+    type: uploader
+
+

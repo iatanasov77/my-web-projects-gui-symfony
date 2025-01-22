@@ -1,0 +1,25 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    
+    globals:
+        app_environment: '%env(APP_ENV)%'
+        applicationIcon: '%applicationIcon%'
+        applicationCompany: '%applicationCompany%'
+        applicationTitle: '%applicationTitle%'
+        hasTopSearch: '%hasTopSearch%'
+        formCreateAccount: '%vs_users.form_create_account%'
+        installedBundles: '%kernel.bundles%'
+        pageCategoriesTaxonomyCode: '%vs_application.page_categories.taxonomy_code%'
+        
+        kernelRootDir: "%kernel.project_dir%"
+        myprojectsSubsystems: "@vs_app.subsystems"
+        rubyVersion: '%env(SYSTEM_RUBY_VERSION)%'
+        mailcatcherIp: '%env(MAILCATCHER_IP)%'
+        
+    form_themes: [
+      'bootstrap_4_layout.html.twig',
+      '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+    ]
+    

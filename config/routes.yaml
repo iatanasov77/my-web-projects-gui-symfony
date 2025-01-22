@@ -1,5 +1,0 @@
-projects:
-    resource: "../src/Controller/ProjectsController.php"
-    prefix:   /
-    type:     annotation
- 

@@ -1,0 +1,12 @@
+{% include 'Layout/side-logo.html.twig' %}
+
+<div id="scrollbar">
+    <div class="container-fluid">
+
+        <div id="two-column-menu"></div>
+        
+        <ul class="navbar-nav" id="navbar-nav">
+            {{ knp_menu_render('mainApplication', {'template': 'Menu/main.html.twig'}) }}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,71 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\Controller\MyWebProjects\DefaultController:
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\VirtualHostsController:
+        arguments:
+            - '@doctrine'
+            - '@vs_app.php_brew'
+            - '@vs_app.apache_virtual_host_repository'
+            - '@vs_app.apache_virtual_host_factory'
+            - '@vs_app.apache_host_actions'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\VirtualHostsOptionsController:
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\PhpVersionsController:
+        arguments:
+            - '@kernel'
+            - '@doctrine'
+            - '@vs_app.php_brew'
+            - '@vs_app.apache_service'
+            - '@vs_app.subsystems'
+            - '%phpbrew_variants%'
+            - '%phpbrew_variants_default%'
+            - '%kernel.project_dir%'
+        tags: ['controller.service_arguments']
+    
+    App\Controller\MyWebProjects\PhpBrewExtensionsController:
+        arguments:
+            - '@doctrine'
+            - '@vs_app.subsystems'
+        tags: ['controller.service_arguments']
+    
+    App\Controller\MyWebProjects\TomcatController:
+        arguments:
+            - '@app.tomcat'
+            - '@vs_app.subsystems'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\PythonController:
+        arguments:
+            - '@app.python'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\ProjectsController:
+        arguments:
+            - '@doctrine'
+            - '@vs_app.apache_service'
+            - '@vs_app.apache_virtual_host_repository'
+            - '@my_projects.predefined_project'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\ProjectsInstallController:
+        arguments:
+            - '@doctrine'
+        tags: ['controller.service_arguments']
+        
+    App\Controller\MyWebProjects\ThirdPartyProjectsController:
+        arguments:
+            - '@doctrine'
+#            - '@vs_app.apache_service'
+#            - '@vs_app.apache_virtual_host_repository'
+        tags: ['controller.service_arguments']
+
+    App\Controller\MyWebProjects\TestTerminalController:
+        tags: ['controller.service_arguments']
