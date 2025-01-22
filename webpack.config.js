@@ -1,82 +1,10 @@
 var Encore = require('@symfony/webpack-encore');
 
-Encore
-// the project directory where compiled assets will be stored
-    .setOutputPath('public/build/default/')
-
-    // the public path used by the web server to access the previous directory
-    .setPublicPath('/build/default/')
-
-    // delete old files before creating them
-    .cleanupOutputBeforeBuild()
-    
-    // generate runtime.js that must to be loaded into the page template
-    // bootstrap the environement
-    .enableSingleRuntimeChunk()
-
-    // add debug data in development
-    .enableSourceMaps(!Encore.isProduction())
-
-    // uncomment to create hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
-    
-    // enable sass/scss parser
-    .enableSassLoader()
-
-    // show OS notifications when builds finish/fail
-    .enableBuildNotifications()
-
-    // empty the outputPath dir before each build
-    .cleanupOutputBeforeBuild()
-
-    // see https://symfony.com/doc/current/frontend/encore/bootstrap.html
-    .enableSassLoader(function(sassOptions) {}, {
-        resolveUrlLoader: true
-    })
-    
-    .copyFiles({
-	     from: './assets/default/img',
-	     to: 'img/[name].[ext]',
-	 })
-//     .copyFiles({
-// 	     from: './node_modules/bootstrap-sass/assets/fonts/bootstrap',
-// 	     to: 'fonts/bootstrap/[name].[ext]',
-// 	 })
-    .copyFiles([
-		
-		// CkEditor
-		{from: './node_modules/ckeditor4/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
-        {from: './node_modules/ckeditor4/adapters', to: 'ckeditor/adapters/[path][name].[ext]'},
-        {from: './node_modules/ckeditor4/lang', to: 'ckeditor/lang/[path][name].[ext]'},
-        {from: './node_modules/ckeditor4/plugins', to: 'ckeditor/plugins/[path][name].[ext]'},
-        {from: './node_modules/ckeditor4/skins', to: 'ckeditor/skins/[path][name].[ext]'}
-	])
-	
-    // add hash after file name
-    .configureFilenames({
-        js: '[name].js?[contenthash]',
-        css: '[name].css?[contenthash]',
-        assets: '[name].[ext]?[hash:8]'
-    })
-    
-     // for "legacy" applications that require $/jQuery as a global variable
-    .autoProvidejQuery()
-
-    
-    .addStyleEntry('css/app', './assets/default/scss/app.scss')
-    .addStyleEntry('css/custom', './assets/default/css/custom.css')
-    
-    .addEntry( 'js/app', './assets/default/js/app.js' )
-    .addEntry( 'js/pages/projects', './assets/default/js/pages/projects.js' )
-    .addEntry( 'js/pages/virtual_hosts', './assets/default/js/pages/virtual_hosts.js' )
-    .addEntry( 'js/pages/php_versions', './assets/default/js/pages/php_versions.js' )
-    .addEntry( 'js/pages/phpbrew_extensions', './assets/default/js/pages/phpbrew_extensions.js' )
-    .addEntry( 'js/pages/projects_third_party', './assets/default/js/pages/projects_third_party.js' )
-    
-    .addEntry( 'js/pages/test_jquery_terminal', './assets/default/js/pages/test_jquery_terminal.js' )
-;
-const defaultConfig = Encore.getWebpackConfig();
-defaultConfig.name = 'default';
+/**
+ *  AdminPanel Default Theme
+ */
+const themePath         = './vendor/vankosoft/application/src/Vankosoft/ApplicationBundle/Resources/themes/default';
+const adminPanelConfig  = require( themePath + '/webpack.config' );
 
 //=================================================================================================
 
@@ -84,11 +12,11 @@ defaultConfig.name = 'default';
  *  MyProjects Velzon Theme
  */
 Encore.reset();
-const myProjectsVelzonConfig    = require( './themes/MyProjects_VelzonDefault/webpack.config' );
+const myWebProjectsVelzonConfig = require( './themes/MyWebProjects_VelzonDefault/webpack.config' );
 
 //=================================================================================================
 
 module.exports = [
-    defaultConfig,
-    myProjectsVelzonConfig
+    adminPanelConfig,
+    myWebProjectsVelzonConfig
 ];

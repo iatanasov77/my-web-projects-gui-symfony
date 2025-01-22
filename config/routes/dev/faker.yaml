@@ -1,7 +1,0 @@
-faker_users_user_add:
-    path: /faker/users/user_add
-    controller: App\Controller\Faker\UsersController::getUserAddData
-faker_users_group_add:
-    path: /faker/users/group_add
-    controller: App\Controller\Faker\UsersController::getGroupAddData
-    
