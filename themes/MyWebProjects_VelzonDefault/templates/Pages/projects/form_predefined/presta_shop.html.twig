@@ -1,0 +1,8 @@
+<div class="form-group">
+    <label>PrestaShop Version: </label>
+    <select class="form-control select-button phpVersionFormInput" name="predefinedTypeParams[version]">
+        {% for key, name in tags %}
+            <option value="{{ key }}">{{ name }}</option>
+    	{% endfor %}
+    </select>
+</div>

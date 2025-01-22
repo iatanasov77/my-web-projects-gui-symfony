@@ -1,0 +1,450 @@
+vs_application_instalator:
+    resources:
+        instalation_info:
+            classes:
+                model: App\Entity\Application\InstalationInfo
+
+vs_application:
+    project_type: base_application
+    
+    vankosoft_api:
+        enabled: false
+        project: 'project-slug'
+        connection:
+            host: '%env(VANKOSOFT_API_HOST)%'
+            user: '%env(VANKOSOFT_API_USER)%'
+            password: '%env(VANKOSOFT_API_PASSWORD)%'
+    
+    resources:
+        application:
+            classes:
+                model: App\Entity\Application\Application
+        settings:
+            classes:
+                model: App\Entity\Application\Settings
+        taxonomy:
+            classes:
+                model: App\Entity\Application\Taxonomy
+        taxon:
+            classes:
+                model: App\Entity\Application\Taxon
+            translation:
+                classes:
+                    model: App\Entity\Application\TaxonTranslation
+        taxon_image:
+            classes:
+                model: App\Entity\Application\TaxonImage
+        translation:
+            classes:
+                model: App\Entity\Application\Translation
+        logentry:
+            classes:
+                model: App\Entity\Application\LogEntry
+        locale:
+            classes:
+                model: App\Entity\Application\Locale
+        cookie_consent_translation:
+            classes:
+                model: App\Entity\Application\CookieConsentTranslation
+        tags_whitelist_context:
+            classes:
+                model: App\Entity\Application\TagsWhitelistContext
+        tags_whitelist_tag:
+            classes:
+                model: App\Entity\Application\TagsWhitelistTag
+        widget_group:
+            classes:
+                model: App\Entity\Application\WidgetGroup
+        widget:
+            classes:
+                model: App\Entity\Application\Widget
+        widgets_registry:
+            classes:
+                model: App\Entity\Application\WidgetsRegistry
+         
+    menu:
+        mainSystemMenu:
+            dashboard:
+                name: vs_application.menu.dashboard
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-dashboard-2-line
+                    breadcrumb_route: vs_application_dashboard
+                childs:
+                    dashboard:
+                        name: vs_application.menu.dashboard
+                        route: vs_application_dashboard
+            
+            settings:
+                name: vs_application.menu.settings
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-settings-5-line
+                    breadcrumb_route: vs_application_settings_index
+                childs:
+                    locales:
+                        name: vs_application.menu.available_locales
+                        route: vs_application_locale_index
+                    create_locale:
+                        name: vs_application.menu.create_new_locale
+                        route: vs_application_locale_create
+                        display: false
+                    update_locale:
+                        name: vs_application.menu.edit_locale
+                        route: vs_application_locale_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    cookie_consent_translations:
+                        name: vs_application.menu.cookie_consent_translations
+                        route: vs_application_cookie_consent_translation_index
+                    create_cookie_consent_translation:
+                        name: vs_application.menu.create_new_cookie_consent_translation
+                        route: vs_application_cookie_consent_translation_create
+                        display: false
+                    update_cookie_consent_translation:
+                        name: vs_application.menu.edit_cookie_consent_translation
+                        route: vs_application_cookie_consent_translation_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    tags_whitelist_contexts:
+                        name: vs_application.menu.tags_whitelist_contexts
+                        route: vs_application_tags_whitelist_context_index
+                    create_tags_whitelist_context:
+                        name: vs_application.menu.create_new_tags_whitelist_context
+                        route: vs_application_tags_whitelist_context_create
+                        display: true
+                    update_tags_whitelist_context:
+                        name: vs_application.menu.edit_tags_whitelist_context
+                        route: vs_application_tags_whitelist_context_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    settings:
+                        name: vs_application.menu.preferences
+                        route: vs_application_settings_index
+            
+            widgets:
+                name: vs_application.menu.widgets
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-honour-line
+                    breadcrumb_route: vs_application_widget_ext_index
+                childs:
+                    list_widget_groups:
+                        name: vs_application.menu.list_widget_groups
+                        route: vs_application_widget_group_index
+                    create_widget_group:
+                        name: vs_application.menu.create_widget_group
+                        route: vs_application_widget_group_create
+                        display: true
+                    update_widget_group:
+                        name: vs_application.menu.update_widget_group
+                        route: vs_application_widget_group_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    list_widgets:
+                        name: vs_application.menu.list_widgets
+                        route: vs_application_widget_index
+                    create_widget:
+                        name: vs_application.menu.create_new_widget
+                        route: vs_application_widget_create
+                        display: true
+                    update_widget:
+                        name: vs_application.menu.update_widget
+                        route: vs_application_widget_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    widgets_registry:
+                        name: vs_application.menu.widgets_registry
+                        route: vs_application_widget_ext_index
+            
+            taxonomy:
+                name: vs_application.menu.taxonomy
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-file-list-3-line
+                    breadcrumb_route: vs_application_taxonomy_index
+                childs:
+                    list:
+                        name: vs_application.menu.list_taxonomies
+                        route: vs_application_taxonomy_index
+                    create:
+                        name: vs_application.menu.create_new_taxonomy
+                        route: vs_application_taxonomy_create
+                        display: true
+                    update:
+                        name: vs_application.menu.edit_taxonomy
+                        route: vs_application_taxonomy_update
+                        routeParameters:
+                          id: int
+                        display: false
+            user_management:
+                name: vs_application.menu.user_management
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-account-circle-line
+                    breadcrumb_route: vs_users_users_index
+                childs:
+                    users_list:
+                        name: vs_application.menu.users_list
+                        route: vs_users_users_index
+                    user_create:
+                        name: vs_application.menu.create_user
+                        route: vs_users_users_create
+                    user_update:
+                        name: vs_application.menu.update_user
+                        route: vs_users_users_update
+                        routeParameters:
+                          id: int
+                        display: false
+                        
+                    user_roles_list:
+                        name: vs_application.menu.user_roles
+                        route: vs_users_user_roles_index
+                    user_roles_create:
+                        name: vs_application.menu.create_role
+                        route: vs_users_user_roles_create
+                    user_roles_update:
+                        name: vs_application.menu.update_role
+                        route: vs_users_user_roles_update
+                        routeParameters:
+                          id: int
+                        display: false
+                        
+            #########################################################################
+            # Uncomment this section If You need to Use VankoSoft Issue Tracker
+            #########################################################################
+#             project_issues:
+#                 name: vs_application.menu.project_issues
+#                 uri: "javascript:;"
+#                 attributes:
+#                     iconClass: ri-rocket-line
+#                     breadcrumb_route: vs_application_project_issues_index
+#                 childs:
+#                     list_issues:
+#                         name: vs_application.menu.project_issues
+#                         route: vs_application_project_issues_index
+#                     create_issues:
+#                         name: vs_application.menu.create_issue
+#                         route: vs_application_project_issues_create
+                        
+        mainCmsMenu:
+            cms:
+                name: vs_application.menu.static_pages
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-pages-line
+                    breadcrumb_route: vs_cms_pages_index
+                childs:
+                    list:
+                        name: vs_application.menu.list_pages
+                        route: vs_cms_pages_index
+                    create:
+                        name: vs_application.menu.create_new_page
+                        route: vs_cms_pages_create
+                        display: true
+                    update:
+                        name: vs_application.menu.edit_page
+                        route: vs_cms_pages_update
+                        routeParameters:
+                          id: int
+                        display: false
+                        
+                    category_list:
+                        name: vs_application.menu.page_categories
+                        route: vs_cms_page_categories_index
+                    category_create:
+                        name: vs_application.menu.create_new_page_category
+                        route: vs_cms_page_categories_create
+                        display: true
+                    category_update:
+                        name: vs_application.menu.edit_page_category
+                        route: vs_cms_page_categories_update
+                        routeParameters:
+                          id: int
+                        display: false
+                        
+            cms_toc:
+                name: vs_application.menu.table_of_contents
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-stack-line
+                    breadcrumb_route: vs_cms_document_index
+                childs:
+                    list:
+                        name: vs_application.menu.document_lists
+                        route: vs_cms_document_index
+                    create:
+                        name: vs_application.menu.create_new_document
+                        route: vs_cms_document_create
+                        display: true
+                    update:
+                        name: vs_application.menu.edit_document
+                        route: vs_cms_document_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    category_list:
+                        name: vs_application.menu.document_categories
+                        route: vs_cms_document_categories_index
+                    category_create:
+                        name: vs_application.menu.create_new_document_category
+                        route: vs_cms_document_categories_create
+                        display: true
+                    category_update:
+                        name: vs_application.menu.edit_document_category
+                        route: vs_cms_document_categories_update
+                        routeParameters:
+                          id: int
+                        display: false
+                        
+            website_elements:
+                name: vs_application.menu.website_elements
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-pencil-ruler-2-line
+                childs:
+                    faq_list:
+                        name: vs_application.menu.frequently_asked_questions
+                        route: vs_cms_helpcenter_question_index
+                    faq_create:
+                        name: vs_application.menu.create_question
+                        route: vs_cms_helpcenter_question_create
+                        display: true
+                    faq_update:
+                        name: vs_application.menu.update_question
+                        route: vs_cms_helpcenter_question_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    quick_links_list:
+                        name: vs_application.menu.quick_links_list
+                        route: vs_cms_quick_link_index
+                    quick_links_create:
+                        name: vs_application.menu.quick_links_create
+                        route: vs_cms_quick_link_create
+                        display: true
+                    quick_links_update:
+                        name: vs_application.menu.quick_links_update
+                        route: vs_cms_quick_link_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    sliders_list:
+                        name: vs_application.menu.sliders_list
+                        route: vs_cms_slider_index
+                    sliders_create:
+                        name: vs_application.menu.sliders_create
+                        route: vs_cms_slider_create
+                        display: true
+                    sliders_update:
+                        name: vs_application.menu.sliders_update
+                        route: vs_cms_slider_update
+                        routeParameters:
+                          id: int
+                        display: false
+                    banner_places_list:
+                        name: vs_application.menu.banner_places_list
+                        route: vs_cms_banner_place_index
+                    banner_places_create:
+                        name: vs_application.menu.banner_places_create
+                        route: vs_cms_banner_place_create
+                        display: true
+                    banner_places_update:
+                        name: vs_application.menu.banner_places_update
+                        route: vs_cms_banner_place_update
+                        routeParameters:
+                          id: int
+                        display: false
+            
+            filemanager_vankosoft:
+                name: vs_application.menu.vankoSoft_file_manager
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-stack-line
+                    breadcrumb_route: vs_cms_file_manager_index
+                childs:
+                    list_filemanagers:
+                        name: vs_application.menu.list_filemanagers
+                        route: "vs_cms_file_manager_index"
+                        display: true
+                    create_filemanager:
+                        name: vs_application.menu.create_new_filemanager
+                        route: "vs_cms_file_manager_create"
+                        display: true
+                    update_filemanager:
+                        name: vs_application.menu.edit_filemanager
+                        route: "vs_cms_file_manager_update"
+                        routeParameters:
+                          id: int
+                        display: false
+            
+            filemanager_artgris:
+                name: vs_application.menu.artgris_file_manager
+                uri: "javascript:;"
+                attributes:
+                    iconClass: ri-stack-line
+                    breadcrumb_route: vs_cms_filemanager_artgris_list
+                childs:
+                    browse:
+                        name: vs_application.menu.browse_files
+                        route: vs_cms_filemanager_artgris_list
+                        #uri: "/filemanager/?conf=default"
+                    upload:
+                        name: vs_application.menu.upload_a_file
+                        route: vs_cms_filemanager_artgris_upload
+        
+        profileMenu:
+            about:
+                name: vs_application.menu.about
+                route: vs_application_about
+                attributes:
+                    iconClass: "fas fa-info me-2"
+                    target: '_self'
+            
+            contact:
+                name: vs_application.menu.contact
+                route: vs_application_contact
+                attributes:
+                    iconClass: "fas fa-user me-2"
+                    target: '_self'
+            
+            profile:
+                name: vs_application.menu.my_profile
+                route: vs_users_profile_show
+                attributes:
+                    iconClass: "fas fa-user me-2"
+                    target: '_self'
+                    
+            documentation:
+                name: vs_application.menu.documentation
+                uri: "http://vankosoft.org/projects/vankosoft-application-project/documentation"
+                attributes:
+                    iconClass: "fas fa-cog me-2"
+                    target: '_blank'
+                    
+            language:
+                name: vs_application.menu.language
+                uri: "javascript:;"
+                attributes:
+                    id: language
+                    iconClass: "fas fa-language me-2"
+                    target: '_self'
+                        
+            divider_1:
+                isDivider: true
+            
+            logout:
+                name: vs_application.menu.logout
+                route: vs_application_logout
+                attributes:
+                    iconClass: "fas fa-power-off me-2"
+                    divider_prepend: false
+                    divider_append: true
+                    target: '_self'
+            
+

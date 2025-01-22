@@ -1,0 +1,35 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    vs_app.subsystems:
+        class: App\Component\SubSystems
+        arguments: 
+            - '%kernel.project_dir%'
+            - '%vankosoft_host%'
+            
+    vs_app.apache_host_actions:
+        class: App\Component\Apache\VirtualHostActions
+        arguments: 
+            - '@service_container'
+    
+    vs_app.apache_virtual_host_factory:
+        class: App\Component\Apache\VirtualHostFactory
+        arguments: ["@service_container"]
+        
+    vs_app.apache_virtual_host_repository:
+        class: App\Component\Apache\VirtualHostRepository
+        arguments: ["@service_container"]
+
+    vs_app.apache_service:
+        class: App\Component\Command\Apache
+        arguments: 
+            - '@service_container'
+        
+#     my_projects.command.test_terminal:
+#         class: App\Command\TestTerminalCommand
+#         tags:
+#             - 'console.command'
+

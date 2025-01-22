@@ -1,0 +1,13 @@
+parameters:
+    python_virtual_environements_dir: '/opt/python_virtual_environements'
+    
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.python:
+        public: true
+        class: App\Component\Command\Python
+        arguments: 
+            - '@service_container'

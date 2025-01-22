@@ -1,0 +1,48 @@
+vs_cms:
+    resources:
+        pages:
+            classes:
+                model: App\Entity\Cms\Page
+        page_categories:
+            classes:
+                model: App\Entity\Cms\PageCategory
+        document_categories:
+            classes:
+                model: App\Entity\Cms\DocumentCategory
+        document:
+            classes:
+                model: App\Entity\Cms\Document
+        toc_page:
+            classes:
+                model: App\Entity\Cms\TocPage
+        file_manager:
+            classes:
+                model: App\Entity\Cms\FileManager
+        file_manager_file:
+            classes:
+                model: App\Entity\Cms\FileManagerFile
+        helpcenter_question:
+            classes:
+                model: App\Entity\Cms\HelpCenterQuestion
+        quick_link:
+            classes:
+                model: App\Entity\Cms\QuickLink
+        slider:
+            classes:
+                model: App\Entity\Cms\Slider
+        slider_item:
+            classes:
+                model: App\Entity\Cms\SliderItem
+        slider_item_photo:
+            classes:
+                model: App\Entity\Cms\SliderItemPhoto
+        banner_place:
+            classes:
+                model: App\Entity\Cms\BannerPlace
+        banner:
+            classes:
+                model: App\Entity\Cms\Banner
+        banner_image:
+            classes:
+                model: App\Entity\Cms\BannerImage
+   

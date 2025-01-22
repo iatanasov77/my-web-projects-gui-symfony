@@ -1,0 +1,13 @@
+framework:
+    assets:
+        packages:
+            default:
+                json_manifest_path: '%kernel.project_dir%/public/reading-room/build/default/manifest.json'
+            my-web=projects-velzon-default:
+                json_manifest_path: '%kernel.project_dir%/public/shared_assets/build/my-web-projects-velzon-default/manifest.json'
+    
+webpack_encore:
+    output_path: '%kernel.project_dir%/public/build/default'
+    builds:
+        defaultConfig: '%kernel.project_dir%/public/my-web-projects/build/default'
+        MyWebProjects_VelzonDefault: '%kernel.project_dir%/public/shared_assets/build/my-web-projects-velzon-default'

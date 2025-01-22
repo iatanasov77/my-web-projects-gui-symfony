@@ -1,0 +1,15 @@
+{{ form_start( form, {'attr': {'id': 'formProjectThirdParty'}} ) }}
+    {{ form_widget(form._token) }}
+    {{ form_widget(form.installType) }}
+    
+    <div id="projectTabContent" class="tab-content projectTabContent">
+    	<frameset>
+            {{ form_row(form.projectRoot) }}
+            {{ form_row(form.predefinedType) }}
+        </frameset>
+        <fieldset class="predefinedProjectFormContainer">
+        	<legend>Predefined type Properties</legend>
+        	<div id="predefinedProjectProperties"></div>
+        </fieldset>
+    </div>
+{{ form_end(form, {'render_rest': false}) }}

@@ -1,0 +1,31 @@
+parameters:
+    php_versions_dir: '/opt/phpbrew/php'
+    phpbrew_variants:
+        - '+default'
+        - '+fpm'
+        - '+mysql'
+        - '+pdo'
+        - '+mcrypt'
+        - '+iconv'
+        - '+intl'
+        - '+exif'
+        - '+gd'
+        - '+openssl=/usr'
+    phpbrew_variants_default:
+        - '+default'
+        - '+fpm'
+        
+    # -- --with-libdir=lib64 --with-gd=shared --enable-gd-native-ttf --with-jpeg-dir=/usr --with-png-dir=/usr
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    vs_app.php_brew:
+        public: true
+        class: App\Component\Command\PhpBrew
+        arguments:
+            - '%phpbrew_variants_default%'
+            - '%php_versions_dir%'
+    

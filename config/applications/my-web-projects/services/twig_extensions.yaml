@@ -1,0 +1,6 @@
+# Composer Package: "twig/extensions": "^1.5",
+services:
+#    twig_extension_text:
+#        class: 'Twig\Extensions\TextExtension'
+#        tags:
+#            - { name: twig.extension }

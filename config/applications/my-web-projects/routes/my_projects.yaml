@@ -1,0 +1,166 @@
+####################################
+# PhpBrew Routes
+####################################
+phpbrew_extensions_index:
+    path: /phpbrew/extensions
+    controller: App\Controller\MyWebProjects\PhpBrewExtensionsController::index
+    
+phpbrew_extensions_edit_form:
+    path: /phpbrew/extensions/edit/{name}
+    controller: App\Controller\MyWebProjects\PhpBrewExtensionsController::editForm
+
+phpbrew_extensions_update:
+    path: /phpbrew/extensions/update/{id}
+    controller: App\Controller\MyWebProjects\PhpBrewExtensionsController::update
+
+####################################
+# PhpVersions Routes
+####################################
+php-versions:
+    path: /php-versions
+    controller: App\Controller\MyWebProjects\PhpVersionsController::index
+
+php-versions-remove:
+    path: /php-versions/{version}/remove
+    controller: App\Controller\MyWebProjects\PhpVersionsController::remove
+
+php-versions-available-gtree:
+    path: /php-versions/available-gtree
+    controller: App\Controller\MyWebProjects\PhpVersionsController::gtreeTableSource
+
+php-versions-install:
+    path: /php-versions/install
+    controller: App\Controller\MyWebProjects\PhpVersionsController::installPhpVersion
+
+php-versions-setup:
+    path: /php-versions/{version}/setup
+    controller: App\Controller\MyWebProjects\PhpVersionsController::setupAfterInstall
+
+php-versions-start-fpm:
+    path: /php-versions/{version}/start-fpm
+    controller: App\Controller\MyWebProjects\PhpVersionsController::startPhpFpm
+
+php-versions-stop-fpm:
+    path: /php-versions/{version}/stop-fpm
+    controller: App\Controller\MyWebProjects\PhpVersionsController::stopPhpFpm
+
+php-versions-restart-fpm:
+    path: /php-versions/{version}/restart-fpm
+    controller: App\Controller\MyWebProjects\PhpVersionsController::restartPhpFpm
+
+####################################
+# Projects Routes
+####################################
+projects:
+    path: /projects
+    controller: App\Controller\MyWebProjects\ProjectsController::index
+
+projects_edit_form:
+    path: /projects/edit/{id}
+    controller: App\Controller\MyWebProjects\ProjectsController::editForm
+    
+categories_edit_form:
+    path: /categories/edit/{id}
+    controller: App\Controller\MyWebProjects\ProjectsController::editCategoryForm
+
+projects_create:
+    path: /projects/create/{id}
+    controller: App\Controller\MyWebProjects\ProjectsController::create
+
+projects_install_manual:
+    path: /projects/install_manual/{id}
+    controller: App\Controller\MyWebProjects\ProjectsController::installManual
+
+edit_install_manual:
+    path: /projects/edit_install_manual/{id}
+    controller: App\Controller\MyWebProjects\ProjectsController::editInstallManual
+
+projects_delete:
+    path: /projects/delete
+    controller: App\Controller\MyWebProjects\ProjectsController::delete
+
+category_create:
+    path: /categories/create/{id}
+    controller: App\Controller\MyWebProjects\ProjectsController::editCategory
+
+predefined_project_form:
+    path: /predefined_project_form/{predefinedType}
+    controller: App\Controller\MyWebProjects\ProjectsController::predefinedProjectForm
+
+####################################
+# ProjectsInstall Routes
+####################################
+projects_install:
+    path: /projects/install/{id}
+    controller: App\Controller\MyWebProjects\ProjectsInstallController::install
+
+projects_uninstall:
+    path: /projects/uninstall/{id}
+    controller: App\Controller\MyWebProjects\ProjectsInstallController::uninstall
+
+projects_third_party_install:
+    path: /projects/third-party-install
+    controller: App\Controller\MyWebProjects\ProjectsInstallController::installThirdParty
+
+####################################
+# Python Routes
+####################################
+python-venvs:
+    path: /python/virtual-environments
+    controller: App\Controller\MyWebProjects\PythonController::instances
+
+####################################
+# TestTerminal Routes
+####################################
+projects_test_terminal:
+    path: /projects/test-terminal
+    controller: App\Controller\MyWebProjects\TestTerminalController::testTerminal
+
+####################################
+# ThirdPartyProjects Routes
+####################################
+third_party_projects_edit_form:
+    path: /third-party-projects/edit/{id}
+    controller: App\Controller\MyWebProjects\ThirdPartyProjectsController::editForm
+
+third_party_projects_create:
+    path: /third-party-projects/create/{id}
+    controller: App\Controller\MyWebProjects\ThirdPartyProjectsController::create
+    
+####################################
+# Tomcat Routes
+####################################
+tomcat-instances:
+    path: /tomcat/instances
+    controller: App\Controller\MyWebProjects\TomcatController::instances
+
+####################################
+# VirtualHosts Routes
+####################################
+virtual-hosts-new:
+    path: /hosts_new
+    controller: App\Controller\MyWebProjects\VirtualHostsController::indexNew
+
+virtual-hosts:
+    path: /hosts
+    controller: App\Controller\MyWebProjects\VirtualHostsController::index
+
+virtual-hosts-create:
+    path: /hosts/create
+    controller: App\Controller\MyWebProjects\VirtualHostsController::create
+
+virtual-hosts-update:
+    path: /hosts/edit/{host}
+    controller: App\Controller\MyWebProjects\VirtualHostsController::update
+
+virtual-hosts-delete-host:
+    path: /hosts/{host}/delete
+    controller: App\Controller\MyWebProjects\VirtualHostsController::delete
+
+virtual-hosts-set-php-version:
+    path: /hosts/{host}/php-version
+    controller: App\Controller\MyWebProjects\VirtualHostsController::setPhpVersion
+
+virtual-hosts-options-form:
+    path: /hosts/options-form
+    controller: App\Controller\MyWebProjects\VirtualHostsOptionsController::optionsForm
