@@ -14,8 +14,8 @@ parameters:
     
     applicationIcon: 'build/my-web-projects-velzon-default/img/vankosoft-thumb.png'
     applicationCompany: ''
-    applicationTitle: 'VS My Projects'
-    hasTopSearch: false
+    applicationTitle: 'VS My Web Projects'
+    hasTopSearch: true
     
     vs_application.version: !php/const App\MyWebProjectsKernel::VERSION
     vs_application.public_dir: "%kernel.project_dir%/public/my-projects"

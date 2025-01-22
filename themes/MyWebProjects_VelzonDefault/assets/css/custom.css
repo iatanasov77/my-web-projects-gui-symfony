@@ -80,19 +80,21 @@ tr.node[data-level="2"] span.node-icon-ce {
     cursor: default;
 }
 
+/*
 .phpVersionFormInput {
     height: 30px;
     width: 160px;
 }
+*/
 
 .helpTooltip {
     position: absolute;
-    left: 170px;
+    left: 230px;
     top: 32px;
+    z-index: 9999;
+    
+    /*margin-left: 3.5rem !important;*/
 }
-
-.tooltip_templates { display: none; }
-
 
 .nav > li > a {
     position: relative;

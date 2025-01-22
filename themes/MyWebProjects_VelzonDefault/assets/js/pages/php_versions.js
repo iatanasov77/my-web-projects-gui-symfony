@@ -1,7 +1,3 @@
-//require( 'glyphicons' );
-//require( '../../css/glyphicons.css' );
-//require( 'bootstrap-sass' );
-
 require( '../../css/multi-select.css' );
 require( 'jquery-multi-select/src/jquery.multi-select.js' );
 
@@ -80,7 +76,7 @@ function installPhpVersion( version, defaultVariants )
     myModal.show( $( '#install-php-version-modal' ).get( 0 ) );
             
     // EVENTS
-	$( "#install-php-version-modal" ).on( 'hidden.bs.modal', function () {
+	$( '#install-php-version-modal' ).get( 0 ).addEventListener( 'hidden.bs.modal', function ( event ) {
 		window.location.reload();
 	});
 }
@@ -123,7 +119,6 @@ $( function()
 	});
 	
 	$( '.btnInstallPhpVersion' ).on( 'click', function () {
-	   alert('EHO');
 		$( "#consolePhpInstall" ).hide();
 		
 		$( "#phpInstallContainer" ).html( '' );
@@ -135,7 +130,7 @@ $( function()
         myModal.show( $( '#install-php-version-modal' ).get( 0 ) );
 		
 		// EVENTS
-		$( "#install-php-version-modal" ).on( 'hidden.bs.modal', function () {
+		$( '#install-php-version-modal' ).get( 0 ).addEventListener( 'hidden.bs.modal', function ( event ) {
 			window.location.reload();
 		});
 	});
@@ -173,4 +168,6 @@ $( function()
 		
 		return false;
 	});
+	
+	$( '.multi-select-button' ).addClass( 'form-select' );
 });

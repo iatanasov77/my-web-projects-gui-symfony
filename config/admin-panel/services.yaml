@@ -14,8 +14,8 @@ parameters:
     locale: en_US
     
     applicationIcon: 'build/default/images/superman.svg'
-    applicationCompany: 'vs_application.template.vankosoft_application'
-    applicationTitle: 'vs_application.template.super_admin_panel'
+    applicationCompany: ''
+    applicationTitle: 'VS My Web Projects'
     hasTopSearch: true
     
     vs_application.version: !php/const App\AdminPanelKernel::VERSION
