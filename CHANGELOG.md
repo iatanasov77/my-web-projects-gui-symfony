@@ -1,3 +1,11 @@
+6.0.0	|	Release date: **22.01.2025**
+============================================
+* New Features:
+  - Update to Vankosoft Application Library 1.12
+  - Prepare to Use Vankosoft Themes.
+  - Use Theme for MyProjects Application and Create a Velzon Theme.
+
+
 5.4.0	|	Release date: **19.01.2025**
 ============================================
 * New Features:
