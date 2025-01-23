@@ -1,3 +1,10 @@
+6.0.1	|	Release date: **23.01.2025**
+============================================
+* Bug-Fixes and Improvements:
+  - Fix Bootstrap Modals.
+  - Adjust all twig templates about new Theme.
+
+
 6.0.0	|	Release date: **22.01.2025**
 ============================================
 * New Features:
