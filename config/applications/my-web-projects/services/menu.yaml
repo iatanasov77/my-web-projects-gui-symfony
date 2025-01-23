@@ -12,4 +12,3 @@ services:
         arguments: ["@knp_menu.factory", 'mainApplicationMenu']
         tags:
             - { name: knp_menu.menu, alias: mainApplication }
-

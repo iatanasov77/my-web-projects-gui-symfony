@@ -38,14 +38,14 @@ $(function()
 		$( '#project_delete_projectId' ).val( $( this ).attr( 'data-projectId' ) );
 	});
 
-    $( '#create-project-modal' ).on( 'hidden.bs.modal', function ()
+    $( '#create-project-modal' ).get( 0 ).addEventListener( 'hidden.bs.modal', function ( event )
     {
     	$( '#errorMessage .card-body' ).html( '' );
     	$( '#errorMessage' ).hide();
         $( '#formProjectContainer' ).html( '' );
     });
     
-    $( '#project-install-modal' ).on( 'hidden.bs.modal', function ()
+    $( '#project-install-modal' ).get( 0 ).addEventListener( 'hidden.bs.modal', function ( event )
     {
         $( '#phpInstallContainer' ).html( '' );
         window.location.reload();

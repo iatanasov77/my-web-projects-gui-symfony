@@ -62,7 +62,6 @@
 .multi-select-button {
     display: inline-block;
     font-size: 0.875em;
-    padding: 0.2em 0.6em;
     max-width: 16em;
     white-space: nowrap;
     overflow: hidden;
@@ -73,7 +72,9 @@
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     cursor: default;
-    height: 30px;
+    
+    /*padding: 0.2em 0.6em;*/
+    height: 37px;
 }
 
 .multi-select-button:after {

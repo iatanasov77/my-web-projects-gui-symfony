@@ -21,7 +21,7 @@ $(function()
 		$( '#project_delete_projectId' ).val( $( this ).attr( 'data-projectId' ) );
 	});
 
-    $( '#phpbrew-extension-edit-modal' ).on( 'hidden.bs.modal', function ()
+    $( '#phpbrew-extension-edit-modal' ).get( 0 ).addEventListener( 'hidden.bs.modal', function ( event )
     {
     	$( '#errorMessage .card-body' ).html( '' );
     	$( '#errorMessage' ).hide();
