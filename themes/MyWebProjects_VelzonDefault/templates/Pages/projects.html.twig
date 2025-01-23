@@ -1,66 +1,83 @@
 {% extends 'base.html.twig' %}
 
+{# Override Blocs #}
+{% block title %}{{ parent() }} :: Projects{% endblock %}
+{% block pageTitle %}
+    <h4 class="pageheader-title">
+        <i class="fas fa-project-diagram"></i> 
+        Projects
+    </h4>
+{% endblock %}
+
 {% block content %}
 	<!-- Begin Page Content -->
 	<div class="container-fluid">
 		<!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <header class="panel-heading"><h3><strong>Projects</strong></h3></header>
-          </div>
-
-            <div class="row" style="margin: 0 0 30px 0">
-                <div class="col-10">
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button id="btnCreateCategory" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-category-modal">
-                            Create Category
-                        </button>
-                        <div class="btn-space"></div>
-                        
-                        <button id="btnCreateProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-modal">
-                            Create Project
-                        </button>
-                        <div class="btn-space"></div>
-                        
-                        <button id="btnInstallThirdPartyProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
-                            Install Third Party Project
-                        </button>
-                        <div class="btn-space"></div>
-                        
-                        
-                    </div>
-                </div>
-                <div class="col-2">
-                      <button id="btnTestJqueryTerminal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
-                        Test Jquery Terminal
+        <div class="row" style="margin: 0 0 30px 0">
+            <div class="col-10">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button id="btnCreateCategory" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-category-modal">
+                        Create Category
                     </button>
                     <div class="btn-space"></div>
+                    
+                    <button id="btnCreateProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-modal">
+                        Create Project
+                    </button>
+                    <div class="btn-space"></div>
+                    
+                    <button id="btnInstallThirdPartyProject" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
+                        Install Third Party Project
+                    </button>
+                    <div class="btn-space"></div>
+                    
+                    
                 </div>
             </div>
+            <div class="col-2">
+                <button id="btnTestJqueryTerminal" type="button" class="btn btn-primary" data-toggle="modal" data-target="#create-project-third-party-modal">
+                    Test Jquery Terminal
+                </button>
+                <div class="btn-space"></div>
+            </div>
+        </div>
             
             
-          <div class="row">
-		    <div class="col-lg-12">
-		    	<div id="submitMessage" class="card bg-success text-white shadow mb-2" style="display:none;">
+        <div class="row">
+            <div class="col-lg-12">
+            	<div id="submitMessage" class="card bg-success text-white shadow mb-2" style="display:none;">
                     <div class="card-body"></div>
                 </div>
-		        <section id="sectionProjects" class="panel">
-		        	{% for cat in categories %}
-			        	<div class="card shadow mb-4">
-		                	<!-- Card Header - Accordion -->
-		                	<a href="#collapseCategory_{{ cat.id }}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="collapseCategory_{{ cat.id }}">
-		                  		<h6 class="m-0 font-weight-bold text-primary">{{ cat.name }}</h6>
-		                	</a>
-		                	<!-- Card Content - Collapse -->
-		                	<div class="collapse" id="collapseCategory_{{ cat.id }}">
-		                  		<div class="card-body">
-		                    		{% include 'Pages/projects/table_projects.html.twig' with {'projects': cat.projects} %}
-		                  		</div>
-		                	</div>
-		              	</div>
-		            {% endfor %}
-		        </section>
-		    </div>
-		</div>
+                
+                <!-- Accordions Bordered -->
+                <div class="accordion custom-accordionwithicon custom-accordion-border accordion-border-box accordion-secondary" id="accordionBordered">
+                	{% for cat in categories %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="accordionbordered_{{ cat.id }}">
+                                <button class="accordion-button" type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#accor_borderedExamplecollapse_{{ cat.id }}"
+                                    aria-expanded="{% if loop.index == 1 %}true{% else %}false{% endif %}"
+                                    aria-controls="accor_borderedExamplecollapse_{{ cat.id }}"
+                                >
+                                    {{ cat.name }}
+                                </button>
+                            </h2>
+                            <div id="accor_borderedExamplecollapse_{{ cat.id }}"
+                                class="accordion-collapse collapse{% if loop.index == 1 %} show{% endif %}"
+                                aria-labelledby="accordionbordered_{{ cat.id }}"
+                                data-bs-parent="#accordionBordered"
+                            >
+                                <div class="accordion-body">
+                                    {% include 'Pages/projects/table_projects.html.twig' with {'projects': cat.projects} %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+            </div>
+        </div>
 	</div>
 	<!-- /.container-fluid -->
 {% endblock %}
