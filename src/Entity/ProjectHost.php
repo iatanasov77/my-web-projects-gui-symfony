@@ -8,6 +8,10 @@ use Doctrine\Common\Collections\Collection;
 
 use App\Repository\ProjectRepository;
 
+/**
+ * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation( "ORM\MappedSuperclass" )
+ * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation("ORM\Column")
+ */
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\Table(name: "VSWPG_ProjectsHosts")]
 class ProjectHost

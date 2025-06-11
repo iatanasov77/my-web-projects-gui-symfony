@@ -6,6 +6,10 @@ use Doctrine\Common\Collections\Collection;
 
 use App\Repository\CategoryRepository;
 
+/**
+ * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation( "ORM\MappedSuperclass" )
+ * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation("ORM\Column")
+ */
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 #[ORM\Table(name: "VSWPG_Categories")]
 class Category

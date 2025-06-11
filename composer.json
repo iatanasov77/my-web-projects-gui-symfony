@@ -11,8 +11,10 @@
         "symfony/runtime": "6.4.*",
         "symfony/flex": "^1.17|^2",
         
-        "vankosoft/application": "1.12.*",
-        "vankosoft/application-themes": "^1.2",
+        "vankosoft/application": "1.13.*",
+        "vankosoft/application-themes": "^1.5",
+        
+        "doctrine/dbal": "^3.0",
         
         "symfony/http-client": "6.4.*",
         "knplabs/packagist-api": "2.0.*"
@@ -26,9 +28,7 @@
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "6.4.*",
         "symfony/var-dumper": "6.4.*",
-        "symfony/web-profiler-bundle": "6.4.*",
-        
-        "alcaeus/mongo-php-adapter": "^1.2"
+        "symfony/web-profiler-bundle": "6.4.*"
     },
     "config": {
         "process-timeout":      600,

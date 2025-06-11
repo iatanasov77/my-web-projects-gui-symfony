@@ -4,8 +4,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="VSWPG_PhpbrewExtensions")
+ * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation( "ORM\MappedSuperclass" )
+ * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation("ORM\Column")
  */
 #[ORM\Entity]
 #[ORM\Table(name: "VSWPG_PhpbrewExtensions")]
