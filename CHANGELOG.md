@@ -1,3 +1,10 @@
+6.1.0	|	Release date: **11.06.2025**
+============================================
+* New Features:
+  - Improve VelzonDefault Theme.
+  - Update to Vankosoft Core 1.13
+
+
 6.0.1	|	Release date: **23.01.2025**
 ============================================
 * Bug-Fixes and Improvements:
