@@ -151,7 +151,7 @@ class VirtualHostsController extends AbstractController
         }
     }
     
-    private function _hostForm( ProjectHost $projectHost, string $action = null )
+    private function _hostForm( ProjectHost $projectHost, ?string $action = null )
     {
         $form   = $this->createForm( ProjectHostType::class, $projectHost, [
             'action' => $action ?: $this->generateUrl( 'virtual-hosts-create' ),

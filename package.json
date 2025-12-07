@@ -23,9 +23,7 @@
         
         "jquery": "3.7.1",
         "jquery-form": "^4.2.2",
-        "jquery-duplicate-fields": "^1.0.0",
         "jquery-easyui": "^1.5.21",
-        "jquery-easyui-extensions": "^1.0.5",
         "jquery-slimscroll": "^1.3.8",
         "jquery-ui": "^1.13.0",
         "jquery-ui-dist": "^1.13.2",
@@ -45,6 +43,9 @@
         "choices.js": "^10.2",
         "simplebar": "^6.2",
         "apexcharts": "^4.3",
+        
+        "@vankosoft/jquery-duplicate-fields": "^2.0",
+        "@vankosoft/jquery-easyui-extensions": "^2.0",
         
         "jquery-multi-select": "https://github.com/mysociety/jquery-multi-select.git",
         "tooltipster": "^4.2.8",
