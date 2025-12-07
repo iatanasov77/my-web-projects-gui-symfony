@@ -1,3 +1,9 @@
+6.2.0	|	Release date: **07.12.2025**
+============================================
+* Bug-Fixes:
+  - Fix Some Deprecations and Update Namespace of Vankosoft Frontend Packages.
+
+
 6.1.0	|	Release date: **11.06.2025**
 ============================================
 * New Features:
