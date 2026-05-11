@@ -81,11 +81,11 @@ vs_application:
                         uri: "https://myprojects.lh:9443/"
                         attributes:
                             target: '_blank'
-                    elastic_search:
-                        name: 'Elastic Search'
-                        uri: "https://myprojects.lh:9200/"
-                        attributes:
-                            target: '_blank'
+#                     elastic_search:
+#                         name: 'Elastic Search'
+#                         uri: "https://myprojects.lh:9200/"
+#                         attributes:
+#                             target: '_blank'
                             
             external_tools:
                 name: External Tools
