@@ -1,3 +1,11 @@
+6.2.1	|	Release date: **20.09.2026**
+============================================
+* New Features and Fixes:
+  - Remove Some Tool From Sidebar Menu.
+  - Update to Vankosoft Application 1.14 and Symfony 7
+  - Fix VirtualHost Component.
+
+
 6.2.0	|	Release date: **07.12.2025**
 ============================================
 * Bug-Fixes:
