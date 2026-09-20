@@ -5,7 +5,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Config implements ConfigurationInterface
 {
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder( 'vs_myprojects' );
         
