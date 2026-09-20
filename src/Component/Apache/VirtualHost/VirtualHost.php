@@ -36,7 +36,7 @@ abstract class VirtualHost
     {
         $this->template         = $vhostConfig['template'];
         $this->host             = $vhostConfig['ServerName'];
-        $this->documentRoot     = $vhostConfig['DocumentRoot'];
+        $this->documentRoot     = isset( $vhostConfig['documentRoot'] ) ? $vhostConfig['documentRoot'] : '';
         $this->serverAdmin      = isset( $vhostConfig['ServerAdmin'] ) ? $vhostConfig['ServerAdmin'] : 'webmaster@' . $this->host;
         $this->apacheLogDir     = $vhostConfig['LogDir'];
         $this->withSsl          = $vhostConfig['WithSsl'];
