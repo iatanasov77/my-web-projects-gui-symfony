@@ -83,7 +83,7 @@ vs_application:
                             target: '_blank'
                     mercure:
                         name: 'Mercure HUB'
-                        uri: "http://myprojects.lh:8080/.well-known/mercure/debug/"
+                        uri: "https://mercure-hub.lh/.well-known/mercure/debug/"
                         attributes:
                             target: '_blank'
 #                     elastic_search:
