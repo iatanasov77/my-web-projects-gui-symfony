@@ -14,8 +14,6 @@
         "vankosoft/application": "1.14.*",
         "vankosoft/application-themes": "^1.8",
         
-        "doctrine/dbal": "^3.0",
-        
         "symfony/http-client": "7.4.*",
         "knplabs/packagist-api": "2.0.*"
     },

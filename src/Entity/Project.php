@@ -2,14 +2,11 @@
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Repository\ProjectRepository;
 
-/**
- * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation( "ORM\MappedSuperclass" )
- * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation("ORM\Column")
- */
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 #[ORM\Table(name: "VSWPG_Projects")]
 class Project
@@ -36,7 +33,7 @@ class Project
     protected $description;
     
     /** @var string */
-    #[ORM\Column(name: "source_type", type: "string", columnDefinition: "enum('wget', 'git', 'svn', 'install_manual')", nullable: true)]
+    #[ORM\Column(name: "source_type", type: Types::ENUM, options: ['values' => ['wget', 'git', 'svn', 'install_manual'], 'default' => 'wget'], nullable: true)]
     protected $sourceType;
     
     /** @var string */

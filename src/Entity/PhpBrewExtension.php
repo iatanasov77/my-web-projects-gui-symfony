@@ -3,10 +3,6 @@
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation( "ORM\MappedSuperclass" )
- * @Doctrine\Common\Annotations\Annotation\IgnoreAnnotation("ORM\Column")
- */
 #[ORM\Entity]
 #[ORM\Table(name: "VSWPG_PhpbrewExtensions")]
 class PhpBrewExtension
