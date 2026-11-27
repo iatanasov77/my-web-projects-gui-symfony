@@ -81,16 +81,6 @@ vs_application:
                         uri: "https://myprojects.lh:9443/"
                         attributes:
                             target: '_blank'
-                    prometheus:
-                        name: 'Prometheus'
-                        uri: "http://myprojects.lh:9090/"
-                        attributes:
-                            target: '_blank'
-                    grafana:
-                        name: 'Grafana'
-                        uri: "http://myprojects.lh:3000/"
-                        attributes:
-                            target: '_blank'
                     mercure:
                         name: 'Mercure HUB'
                         uri: "https://mercure-hub.lh/.well-known/mercure/debug/"
@@ -205,7 +195,21 @@ vs_application:
                         route: python-venvs
                         attributes:
                             id: menu-python_virtual_environments
-                            target: '_self'       
+                            target: '_self'
+            
+            application_monitoring:
+                name: Application Monitoring
+                uri: "javascript:;"
+                attributes:
+                    id: application-monitoring
+                    iconClass: "fas fa-bell"
+                childs:
+                    grafana:
+                        name: Grafana
+                        route: application-monitoring-grafana-datasources
+                        attributes:
+                            id: menu-python_virtual_environments
+                            target: '_self'
            
 
         profileMenu:

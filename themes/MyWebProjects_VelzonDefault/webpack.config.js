@@ -57,6 +57,7 @@ Encore
     .addEntry( 'js/pages/projects_third_party', './themes/MyWebProjects_VelzonDefault/assets/js/pages/projects_third_party.js' )
     
     .addEntry( 'js/pages/test_jquery_terminal', './themes/MyWebProjects_VelzonDefault/assets/js/pages/test_jquery_terminal.js' )
+    .addEntry( 'js/pages/grafana_datasources', './themes/MyWebProjects_VelzonDefault/assets/js/pages/grafana_datasources.js' )
 ;
 
 Encore.configureDefinePlugin( ( options ) => {

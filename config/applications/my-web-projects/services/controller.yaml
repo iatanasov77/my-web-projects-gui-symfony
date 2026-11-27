@@ -69,3 +69,8 @@ services:
 
     App\Controller\MyWebProjects\TestTerminalController:
         tags: ['controller.service_arguments']
+    
+    App\Controller\MyWebProjects\GrafanaDatasourcesController:
+        arguments:
+            - '@doctrine'
+        tags: ['controller.service_arguments']

@@ -6,6 +6,7 @@ imports:
     - { resource: services/tomcat.yaml }
     - { resource: services/python.yaml }
     - { resource: services/controller.yaml }
+    - { resource: services/form.yaml }
     - { resource: services/installer.yaml }
     - { resource: services/widgets.yaml }
 
@@ -44,6 +45,8 @@ parameters:
     vs_cms.filemanager_shared_media_artgris: '%kernel.project_dir%/public/shared_media/artgris'
     
     virtual_hosts_dir: '/etc/httpd/conf.d'
+    grafana_url: 'http://myprojects.lh:3000/'
+    alertmanager_url: 'http://myprojects.lh:9093/'
 
 services:        
     # default configuration for services in *this* file

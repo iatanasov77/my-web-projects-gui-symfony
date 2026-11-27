@@ -12,6 +12,7 @@ twig:
         formCreateAccount: '%vs_users.form_create_account%'
         installedBundles: '%kernel.bundles%'
         pageCategoriesTaxonomyCode: '%vs_application.page_categories.taxonomy_code%'
+        useCkEditor: '%env(resolve:USE_CKEDITOR)%'
         
         kernelRootDir: "%kernel.project_dir%"
         myprojectsSubsystems: "@vs_app.subsystems"

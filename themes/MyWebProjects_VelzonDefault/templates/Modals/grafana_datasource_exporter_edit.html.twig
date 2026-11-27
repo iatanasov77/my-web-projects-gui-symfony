@@ -1,0 +1,27 @@
+<div id="grafana-datasource-exporter-modal" class="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Datasource Exporter
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+            </div>
+            
+            <div class="modal-body">
+                <div id="datasourceExporterFormContainer">
+                    <div class="card-body"></div>
+                </div>
+            </div>
+            
+            <div class="modal-footer" id="imContainer">
+                <button type="button" class="btn btn-primary" id="btnApplyDatasourceExporter">
+                    {{ 'vs_application.form.apply' | trans( {},'VSApplicationBundle' ) }}
+                </button>
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                    {{ 'vs_application.form.close' | trans( {},'VSApplicationBundle' ) }}
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -164,3 +164,18 @@ virtual-hosts-set-php-version:
 virtual-hosts-options-form:
     path: /hosts/options-form
     controller: App\Controller\MyWebProjects\VirtualHostsOptionsController::optionsForm
+
+####################################
+# Application Monitoring Routes
+####################################
+application-monitoring-grafana-datasources:
+    path: /application-monitoring/grafana-datasources
+    controller: App\Controller\MyWebProjects\GrafanaDatasourcesController::index
+
+application-monitoring-grafana-datasource_form:
+    path: /application-monitoring/grafana-datasource/{id}
+    controller: App\Controller\MyWebProjects\GrafanaDatasourcesController::datasourceForm
+
+application-monitoring-grafana-datasource_exporter_form:
+    path: /application-monitoring/grafana-datasource-exporter/{datasourceId}={id}
+    controller: App\Controller\MyWebProjects\GrafanaDatasourcesController::exporterForm

@@ -1,0 +1,37 @@
+parameters:
+    vs_cms.form.use_ckeditor: '%env(resolve:USE_CKEDITOR)%'
+    
+    # 'devpage'
+    vs_cms.form.decription_field.ckeditor5_editor: 'default'
+    vs_cms.form.pages_field.ckeditor5_editor: 'default'
+    vs_cms.form.toc_page_field.ckeditor5_editor: 'default'
+    
+    # Description Field Form Options
+    ##########################################################
+    vs_cms.form.decription_field.ckeditor_uiColor: '#ffffff'
+    vs_cms.form.decription_field.ckeditor_extraAllowedContent: '*[*]{*}(*)'
+    vs_cms.form.decription_field.ckeditor_toolbar: description_toolbar
+    vs_cms.form.decription_field.ckeditor_extraPlugins: 'font, justify'
+    vs_cms.form.decription_field.ckeditor_removeButtons: ''
+    vs_cms.form.decription_field.ckeditor_allowedContent: true
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    
+    my_projects.datasource.form:
+        class: App\Form\Type\GrafanaDatasourceType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '%vs_cms.form.use_ckeditor%'
+            - '%vs_cms.form.decription_field.ckeditor5_editor%'
+    
+    my_projects.datasource_exporter.form:
+        class: App\Form\Type\GrafanaDatasourceExporterType
+        tags:
+            - { name: form.type }
+        arguments:
+            - '%vs_cms.form.use_ckeditor%'
+            - '%vs_cms.form.decription_field.ckeditor5_editor%'
